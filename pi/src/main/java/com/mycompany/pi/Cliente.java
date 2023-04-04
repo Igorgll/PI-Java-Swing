@@ -15,6 +15,13 @@ public class Cliente {
     private String email;
     private String telefone;
 
+    public Cliente(int id_cliente, String nome, String email, String telefone) {
+        this.id_cliente = id_cliente;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+    }
+    
     public int getId_cliente() {
         return id_cliente;
     }

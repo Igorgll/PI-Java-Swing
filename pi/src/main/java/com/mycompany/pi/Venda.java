@@ -16,6 +16,13 @@ public class Venda {
     private Date date;
     private int quantidade;
 
+    public Venda(int id_venda, double valor, Date date, int quantidade) {
+        this.id_venda = id_venda;
+        this.valor = valor;
+        this.date = date;
+        this.quantidade = quantidade;
+    }
+    
     public int getId_venda() {
         return id_venda;
     }

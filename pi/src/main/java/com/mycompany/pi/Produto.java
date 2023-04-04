@@ -15,6 +15,13 @@ public class Produto {
     private Enum categoria;
     private double valor_unitario;
 
+    public Produto(int id_produto, String nome, Enum categoria, double valor_unitario) {
+        this.id_produto = id_produto;
+        this.nome = nome;
+        this.categoria = categoria;
+        this.valor_unitario = valor_unitario;
+    }
+
     public int getId_produto() {
         return id_produto;
     }
