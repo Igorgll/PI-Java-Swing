@@ -13,13 +13,13 @@ import java.util.Date;
 public class Venda {
     private int id_venda;
     private double valor;
-    private Date date;
+    private Date data;
     private int quantidade;
 
-    public Venda(int id_venda, double valor, Date date, int quantidade) {
+    public Venda(int id_venda, double valor, Date data, int quantidade) {
         this.id_venda = id_venda;
         this.valor = valor;
-        this.date = date;
+        this.data = data;
         this.quantidade = quantidade;
     }
     
@@ -39,12 +39,12 @@ public class Venda {
         this.valor = valor;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getData() {
+        return data;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(Date data) {
+        this.data = data;
     }
 
     public int getQuantidade() {

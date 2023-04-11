@@ -9,6 +9,7 @@ package com.mycompany.pi;
  * @author igor
  */
 public class Endereco {
+    
     private int id_endereco;
     private String rua;
     private int numero;

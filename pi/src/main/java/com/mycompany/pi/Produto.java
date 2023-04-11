@@ -11,6 +11,7 @@ package com.mycompany.pi;
 public class Produto {
     
     private int id_produto;
+    private int estoque;
     private String nome;
     private Enum categoria;
     private double valor_unitario;
@@ -46,6 +47,14 @@ public class Produto {
         this.categoria = categoria;
     }
 
+    public int getEstoque() {
+        return estoque;
+    }
+    
+    public void setEstoque() {
+        this.estoque = estoque;
+    }
+    
     public double getValor_unitario() {
         return valor_unitario;
     }

@@ -11,6 +11,7 @@ package com.mycompany.pi;
 public class Pi {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        TelaInicial telaInicial = new TelaInicial();
+        telaInicial.setVisible(true);
     }
 }
