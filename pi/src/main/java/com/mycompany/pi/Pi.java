@@ -4,6 +4,7 @@
 
 package com.mycompany.pi;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.mycompany.pi.views.DashboardCliente;
 import com.mycompany.pi.views.BemVindo;
 import java.awt.Font;
@@ -17,26 +18,16 @@ public class Pi {
 
     public static void main(String[] args) {
         javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels = javax.swing.UIManager.getInstalledLookAndFeels();
-            for (int i = 0; i < installedLookAndFeels.length; i++) {
+            for (int i = 0; i < installedLookAndFeels.length; i++) { // lista os temas disponíveis no sistema
                 System.out.println(installedLookAndFeels[i].getName());
             }
-        
+            
             try {
-                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("GTK+".equals(info.getName())) {
-                            javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                            break;
-                        }
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+            }catch (Exception ex) {
+                System.err.println("Falha ao carregar tema FlatLaf Dark");
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DashboardCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DashboardCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DashboardCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DashboardCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+            
             
         // Definindo a mesma fonte para todos os elementos de texto do JFormFrame
         Font font = new Font("Liberation Sans", Font.PLAIN, 12);
