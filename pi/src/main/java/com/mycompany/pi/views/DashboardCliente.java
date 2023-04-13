@@ -60,7 +60,6 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 800));
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 800));
 
@@ -72,7 +71,6 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastrar Cliente");
 
-        jLabel2.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jLabel2.setText("Nome:");
 
         jLabel4.setText("Email:");
@@ -83,7 +81,6 @@ public class DashboardCliente extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jLabel3.setText("Rua:");
 
         jLabel5.setText("Número:");
@@ -99,7 +96,6 @@ public class DashboardCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Liberation Sans", 0, 16)); // NOI18N
         jButton2.setText("Cadastrar");
 
         jLayeredPane2.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -152,8 +148,8 @@ public class DashboardCliente extends javax.swing.JFrame {
                                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(estados, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jLayeredPane2Layout.setVerticalGroup(
@@ -202,7 +198,6 @@ public class DashboardCliente extends javax.swing.JFrame {
 
         jLabel11.setText("CPF:");
 
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 0, 16)); // NOI18N
         jButton1.setText("Consultar");
 
         jLayeredPane3.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -327,8 +322,12 @@ public class DashboardCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton3.setFont(new java.awt.Font("Liberation Sans", 0, 16)); // NOI18N
         jButton3.setText("Voltar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLayeredPane4.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -408,6 +407,10 @@ public class DashboardCliente extends javax.swing.JFrame {
     private void estadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_estadosActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
