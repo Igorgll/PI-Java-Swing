@@ -34,6 +34,7 @@ public class BemVindo extends javax.swing.JFrame {
         fazerLoginBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bem Vindo");
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
 

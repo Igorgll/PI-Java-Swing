@@ -67,6 +67,7 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Painel de Cliente");
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 800));
 
@@ -80,35 +81,35 @@ public class DashboardCliente extends javax.swing.JFrame {
 
         jLabel2.setText("Nome:");
 
-        txtNome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtNomeMouseExited(evt);
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeKeyReleased(evt);
             }
         });
 
         jLabel4.setText("Email:");
 
-        txtEmail.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtEmailMouseExited(evt);
-            }
-        });
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
             }
         });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Rua:");
 
-        txtRua.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtRuaMouseExited(evt);
-            }
-        });
         txtRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRuaActionPerformed(evt);
+            }
+        });
+        txtRua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRuaKeyReleased(evt);
             }
         });
 
@@ -119,11 +120,6 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLabel7.setText("Estado:");
 
         selecionaEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito ", "Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
-        selecionaEstado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                selecionaEstadoMouseExited(evt);
-            }
-        });
         selecionaEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selecionaEstadoActionPerformed(evt);
@@ -132,16 +128,16 @@ public class DashboardCliente extends javax.swing.JFrame {
 
         jButton2.setText("Cadastrar");
 
-        txtCidade.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtCidadeMouseExited(evt);
+        txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCidadeKeyReleased(evt);
             }
         });
 
         txtNumero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        txtNumero.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtNumeroMouseExited(evt);
+        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroKeyReleased(evt);
             }
         });
 
@@ -237,14 +233,14 @@ public class DashboardCliente extends javax.swing.JFrame {
 
         jLabel10.setText("Nome:");
 
-        txtNomeConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtNomeConsultaMouseExited(evt);
-            }
-        });
         txtNomeConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeConsultaActionPerformed(evt);
+            }
+        });
+        txtNomeConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeConsultaKeyReleased(evt);
             }
         });
 
@@ -257,26 +253,26 @@ public class DashboardCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCpf.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtCpfMouseExited(evt);
-            }
-        });
         txtCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCpfActionPerformed(evt);
             }
         });
-
-        txtId.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        txtId.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtIdMouseExited(evt);
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfKeyReleased(evt);
             }
         });
+
+        txtId.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
+            }
+        });
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdKeyReleased(evt);
             }
         });
 
@@ -430,7 +426,7 @@ public class DashboardCliente extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jLabel13.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Painel de Cliente");
 
@@ -491,65 +487,9 @@ public class DashboardCliente extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void txtNomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeMouseExited
-        String nome = txtNome.getText();
-        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$"); // regex para verificar que o campo só tenha string
-        Matcher matcher = regex.matcher(nome);
-        
-        if (nome.trim().isEmpty() || !matcher.matches()) {
-           txtNome.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }else {
-           txtNome.setBorder(UIManager.getBorder("TextField.border"));
-        }
-    }//GEN-LAST:event_txtNomeMouseExited
-
     private void txtRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRuaActionPerformed
 
     }//GEN-LAST:event_txtRuaActionPerformed
-
-    private void txtRuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRuaMouseExited
-        String rua = txtRua.getText();
-        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
-        Matcher matcher = regex.matcher(rua);
-        
-        if(rua.trim().isEmpty() || !matcher.matches()) {
-            txtRua.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }else {
-            txtRua.setBorder(UIManager.getBorder("TextField.border"));
-        }
-    }//GEN-LAST:event_txtRuaMouseExited
-
-    private void txtCidadeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCidadeMouseExited
-        String cidade = txtCidade.getText();
-        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
-        Matcher matcher = regex.matcher(cidade);
-        
-        if(cidade.trim().isEmpty() || !matcher.matches()) {
-            txtCidade.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }else {
-            txtCidade.setBorder(UIManager.getBorder("TextField.border"));
-        }
-    }//GEN-LAST:event_txtCidadeMouseExited
-
-    private void txtEmailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEmailMouseExited
-        String email = txtEmail.getText();
-        Pattern regex = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); // regex para validar endereço de email
-        Matcher matcher = regex.matcher(email);
-        
-        if(email.trim().isEmpty() || !matcher.matches()) {
-            txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }else {
-            txtEmail.setBorder(UIManager.getBorder("TextField.border"));
-        }
-    }//GEN-LAST:event_txtEmailMouseExited
-
-    private void selecionaEstadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selecionaEstadoMouseExited
-        if (selecionaEstado.getSelectedIndex() == -1) { // pega o index da seleção e verifica se é nulo(-1)
-           selecionaEstado.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }else {
-            selecionaEstado.setBorder(UIManager.getBorder("TextField.border"));
-        }
-    }//GEN-LAST:event_selecionaEstadoMouseExited
 
     private void txtNomeConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeConsultaActionPerformed
 
@@ -563,19 +503,55 @@ public class DashboardCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
-    private void txtIdMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdMouseExited
-        String id = txtId.getText();
-        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
-        Matcher matcher = regex.matcher(id);
+    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+        String nome = txtNome.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$"); // regex para verificar que o campo só tenha string
+        Matcher matcher = regex.matcher(nome);
         
-        if(id.trim().isEmpty() || matcher.matches()) {
-            txtId.setBorder(BorderFactory.createLineBorder(Color.RED));
+        if (nome.trim().isEmpty() || !matcher.matches()) {
+           txtNome.setBorder(BorderFactory.createLineBorder(Color.RED));
         }else {
-            txtId.setBorder(UIManager.getBorder("TextField.border"));
+           txtNome.setBorder(UIManager.getBorder("TextField.border"));
         }
-    }//GEN-LAST:event_txtIdMouseExited
+    }//GEN-LAST:event_txtNomeKeyReleased
 
-    private void txtNumeroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNumeroMouseExited
+    private void txtRuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRuaKeyReleased
+        String rua = txtRua.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
+        Matcher matcher = regex.matcher(rua);
+        
+        if(rua.trim().isEmpty() || !matcher.matches()) {
+            txtRua.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtRua.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtRuaKeyReleased
+
+    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
+        String cidade = txtCidade.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
+        Matcher matcher = regex.matcher(cidade);
+        
+        if(cidade.trim().isEmpty() || !matcher.matches()) {
+            txtCidade.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtCidade.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtCidadeKeyReleased
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        String email = txtEmail.getText();
+        Pattern regex = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); // regex para validar endereço de email
+        Matcher matcher = regex.matcher(email);
+        
+        if(email.trim().isEmpty() || !matcher.matches()) {
+            txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtEmail.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
         String numero = txtNumero.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
         Matcher matcher = regex.matcher(numero);
@@ -585,21 +561,21 @@ public class DashboardCliente extends javax.swing.JFrame {
         }else {
             txtNumero.setBorder(UIManager.getBorder("TextField.border"));
         }
-    }//GEN-LAST:event_txtNumeroMouseExited
+    }//GEN-LAST:event_txtNumeroKeyReleased
 
-    private void txtCpfMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCpfMouseExited
-        String cpf = txtCpf.getText();
-        Pattern regex = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"); // regex para verificar formato CPF
-        Matcher matcher = regex.matcher(cpf);
+    private void txtIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyReleased
+        String id = txtId.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
+        Matcher matcher = regex.matcher(id);
         
-        if(!matcher.matches()) {
-            txtCpf.setBorder(BorderFactory.createLineBorder(Color.RED));
+        if(id.trim().isEmpty() || matcher.matches()) {
+            txtId.setBorder(BorderFactory.createLineBorder(Color.RED));
         }else {
-            txtCpf.setBorder(UIManager.getBorder("TextField.border"));
+            txtId.setBorder(UIManager.getBorder("TextField.border"));
         }
-    }//GEN-LAST:event_txtCpfMouseExited
+    }//GEN-LAST:event_txtIdKeyReleased
 
-    private void txtNomeConsultaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeConsultaMouseExited
+    private void txtNomeConsultaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeConsultaKeyReleased
         String nomeConsulta = txtNomeConsulta.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$"); // regex para verificar que o campo só tenha string
         Matcher matcher = regex.matcher(nomeConsulta);
@@ -609,7 +585,19 @@ public class DashboardCliente extends javax.swing.JFrame {
         }else {
            txtNomeConsulta.setBorder(UIManager.getBorder("TextField.border"));
         }
-    }//GEN-LAST:event_txtNomeConsultaMouseExited
+    }//GEN-LAST:event_txtNomeConsultaKeyReleased
+
+    private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        String cpf = txtCpf.getText();
+        Pattern regex = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"); // regex para verificar formato CPF
+        Matcher matcher = regex.matcher(cpf);
+        
+        if(!matcher.matches()) {
+            txtCpf.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtCpf.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtCpfKeyReleased
 
     /**
      * @param args the command line arguments

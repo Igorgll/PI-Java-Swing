@@ -4,6 +4,13 @@
  */
 package com.mycompany.pi.views;
 
+import java.awt.Color;
+import java.awt.ScrollPane;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.BorderFactory;
+import javax.swing.UIManager;
+
 /**
  *
  * @author brand
@@ -35,21 +42,21 @@ public class DashboardProduto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtEstoque = new javax.swing.JTextField();
+        txtValorUnitario = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtDescricao = new javax.swing.JTextArea();
+        txtSelecionaCategoria = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtSelecionaCategoriaConsulta = new javax.swing.JComboBox<>();
+        txtIdConsulta = new javax.swing.JTextField();
+        txtNomeConsulta = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -57,11 +64,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 800));
+        setTitle("Painel de Produto");
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 800));
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Painel De Produto");
 
@@ -69,7 +76,7 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         jLayeredPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Cadastrar Produto");
 
@@ -83,17 +90,46 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         jLabel7.setText("Descrição:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtNomeActionPerformed(evt);
+            }
+        });
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeKeyReleased(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEstoqueKeyReleased(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtValorUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorUnitarioKeyReleased(evt);
+            }
+        });
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setLineWrap(true);
+        txtDescricao.setRows(5);
+        txtDescricao.setPreferredSize(new java.awt.Dimension(272, 30));
+        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDescricaoKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(txtDescricao);
+
+        txtSelecionaCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtSelecionaCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtSelecionaCategoriaMouseExited(evt);
+            }
+        });
 
         jButton1.setText("Cadastrar");
 
@@ -103,11 +139,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         jLayeredPane2.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jTextField3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jTextField4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtNome, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtEstoque, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtValorUnitario, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jComboBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtSelecionaCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
@@ -120,19 +156,20 @@ public class DashboardProduto extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane2Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
-                                .addComponent(jTextField3))
+                                .addComponent(txtEstoque)
+                                .addGap(113, 113, 113))
                             .addGroup(jLayeredPane2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(24, 24, 24)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSelecionaCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53))
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +177,7 @@ public class DashboardProduto extends javax.swing.JFrame {
                             .addGroup(jLayeredPane2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -153,17 +190,17 @@ public class DashboardProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSelecionaCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -175,7 +212,7 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         jLayeredPane3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel8.setFont(new java.awt.Font("DejaVu Sans", 0, 16)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Colsultar Produto");
 
@@ -185,11 +222,27 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         jLabel11.setText("Categoria:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtSelecionaCategoriaConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtSelecionaCategoriaConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtSelecionaCategoriaConsultaMouseExited(evt);
+            }
+        });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtIdConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtIdConsultaActionPerformed(evt);
+            }
+        });
+        txtIdConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdConsultaKeyReleased(evt);
+            }
+        });
+
+        txtNomeConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeConsultaKeyReleased(evt);
             }
         });
 
@@ -199,9 +252,9 @@ public class DashboardProduto extends javax.swing.JFrame {
         jLayeredPane3.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jComboBox2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jTextField5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(txtSelecionaCategoriaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(txtIdConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(txtNomeConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
@@ -217,15 +270,15 @@ public class DashboardProduto extends javax.swing.JFrame {
                             .addGroup(jLayeredPane3Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jLayeredPane3Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jLayeredPane3Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 342, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -238,15 +291,15 @@ public class DashboardProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -352,17 +405,105 @@ public class DashboardProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtIdConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdConsultaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtIdConsultaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtSelecionaCategoriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSelecionaCategoriaMouseExited
+        if (txtSelecionaCategoria.getSelectedIndex() == -1) { // pega o index da seleção e verifica se é nulo(-1)
+           txtSelecionaCategoria.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtSelecionaCategoria.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtSelecionaCategoriaMouseExited
+
+    private void txtSelecionaCategoriaConsultaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSelecionaCategoriaConsultaMouseExited
+        if (txtSelecionaCategoriaConsulta.getSelectedIndex() == -1) { // pega o index da seleção e verifica se é nulo(-1)
+           txtSelecionaCategoriaConsulta.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtSelecionaCategoriaConsulta.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }      
+//GEN-LAST:event_txtSelecionaCategoriaConsultaMouseExited
+
+    private void txtDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyReleased
+        String descricao = txtDescricao.getText();
+        int limiteCaracteres = 100;
+        
+        if (descricao.trim().isEmpty() || descricao.length() > limiteCaracteres) {
+           txtDescricao.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+           txtDescricao.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtDescricaoKeyReleased
+
+    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+        String nome = txtNome.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$"); // regex para verificar que o campo só tenha string
+        Matcher matcher = regex.matcher(nome);
+        
+        if (nome.trim().isEmpty() || !matcher.matches()) {
+           txtNome.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+           txtNome.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtNomeKeyReleased
+
+    private void txtEstoqueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstoqueKeyReleased
+        String estoque = txtEstoque.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
+        Matcher matcher = regex.matcher(estoque);
+        
+        if(estoque.trim().isEmpty() || matcher.matches()) {
+            txtEstoque.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtEstoque.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtEstoqueKeyReleased
+
+    private void txtValorUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUnitarioKeyReleased
+        String valor = txtValorUnitario.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
+        Matcher matcher = regex.matcher(valor);
+        
+        if(valor.trim().isEmpty() || matcher.matches()) {
+            txtValorUnitario.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtValorUnitario.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtValorUnitarioKeyReleased
+
+    private void txtIdConsultaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdConsultaKeyReleased
+        String idConsulta = txtIdConsulta.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
+        Matcher matcher = regex.matcher(idConsulta);
+        
+        if(idConsulta.trim().isEmpty() || matcher.matches()) {
+            txtIdConsulta.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+            txtIdConsulta.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtIdConsultaKeyReleased
+
+    private void txtNomeConsultaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeConsultaKeyReleased
+        String nomeConsulta = txtNomeConsulta.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$"); // regex para verificar que o campo só tenha string
+        Matcher matcher = regex.matcher(nomeConsulta);
+        
+        if (nomeConsulta.trim().isEmpty() || !matcher.matches()) {
+           txtNomeConsulta.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else {
+           txtNomeConsulta.setBorder(UIManager.getBorder("TextField.border"));
+        }
+    }//GEN-LAST:event_txtNomeConsultaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -382,8 +523,6 @@ public class DashboardProduto extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -402,11 +541,13 @@ public class DashboardProduto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextArea txtDescricao;
+    private javax.swing.JTextField txtEstoque;
+    private javax.swing.JTextField txtIdConsulta;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNomeConsulta;
+    private javax.swing.JComboBox<String> txtSelecionaCategoria;
+    private javax.swing.JComboBox<String> txtSelecionaCategoriaConsulta;
+    private javax.swing.JTextField txtValorUnitario;
     // End of variables declaration//GEN-END:variables
 }
