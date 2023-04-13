@@ -122,7 +122,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jTextField8" pref="212" max="32767" attributes="0"/>
+                                      <Component id="jTextField8" pref="215" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -239,7 +239,7 @@
             <Component class="javax.swing.JComboBox" name="estados">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="23">
+                  <StringArray count="28">
                     <StringItem index="0" value="Acre, "/>
                     <StringItem index="1" value="Alagoas, "/>
                     <StringItem index="2" value="Amap&#xe1;, "/>
@@ -262,7 +262,12 @@
                     <StringItem index="19" value="Rio de Janeiro, "/>
                     <StringItem index="20" value="Rio Grande do Norte, "/>
                     <StringItem index="21" value="Rio Grande do Sul, "/>
-                    <StringItem index="22" value="Rond&#xf4;nia, Roraima, Santa Catarina, S&#xe3;o Paulo, Sergipe, Tocantins"/>
+                    <StringItem index="22" value="Rond&#xf4;nia, "/>
+                    <StringItem index="23" value="Roraima, "/>
+                    <StringItem index="24" value="Santa Catarina, "/>
+                    <StringItem index="25" value="S&#xe3;o Paulo, "/>
+                    <StringItem index="26" value="Sergipe, "/>
+                    <StringItem index="27" value="Tocantins"/>
                   </StringArray>
                 </Property>
               </Properties>

@@ -89,7 +89,7 @@ public class DashboardCliente extends javax.swing.JFrame {
 
         jLabel7.setText("Estado:");
 
-        estados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre, ", "Alagoas, ", "Amapá, ", "Amazonas, ", "Bahia,", "Ceará", "Distrito ", "Federal, ", "Espírito Santo", "Goiás, ", "Maranhão, ", "Mato Grosso, ", "Mato Grosso do Sul, ", "Minas Gerais, ", "Pará, ", "Paraíba, ", "Paraná, ", "Pernambuco, ", "Piauí, ", "Rio de Janeiro, ", "Rio Grande do Norte, ", "Rio Grande do Sul, ", "Rondônia, Roraima, Santa Catarina, São Paulo, Sergipe, Tocantins" }));
+        estados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre, ", "Alagoas, ", "Amapá, ", "Amazonas, ", "Bahia,", "Ceará", "Distrito ", "Federal, ", "Espírito Santo", "Goiás, ", "Maranhão, ", "Mato Grosso, ", "Mato Grosso do Sul, ", "Minas Gerais, ", "Pará, ", "Paraíba, ", "Paraná, ", "Pernambuco, ", "Piauí, ", "Rio de Janeiro, ", "Rio Grande do Norte, ", "Rio Grande do Sul, ", "Rondônia, ", "Roraima, ", "Santa Catarina, ", "São Paulo, ", "Sergipe, ", "Tocantins" }));
         estados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 estadosActionPerformed(evt);
@@ -133,7 +133,7 @@ public class DashboardCliente extends javax.swing.JFrame {
                             .addGroup(jLayeredPane2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))
+                                .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))
                         .addGap(26, 26, 26)
                         .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jLayeredPane2Layout.createSequentialGroup()
