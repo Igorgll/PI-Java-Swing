@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.pi;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.mycompany.pi.views.DashboardCliente;
 import com.mycompany.pi.views.BemVindo;
 import java.awt.Font;
 import javax.swing.UIManager;
@@ -17,20 +12,20 @@ import javax.swing.UIManager;
 public class Pi {
 
     public static void main(String[] args) {
-        javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels = javax.swing.UIManager.getInstalledLookAndFeels();
-            for (int i = 0; i < installedLookAndFeels.length; i++) { // lista os temas disponíveis no sistema
-                System.out.println(installedLookAndFeels[i].getName());
-            }
-            
-            try {
-                UIManager.setLookAndFeel(new FlatDarkLaf());
-            }catch (Exception ex) {
-                System.err.println("Falha ao carregar tema FlatLaf Dark");
-            }
-            
-            
+        javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels = javax.swing.UIManager
+                .getInstalledLookAndFeels();
+        for (int i = 0; i < installedLookAndFeels.length; i++) { // lista os temas disponíveis no sistema
+            System.out.println(installedLookAndFeels[i].getName());
+        }
+
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (Exception ex) {
+            System.err.println("Falha ao carregar tema FlatLaf Dark");
+        }
+
         // Definindo a mesma fonte para todos os elementos de texto do JFormFrame
-        Font font = new Font("Liberation Sans", Font.PLAIN, 12);
+        Font font = new Font("Liberation Sans", Font.PLAIN, 16);
         UIManager.put("TextField.font", font);
         UIManager.put("PasswordField.font", font);
         UIManager.put("TextArea.font", font);
@@ -52,8 +47,8 @@ public class Pi {
         UIManager.put("RadioButton.font", font);
         UIManager.put("RadioButtonMenuItem.font", font);
         UIManager.put("ToggleButton.font", font);
-        UIManager.put("Tree.font", font);   
-            
+        UIManager.put("Tree.font", font);
+
         BemVindo bemVindo = new BemVindo();
         bemVindo.setLocationRelativeTo(null);
         bemVindo.setVisible(true);
