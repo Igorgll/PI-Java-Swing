@@ -31,14 +31,14 @@ public class TelaInicial extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        openDashboardCliente = new javax.swing.JMenuItem();
+        abrirDashboardCliente = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        openDashboardProduto = new javax.swing.JMenuItem();
+        abrirDashboardProduto = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        abrirTelaVenda = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        openDashboardAnalitico = new javax.swing.JMenuItem();
-        openDashboardSintetico = new javax.swing.JMenuItem();
+        abrirRelatorioAnalitico = new javax.swing.JMenuItem();
+        abrirRelatorioSintetico = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -63,13 +63,13 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jMenu1.setMargin(new java.awt.Insets(3, 8, 3, 8));
 
-        openDashboardCliente.setText("Painel de Clientes");
-        openDashboardCliente.addActionListener(new java.awt.event.ActionListener() {
+        abrirDashboardCliente.setText("Painel de Clientes");
+        abrirDashboardCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDashboardClienteActionPerformed(evt);
+                abrirDashboardClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(openDashboardCliente);
+        jMenu1.add(abrirDashboardCliente);
 
         jMenuBar1.add(jMenu1);
 
@@ -77,13 +77,13 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu2.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jMenu2.setMargin(new java.awt.Insets(3, 8, 3, 8));
 
-        openDashboardProduto.setText("Painel de Produtos");
-        openDashboardProduto.addActionListener(new java.awt.event.ActionListener() {
+        abrirDashboardProduto.setText("Painel de Produtos");
+        abrirDashboardProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDashboardProdutoActionPerformed(evt);
+                abrirDashboardProdutoActionPerformed(evt);
             }
         });
-        jMenu2.add(openDashboardProduto);
+        jMenu2.add(abrirDashboardProduto);
 
         jMenuBar1.add(jMenu2);
 
@@ -91,13 +91,13 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu3.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jMenu3.setMargin(new java.awt.Insets(3, 8, 3, 8));
 
-        jMenuItem3.setText("Painel de Vendas");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        abrirTelaVenda.setText("Efetuar Venda");
+        abrirTelaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                abrirTelaVendaActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        jMenu3.add(abrirTelaVenda);
 
         jMenuBar1.add(jMenu3);
 
@@ -105,21 +105,21 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu4.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jMenu4.setMargin(new java.awt.Insets(3, 8, 3, 8));
 
-        openDashboardAnalitico.setText("Analítico");
-        openDashboardAnalitico.addActionListener(new java.awt.event.ActionListener() {
+        abrirRelatorioAnalitico.setText("Analítico");
+        abrirRelatorioAnalitico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDashboardAnaliticoActionPerformed(evt);
+                abrirRelatorioAnaliticoActionPerformed(evt);
             }
         });
-        jMenu4.add(openDashboardAnalitico);
+        jMenu4.add(abrirRelatorioAnalitico);
 
-        openDashboardSintetico.setText("Sintético");
-        openDashboardSintetico.addActionListener(new java.awt.event.ActionListener() {
+        abrirRelatorioSintetico.setText("Sintético");
+        abrirRelatorioSintetico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDashboardSinteticoActionPerformed(evt);
+                abrirRelatorioSinteticoActionPerformed(evt);
             }
         });
-        jMenu4.add(openDashboardSintetico);
+        jMenu4.add(abrirRelatorioSintetico);
 
         jMenuBar1.add(jMenu4);
 
@@ -145,35 +145,35 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void openDashboardProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDashboardProdutoActionPerformed
+    private void abrirDashboardProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirDashboardProdutoActionPerformed
         DashboardProduto dashBoardProduto = new DashboardProduto();
         dashBoardProduto.setLocationRelativeTo(this);
         dashBoardProduto.setVisible(true);
-    }//GEN-LAST:event_openDashboardProdutoActionPerformed
+    }//GEN-LAST:event_abrirDashboardProdutoActionPerformed
 
-    private void openDashboardClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDashboardClienteActionPerformed
+    private void abrirDashboardClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirDashboardClienteActionPerformed
         DashboardCliente dashBoardCliente = new DashboardCliente();
         dashBoardCliente.setLocationRelativeTo(this);
         dashBoardCliente.setVisible(true);
-    }//GEN-LAST:event_openDashboardClienteActionPerformed
+    }//GEN-LAST:event_abrirDashboardClienteActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        DashboardProduto dashBoardProduto = new DashboardProduto();
-        dashBoardProduto.setLocationRelativeTo(this);
-        dashBoardProduto.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void abrirTelaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirTelaVendaActionPerformed
+        Venda venda = new Venda();
+        venda.setLocationRelativeTo(null);
+        venda.setVisible(true);
+    }//GEN-LAST:event_abrirTelaVendaActionPerformed
 
-    private void openDashboardAnaliticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDashboardAnaliticoActionPerformed
+    private void abrirRelatorioAnaliticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirRelatorioAnaliticoActionPerformed
         RelatorioAnalitico relatorioAnalitico = new RelatorioAnalitico();
         relatorioAnalitico.setLocationRelativeTo(this);
         relatorioAnalitico.setVisible(true);
-    }//GEN-LAST:event_openDashboardAnaliticoActionPerformed
+    }//GEN-LAST:event_abrirRelatorioAnaliticoActionPerformed
 
-    private void openDashboardSinteticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDashboardSinteticoActionPerformed
+    private void abrirRelatorioSinteticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirRelatorioSinteticoActionPerformed
         RelatorioSintetico relatorioSintetico = new RelatorioSintetico();
         relatorioSintetico.setLocationRelativeTo(this);
         relatorioSintetico.setVisible(true);
-    }//GEN-LAST:event_openDashboardSinteticoActionPerformed
+    }//GEN-LAST:event_abrirRelatorioSinteticoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,16 +189,16 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem abrirDashboardCliente;
+    private javax.swing.JMenuItem abrirDashboardProduto;
+    private javax.swing.JMenuItem abrirRelatorioAnalitico;
+    private javax.swing.JMenuItem abrirRelatorioSintetico;
+    private javax.swing.JMenuItem abrirTelaVenda;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem openDashboardAnalitico;
-    private javax.swing.JMenuItem openDashboardCliente;
-    private javax.swing.JMenuItem openDashboardProduto;
-    private javax.swing.JMenuItem openDashboardSintetico;
     // End of variables declaration//GEN-END:variables
 }

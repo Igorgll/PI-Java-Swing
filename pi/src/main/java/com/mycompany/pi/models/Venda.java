@@ -11,6 +11,7 @@ import java.util.Date;
  * @author igor
  */
 public class Venda {
+    
     private int id_venda;
     private double valor;
     private Date data;

@@ -34,6 +34,7 @@ public class BemVindo extends javax.swing.JFrame {
         fazerLoginBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
 
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
