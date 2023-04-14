@@ -4,6 +4,8 @@
  */
 package com.mycompany.pi.models;
 
+import com.mycompany.pi.utils.Categoria;
+
 /**
  *
  * @author igor
@@ -13,11 +15,11 @@ public class Produto {
     private int id_produto;
     private int estoque;
     private String nome;
-    private Enum categoria;
+    private Categoria categoria;
     private double valor_unitario;
     private String descricao;
 
-    public Produto(int id_produto, int estoque, String nome, Enum categoria, double valor_unitario, String descricao) {
+    public Produto(int id_produto, int estoque, String nome, Categoria categoria, double valor_unitario, String descricao) {
         this.id_produto = id_produto;
         this.estoque = estoque;
         this.nome = nome;
@@ -50,11 +52,11 @@ public class Produto {
         this.nome = nome;
     }
 
-    public Enum getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Enum categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
@@ -73,6 +75,4 @@ public class Produto {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    
 }
