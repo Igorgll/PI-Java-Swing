@@ -15,6 +15,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        acessarBtn.setEnabled(false);
     }
 
     /**
@@ -143,8 +144,8 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void usuarioTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioTxtKeyReleased
-        String usuario = usuarioTxt.getText(); // recebe o txt do campo usuario
-        if (usuario.isEmpty()) { // verifica se é nulo
+        String usuario = usuarioTxt.getText(); // recebe o txt do campo usuario     
+        if (usuario.length() < 5 || usuario.isEmpty()) { // verifica se é nulo
             usuarioTxt.setBorder(BorderFactory.createLineBorder(Color.RED)); // se for nulo pinta a borda de vermelho
         } else {
             usuarioTxt.setBorder(UIManager.getBorder("TextField.border")); // se não volta a cor normal da borda
@@ -152,13 +153,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_usuarioTxtKeyReleased
 
     private void senhaTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_senhaTxtKeyReleased
-        char senhaChars[] = senhaTxt.getPassword();
-        String senha = new String(senhaChars);
-        if (senha.isEmpty()) {
-                senhaTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
-        } else {
-        senhaTxt.setBorder(UIManager.getBorder("TextField.border"));
-        }
+        verificaSenhaHabilitaBotao();
     }//GEN-LAST:event_senhaTxtKeyReleased
 
     private void sairBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sairBtnActionPerformed
@@ -176,29 +171,25 @@ public class Login extends javax.swing.JFrame {
         dispose();
     }// GEN-LAST:event_acessarBtnActionPerformed
 
-    private void usuarioTxtMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_usuarioTxtMouseExited
-        String usuario = usuarioTxt.getText(); // recebe o txt do campo usuario
-        if (usuario.isEmpty()) { // verifica se é nulo
-            usuarioTxt.setBorder(BorderFactory.createLineBorder(Color.RED)); // se for nulo pinta a borda de vermelho
-        } else {
-            usuarioTxt.setBorder(UIManager.getBorder("TextField.border")); // se não volta a cor normal da borda
-        }
-    }// GEN-LAST:event_usuarioTxtMouseExited
-
     private void senhaTxtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_senhaTxtActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_senhaTxtActionPerformed
 
-    private void senhaTxtMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_senhaTxtMouseExited
-        char senhaChars[] = senhaTxt.getPassword();
+    private void verificaSenhaHabilitaBotao() {
+        char[] senhaChars = senhaTxt.getPassword();
+        boolean senhaOk = false;
         String senha = new String(senhaChars);
-        if (senha.isEmpty()) {
-                senhaTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
-        } else {
-        senhaTxt.setBorder(UIManager.getBorder("TextField.border"));
-        }
-    }// GEN-LAST:event_senhaTxtMouseExited
 
+        if(senha.length() < 5 || senha.isEmpty()) { // enquanto a senha for menor que 5 ou nula, o botão de acessar continua desativado
+            senhaTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            acessarBtn.setEnabled(false);
+        } else {
+            senhaOk = true;
+            senhaTxt.setBorder(UIManager.getBorder("TextField.border"));
+            acessarBtn.setEnabled(senhaOk);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
