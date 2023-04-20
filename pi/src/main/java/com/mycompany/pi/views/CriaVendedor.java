@@ -6,6 +6,7 @@ package com.mycompany.pi.views;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -19,6 +20,7 @@ public class CriaVendedor extends javax.swing.JFrame {
      */
     public CriaVendedor() {
         initComponents();
+        criarBtn.setEnabled(false);
     }
 
     /**
@@ -38,7 +40,7 @@ public class CriaVendedor extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        criarBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
         txtConfirmarSenha = new javax.swing.JPasswordField();
@@ -55,6 +57,11 @@ public class CriaVendedor extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel2.setText("Nome:");
 
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomeKeyReleased(evt);
@@ -80,7 +87,12 @@ public class CriaVendedor extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Criar");
+        criarBtn.setText("Criar");
+        criarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                criarBtnActionPerformed(evt, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel5.setText("Senha:");
@@ -109,7 +121,7 @@ public class CriaVendedor extends javax.swing.JFrame {
         jLayeredPane1.setLayer(txtUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(criarBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtSenha, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtConfirmarSenha, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -148,7 +160,7 @@ public class CriaVendedor extends javax.swing.JFrame {
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(criarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(128, 128, 128))))
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -175,7 +187,7 @@ public class CriaVendedor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(criarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34))
         );
 
@@ -207,42 +219,70 @@ public class CriaVendedor extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+    private Boolean txtNomeKeyReleased(java.awt.event.KeyEvent evt) {
         String nome = txtNome.getText();
+        Boolean nomeOk = false;
         if (nome.trim().isEmpty()) {
            txtNome.setBorder(BorderFactory.createLineBorder(Color.RED));
+           System.out.println(nomeOk);
         }else {
            txtNome.setBorder(UIManager.getBorder("TextField.border"));
+           nomeOk = true;
+           System.out.println(nomeOk);
         }
-    }//GEN-LAST:event_txtNomeKeyReleased
+        System.out.println(nomeOk);
+        return nomeOk;
+    }
 
-    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+    private Boolean txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {
         String usuario = txtUsuario.getText();
+        Boolean usuarioOk = false;
         if (usuario.trim().isEmpty()) {
            txtUsuario.setBorder(BorderFactory.createLineBorder(Color.RED));
         }else {
            txtUsuario.setBorder(UIManager.getBorder("TextField.border"));
+           usuarioOk = true;
         }
-    }//GEN-LAST:event_txtUsuarioKeyReleased
+        return usuarioOk;
+    }
 
-    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
+    private Boolean txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {
         String senha = txtSenha.getText();
+        Boolean senhaOk = false;
         if (senha.trim().isEmpty()) {
            txtSenha.setBorder(BorderFactory.createLineBorder(Color.RED));
         }else {
            txtSenha.setBorder(UIManager.getBorder("TextField.border"));
+           senhaOk = true;
         }
-    }//GEN-LAST:event_txtSenhaKeyReleased
+        return senhaOk;
+    }
 
-    private void txtConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarSenhaKeyReleased
+    private void verificaSenhaHabilitaBotao() {
         char senhaChars[] = txtConfirmarSenha.getPassword();
         String senha = new String(senhaChars);
-        if (senha.isEmpty()) {
+        Boolean confirmaSenhaOk = false;
+        if (senha.length() < 5 || senha.isEmpty()) {
             txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(Color.RED));
+            criarBtn.setEnabled(false);
         } else {
+            confirmaSenhaOk = true;
             txtConfirmarSenha.setBorder(UIManager.getBorder("TextField.border"));
+            criarBtn.setEnabled(confirmaSenhaOk);
         }
-    }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
+    }
+
+    private void txtConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {
+        System.out.println("txtConfirmarSenhaKeyReleased called");
+        verificaSenhaHabilitaBotao();
+    }
+
+    private void criarBtnActionPerformed(java.awt.event.ActionEvent evt, Boolean nomeOk, Boolean usuarioOk, Boolean senhaOk) {
+    }
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,8 +320,8 @@ public class CriaVendedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton criarBtn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

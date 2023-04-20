@@ -16,6 +16,11 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         acessarBtn.setEnabled(false);
+        Color vermelhoClaro = new Color(255, 128, 128);
+        msgValidacaoUsuario.setForeground(vermelhoClaro);
+        msgValidacaoUsuario.setVisible(false);
+        msgValidacaoSenha.setForeground(vermelhoClaro);
+        msgValidacaoSenha.setVisible(false);
     }
 
     /**
@@ -36,6 +41,8 @@ public class Login extends javax.swing.JFrame {
         usuarioTxt = new javax.swing.JTextField();
         sairBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        msgValidacaoUsuario = new javax.swing.JLabel();
+        msgValidacaoSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -78,52 +85,68 @@ public class Login extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Dados de Autenticação");
+
+        msgValidacaoUsuario.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
+        msgValidacaoUsuario.setText("Usuário necessita ser maior que 5 caracteres.");
+
+        msgValidacaoSenha.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
+        msgValidacaoSenha.setText("Senha necessita ser maior que 5 caracteres.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(169, Short.MAX_VALUE)
+                .addGap(161, 161, 161)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(senhaTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                                    .addComponent(usuarioTxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(msgValidacaoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(msgValidacaoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(senhaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(sairBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(acessarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(acessarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(164, 164, 164))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(135, 135, 135))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(0, 472, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel4)
-                .addGap(36, 36, 36)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(senhaTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(jLabel2))
+                .addComponent(msgValidacaoUsuario)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(senhaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(msgValidacaoSenha)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sairBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(acessarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,16 +167,11 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void usuarioTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioTxtKeyReleased
-        String usuario = usuarioTxt.getText(); // recebe o txt do campo usuario     
-        if (usuario.length() < 5 || usuario.isEmpty()) { // verifica se é nulo
-            usuarioTxt.setBorder(BorderFactory.createLineBorder(Color.RED)); // se for nulo pinta a borda de vermelho
-        } else {
-            usuarioTxt.setBorder(UIManager.getBorder("TextField.border")); // se não volta a cor normal da borda
-        }
+        verificaCamposHabilitaBotao();
     }//GEN-LAST:event_usuarioTxtKeyReleased
 
     private void senhaTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_senhaTxtKeyReleased
-        verificaSenhaHabilitaBotao();
+        verificaCamposHabilitaBotao();
     }//GEN-LAST:event_senhaTxtKeyReleased
 
     private void sairBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sairBtnActionPerformed
@@ -175,21 +193,29 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_senhaTxtActionPerformed
 
-    private void verificaSenhaHabilitaBotao() {
+    private void verificaCamposHabilitaBotao() {
         char[] senhaChars = senhaTxt.getPassword();
-        boolean senhaOk = false;
-        String senha = new String(senhaChars);
-
-        if(senha.length() < 5 || senha.isEmpty()) { // enquanto a senha for menor que 5 ou nula, o botão de acessar continua desativado
+        String usuario = usuarioTxt.getText().trim();
+        String senha = new String(senhaChars).trim();
+        boolean senhaOk = senha.length() >= 5 && !senha.isEmpty();
+        if (usuario.length() < 5 || usuario.isEmpty()) {
+            usuarioTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            msgValidacaoUsuario.setVisible(true);
+            msgValidacaoSenha.setVisible(false);
+            acessarBtn.setEnabled(false);
+        } else if (!senhaOk) {
             senhaTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            msgValidacaoUsuario.setVisible(false);
+            msgValidacaoSenha.setVisible(true);
             acessarBtn.setEnabled(false);
         } else {
-            senhaOk = true;
             senhaTxt.setBorder(UIManager.getBorder("TextField.border"));
-            acessarBtn.setEnabled(senhaOk);
+            usuarioTxt.setBorder(UIManager.getBorder("TextField.border"));
+            msgValidacaoUsuario.setVisible(false);
+            msgValidacaoSenha.setVisible(false);
+            acessarBtn.setEnabled(true);
         }
     }
-    
     /**
      * @param args the command line arguments
      */
@@ -208,6 +234,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel msgValidacaoSenha;
+    private javax.swing.JLabel msgValidacaoUsuario;
     private javax.swing.JButton sairBtn;
     private javax.swing.JPasswordField senhaTxt;
     private javax.swing.JTextField usuarioTxt;

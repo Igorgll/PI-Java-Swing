@@ -214,7 +214,7 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Colsultar Produto");
+        jLabel8.setText("Consultar Produto");
 
         jLabel9.setText("ID:");
 
