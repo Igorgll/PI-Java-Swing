@@ -12,12 +12,6 @@ import javax.swing.UIManager;
 public class Pi {
 
     public static void main(String[] args) {
-        javax.swing.UIManager.LookAndFeelInfo[] installedLookAndFeels = javax.swing.UIManager
-                .getInstalledLookAndFeels();
-        for (int i = 0; i < installedLookAndFeels.length; i++) { // lista os temas disponíveis no sistema
-            System.out.println(installedLookAndFeels[i].getName());
-        }
-
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception ex) {

@@ -16,10 +16,10 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         acessarBtn.setEnabled(false);
-        Color vermelhoClaro = new Color(255, 128, 128);
-        msgValidacaoUsuario.setForeground(vermelhoClaro);
+        Color vermelho = new Color(255, 128, 128);
+        msgValidacaoUsuario.setForeground(vermelho); // mudando a cor da mensagem de validação
         msgValidacaoUsuario.setVisible(false);
-        msgValidacaoSenha.setForeground(vermelhoClaro);
+        msgValidacaoSenha.setForeground(vermelho);
         msgValidacaoSenha.setVisible(false);
     }
 
@@ -194,27 +194,31 @@ public class Login extends javax.swing.JFrame {
     }// GEN-LAST:event_senhaTxtActionPerformed
 
     private void verificaCamposHabilitaBotao() {
-        char[] senhaChars = senhaTxt.getPassword();
         String usuario = usuarioTxt.getText().trim();
-        String senha = new String(senhaChars).trim();
+        String senha = new String(senhaTxt.getPassword()).trim();
         boolean senhaOk = senha.length() >= 5 && !senha.isEmpty();
+        Color vermelho = new Color(255, 128, 128);
+        boolean camposValidos = true;
+        
         if (usuario.length() < 5 || usuario.isEmpty()) {
-            usuarioTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            usuarioTxt.setBorder(BorderFactory.createLineBorder(vermelho));
             msgValidacaoUsuario.setVisible(true);
-            msgValidacaoSenha.setVisible(false);
-            acessarBtn.setEnabled(false);
-        } else if (!senhaOk) {
-            senhaTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
-            msgValidacaoUsuario.setVisible(false);
-            msgValidacaoSenha.setVisible(true);
-            acessarBtn.setEnabled(false);
+            camposValidos = false;
         } else {
-            senhaTxt.setBorder(UIManager.getBorder("TextField.border"));
             usuarioTxt.setBorder(UIManager.getBorder("TextField.border"));
             msgValidacaoUsuario.setVisible(false);
-            msgValidacaoSenha.setVisible(false);
-            acessarBtn.setEnabled(true);
         }
+        
+        if (!senhaOk) {
+            senhaTxt.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacaoSenha.setVisible(true);
+            camposValidos = false;
+        } else {
+            senhaTxt.setBorder(UIManager.getBorder("TextField.border"));
+            msgValidacaoSenha.setVisible(false);
+        }
+        
+        acessarBtn.setEnabled(camposValidos);
     }
     /**
      * @param args the command line arguments
