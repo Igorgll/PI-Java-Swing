@@ -5,6 +5,7 @@
 package com.mycompany.pi.views;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
@@ -51,6 +52,7 @@ public class DashboardCliente extends javax.swing.JFrame {
         txtNumero = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JFormattedTextField();
+        msgValidacao = new javax.swing.JLabel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -172,6 +174,7 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLayeredPane2.setLayer(txtNumero, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(txtTelefone, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(msgValidacao, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
         jLayeredPane2.setLayout(jLayeredPane2Layout);
@@ -196,7 +199,7 @@ public class DashboardCliente extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(txtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)))
                             .addGap(32, 32, 32)
-                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jLayeredPane2Layout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -208,7 +211,8 @@ public class DashboardCliente extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(selecionaEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(msgValidacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
@@ -243,7 +247,8 @@ public class DashboardCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(msgValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -529,27 +534,48 @@ public class DashboardCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
+    Color vermelho = new Color(255, 128, 128); // vermelho mais claro
+    private void msgValidacao(String mensagem) {
+        Font globalFont = UIManager.getFont("Label.font");
+        int fontSize = 14;
+        Font labelFont = new Font(globalFont.getFontName(), globalFont.getStyle(), fontSize);
+        msgValidacao.setFont(labelFont);
+        msgValidacao.setForeground(vermelho);
+        msgValidacao.setText(mensagem);
+    }
+
     private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
         String nome = txtNome.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$"); // regex para verificar que o campo só tenha string
         Matcher matcher = regex.matcher(nome);
         
-        if (nome.trim().isEmpty() || !matcher.matches()) {
-           txtNome.setBorder(BorderFactory.createLineBorder(Color.RED));
+        if(nome.isEmpty() || nome.length() < 5) {
+            txtNome.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("O campo nome necessita ser maior que 5 caracteres.");
+        }
+        else if (!matcher.matches()) {
+           txtNome.setBorder(BorderFactory.createLineBorder(vermelho));
+           msgValidacao("Símbolos especiais ou números não são permitidos.");
         }else {
            txtNome.setBorder(UIManager.getBorder("TextField.border"));
+           msgValidacao("");
         }
     }//GEN-LAST:event_txtNomeKeyReleased
 
     private void txtRuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRuaKeyReleased
         String rua = txtRua.getText();
-        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
+        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$"); // regex para verificar que o campo só tenha string
         Matcher matcher = regex.matcher(rua);
-        
-        if(rua.trim().isEmpty() || !matcher.matches()) {
-            txtRua.setBorder(BorderFactory.createLineBorder(Color.RED));
+
+        if(rua.isEmpty() || rua.length() < 5) {
+            msgValidacao("O campo rua necessita ser maior que 5 caracteres.");
+        }
+        else if(!matcher.matches()) {
+            txtRua.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("Símbolos especiais ou números não são permitidos.");
         }else {
             txtRua.setBorder(UIManager.getBorder("TextField.border"));
+           msgValidacao("");
         }
     }//GEN-LAST:event_txtRuaKeyReleased
 
@@ -557,11 +583,16 @@ public class DashboardCliente extends javax.swing.JFrame {
         String cidade = txtCidade.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
         Matcher matcher = regex.matcher(cidade);
-        
-        if(cidade.trim().isEmpty() || !matcher.matches()) {
-            txtCidade.setBorder(BorderFactory.createLineBorder(Color.RED));
+
+        if (cidade.isEmpty()) {
+            msgValidacao("O campo cidade não pode ser vazio.");
+        }
+        else if(!matcher.matches()) {
+            txtCidade.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("O campo cidade não pode ter números.");
         }else {
             txtCidade.setBorder(UIManager.getBorder("TextField.border"));
+           msgValidacao("");
         }
     }//GEN-LAST:event_txtCidadeKeyReleased
 
@@ -570,10 +601,14 @@ public class DashboardCliente extends javax.swing.JFrame {
         Pattern regex = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); // regex para validar endereço de email
         Matcher matcher = regex.matcher(email);
         
-        if(email.trim().isEmpty() || !matcher.matches()) {
-            txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
+        if(email.isEmpty()) {
+            msgValidacao("O campo email não pode ser vazio.");
+        }
+        else if(!matcher.matches()) {
+            txtEmail.setBorder(BorderFactory.createLineBorder(vermelho));
         }else {
             txtEmail.setBorder(UIManager.getBorder("TextField.border"));
+           msgValidacao("");
         }
     }//GEN-LAST:event_txtEmailKeyReleased
 
@@ -582,10 +617,15 @@ public class DashboardCliente extends javax.swing.JFrame {
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
         Matcher matcher = regex.matcher(numero);
         
-        if(numero.trim().isEmpty() || matcher.matches()) {
-            txtNumero.setBorder(BorderFactory.createLineBorder(Color.RED));
+        if(numero.isEmpty()) {
+            msgValidacao("O campo número não pode ser vazio.");
+        }
+        else if(matcher.matches()) {
+            txtNumero.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("Digite apenas números.");
         }else {
             txtNumero.setBorder(UIManager.getBorder("TextField.border"));
+           msgValidacao("");
         }
     }//GEN-LAST:event_txtNumeroKeyReleased
 
@@ -595,7 +635,7 @@ public class DashboardCliente extends javax.swing.JFrame {
         Matcher matcher = regex.matcher(id);
         
         if(id.trim().isEmpty() || matcher.matches()) {
-            txtId.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtId.setBorder(BorderFactory.createLineBorder(vermelho));
         }else {
             txtId.setBorder(UIManager.getBorder("TextField.border"));
         }
@@ -607,7 +647,7 @@ public class DashboardCliente extends javax.swing.JFrame {
         Matcher matcher = regex.matcher(nomeConsulta);
         
         if (nomeConsulta.trim().isEmpty() || !matcher.matches()) {
-           txtNomeConsulta.setBorder(BorderFactory.createLineBorder(Color.RED));
+           txtNomeConsulta.setBorder(BorderFactory.createLineBorder(vermelho));
         }else {
            txtNomeConsulta.setBorder(UIManager.getBorder("TextField.border"));
         }
@@ -619,7 +659,7 @@ public class DashboardCliente extends javax.swing.JFrame {
         Matcher matcher = regex.matcher(cpf);
         
         if(!matcher.matches()) {
-            txtCpf.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCpf.setBorder(BorderFactory.createLineBorder(vermelho));
         }else {
             txtCpf.setBorder(UIManager.getBorder("TextField.border"));
         }
@@ -631,7 +671,7 @@ public class DashboardCliente extends javax.swing.JFrame {
         Matcher matcher = regex.matcher(telefone);
         
         if(!matcher.matches()) {
-            txtTelefone.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtTelefone.setBorder(BorderFactory.createLineBorder(vermelho));
         }else {
             txtTelefone.setBorder(UIManager.getBorder("TextField.border"));
         }
@@ -674,6 +714,7 @@ public class DashboardCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel msgValidacao;
     private javax.swing.JComboBox<String> selecionaEstado;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JFormattedTextField txtCpf;

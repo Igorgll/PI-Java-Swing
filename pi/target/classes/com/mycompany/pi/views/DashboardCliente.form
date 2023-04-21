@@ -128,7 +128,7 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -145,6 +145,7 @@
                                               <Component id="txtNumero" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Component id="msgValidacao" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
@@ -190,6 +191,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="msgValidacao" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton2" min="-2" pref="49" max="-2" attributes="0"/>
@@ -331,6 +333,8 @@
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTelefoneKeyReleased"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="msgValidacao">
             </Component>
           </SubComponents>
         </Container>

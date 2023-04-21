@@ -4,8 +4,6 @@
  */
 package com.mycompany.pi.views;
 
-import java.awt.event.WindowEvent;
-
 /**
  *
  * @author igor
