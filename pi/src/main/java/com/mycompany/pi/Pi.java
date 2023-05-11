@@ -1,8 +1,10 @@
 package com.mycompany.pi;
 
-import com.formdev.flatlaf.FlatDarkLaf;
+import com.mycompany.pi.themes.tema;
 import com.mycompany.pi.views.BemVindo;
+import java.awt.Color;
 import java.awt.Font;
+import java.io.InputStream;
 import javax.swing.UIManager;
 
 /**
@@ -12,11 +14,7 @@ import javax.swing.UIManager;
 public class Pi {
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-        } catch (Exception ex) {
-            System.err.println("Falha ao carregar tema FlatLaf Dark");
-        }
+        tema.setup();
 
         // Definindo a mesma fonte para todos os elementos de texto do JFormFrame
         Font font = new Font("Liberation Sans", Font.PLAIN, 16);

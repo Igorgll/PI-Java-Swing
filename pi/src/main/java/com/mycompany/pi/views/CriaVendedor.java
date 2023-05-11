@@ -306,6 +306,7 @@ public class CriaVendedor extends javax.swing.JFrame {
     }
 
     private void criarBtnActionPerformed(java.awt.event.ActionEvent evt, Boolean nomeOk, Boolean usuarioOk, Boolean senhaOk) {
+        JOptionPane.showMessageDialog(this, "Perfil de vendedor criado com sucesso!");
     }
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
