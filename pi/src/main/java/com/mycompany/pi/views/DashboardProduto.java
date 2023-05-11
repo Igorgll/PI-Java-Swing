@@ -54,13 +54,15 @@ public class DashboardProduto extends javax.swing.JFrame {
         msgValidacao = new javax.swing.JLabel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtSelecionaCategoriaConsulta = new javax.swing.JComboBox<>();
-        txtIdConsulta = new javax.swing.JTextField();
         txtNomeConsulta = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        consultaProdutosBtn = new javax.swing.JButton();
+        consultarProdutoNomeBtn = new javax.swing.JButton();
+        consultarProdutoCategoriaBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        msgValidacaoConsulta = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLayeredPane4 = new javax.swing.JLayeredPane();
@@ -178,8 +180,8 @@ public class DashboardProduto extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(msgValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(msgValidacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -199,10 +201,11 @@ public class DashboardProduto extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(msgValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(msgValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
@@ -218,41 +221,53 @@ public class DashboardProduto extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Consultar Produto");
 
-        jLabel9.setText("ID:");
-
         jLabel10.setText("Nome:");
 
         jLabel11.setText("Categoria:");
 
         txtSelecionaCategoriaConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1-2 anos", "3-4 anos", "5-7 anos", "8-10 anos", "11-12 anos" }));
 
-        txtIdConsulta.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdConsultaActionPerformed(evt);
+                txtNomeConsultaActionPerformed(evt);
             }
         });
-        txtIdConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtIdConsultaKeyReleased(evt);
-            }
-        });
-
         txtNomeConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomeConsultaKeyReleased(evt);
             }
         });
 
-        jButton2.setText("Consultar");
+        consultaProdutosBtn.setText("Consultar");
+
+        consultarProdutoNomeBtn.setText("Consultar");
+        consultarProdutoNomeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarProdutoNomeBtnActionPerformed(evt);
+            }
+        });
+
+        consultarProdutoCategoriaBtn.setText("Consultar");
+        consultarProdutoCategoriaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarProdutoCategoriaBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Consultar Lista Completa de Produtos");
 
         jLayeredPane3.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(txtSelecionaCategoriaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(txtIdConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(txtNomeConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(consultaProdutosBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(consultarProdutoNomeBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(consultarProdutoCategoriaBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(msgValidacaoConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
         jLayeredPane3.setLayout(jLayeredPane3Layout);
@@ -261,23 +276,26 @@ public class DashboardProduto extends javax.swing.JFrame {
             .addGroup(jLayeredPane3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(consultaProdutosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jLayeredPane3Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane3Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 341, Short.MAX_VALUE)))
+                                .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(consultarProdutoNomeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane3Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(consultarProdutoCategoriaBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jLayeredPane3Layout.createSequentialGroup()
+                        .addComponent(msgValidacaoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jLayeredPane3Layout.setVerticalGroup(
@@ -285,21 +303,23 @@ public class DashboardProduto extends javax.swing.JFrame {
             .addGroup(jLayeredPane3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtIdConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(49, 49, 49)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(28, 28, 28)
+                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(consultarProdutoNomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(consultarProdutoCategoriaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(msgValidacaoConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(consultaProdutosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
 
         jLayeredPane1.setLayer(jLayeredPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -399,6 +419,20 @@ public class DashboardProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void consultarProdutoCategoriaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarProdutoCategoriaBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_consultarProdutoCategoriaBtnActionPerformed
+
+    private void txtNomeConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeConsultaActionPerformed
+
+    private void consultarProdutoNomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarProdutoNomeBtnActionPerformed
+        if(validaNomeConsulta()) {
+            JOptionPane.showConfirmDialog(this, "Consulta realizada com sucesso!");
+        }
+    }//GEN-LAST:event_consultarProdutoNomeBtnActionPerformed
+
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
     private void msgValidacao(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
@@ -407,6 +441,15 @@ public class DashboardProduto extends javax.swing.JFrame {
         msgValidacao.setFont(labelFont);
         msgValidacao.setForeground(vermelho);
         msgValidacao.setText(mensagem);
+    }
+    
+        private void msgValidacaoConsulta(String mensagem) {
+        Font globalFont = UIManager.getFont("Label.font");
+        int fontSize = 14;
+        Font labelFont = new Font(globalFont.getFontName(), globalFont.getStyle(), fontSize);
+        msgValidacaoConsulta.setFont(labelFont);
+        msgValidacaoConsulta.setForeground(vermelho);
+        msgValidacaoConsulta.setText(mensagem);
     }
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtNomeActionPerformed
@@ -517,21 +560,25 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         return valorUnitarioOk;
     }
-
-    private boolean validaIdConsulta() {
-        String idConsulta = txtIdConsulta.getText();
-        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
-        Matcher matcher = regex.matcher(idConsulta);
-        boolean idConsultaOk = false;
-
-        if (idConsulta.trim().isEmpty() || matcher.matches()) {
-            txtIdConsulta.setBorder(BorderFactory.createLineBorder(vermelho));
-        } else {
-            txtIdConsulta.setBorder(UIManager.getBorder("TextField.border"));
-            idConsultaOk = true;
+    
+    private boolean validaNomeConsulta(){
+        String nomeConsulta = txtNomeConsulta.getText();
+        Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
+        Matcher matcher = regex.matcher(nomeConsulta);
+        boolean validaNomeConsultaOk = false;
+        
+        if (nomeConsulta.trim().isEmpty()) {
+            txtNomeConsulta.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacaoConsulta("O campo nome necessita ser maior que 5 caracteres.");
+        } else if(!matcher.matches()){
+            txtNomeConsulta.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacaoConsulta("Símbolos ou números não são permitidos.");
+        }else{
+            txtNomeConsulta.setBorder(UIManager.getBorder("TextField.border"));
+            validaNomeConsultaOk = true;
+            msgValidacaoConsulta("");
         }
-
-        return idConsultaOk;
+        return validaNomeConsultaOk;
     }
 
     private void txtDescricaoKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_txtDescricaoKeyReleased
@@ -551,19 +598,10 @@ public class DashboardProduto extends javax.swing.JFrame {
     }// GEN-LAST:event_txtValorUnitarioKeyReleased
 
     private void txtIdConsultaKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_txtIdConsultaKeyReleased
-
     }// GEN-LAST:event_txtIdConsultaKeyReleased
 
     private void txtNomeConsultaKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_txtNomeConsultaKeyReleased
-        String nomeConsulta = txtNomeConsulta.getText();
-        Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$"); // regex para verificar que o campo só tenha string
-        Matcher matcher = regex.matcher(nomeConsulta);
-
-        if (nomeConsulta.trim().isEmpty() || !matcher.matches()) {
-            txtNomeConsulta.setBorder(BorderFactory.createLineBorder(vermelho));
-        } else {
-            txtNomeConsulta.setBorder(UIManager.getBorder("TextField.border"));
-        }
+        validaNomeConsulta();
     }// GEN-LAST:event_txtNomeConsultaKeyReleased
 
     private void cadastrarProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cadastrarProdutoBtnActionPerformed
@@ -593,8 +631,11 @@ public class DashboardProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarProdutoBtn;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton consultaProdutosBtn;
+    private javax.swing.JButton consultarProdutoCategoriaBtn;
+    private javax.swing.JButton consultarProdutoNomeBtn;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -604,7 +645,6 @@ public class DashboardProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
@@ -613,9 +653,9 @@ public class DashboardProduto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel msgValidacao;
+    private javax.swing.JLabel msgValidacaoConsulta;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtEstoque;
-    private javax.swing.JTextField txtIdConsulta;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeConsulta;
     private javax.swing.JComboBox<String> txtSelecionaCategoria;
