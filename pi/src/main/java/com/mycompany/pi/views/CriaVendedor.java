@@ -11,8 +11,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  *
  * @author igor

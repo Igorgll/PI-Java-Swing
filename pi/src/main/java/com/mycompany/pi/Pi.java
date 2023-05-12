@@ -2,9 +2,7 @@ package com.mycompany.pi;
 
 import com.mycompany.pi.themes.tema;
 import com.mycompany.pi.views.BemVindo;
-import java.awt.Color;
 import java.awt.Font;
-import java.io.InputStream;
 import javax.swing.UIManager;
 
 /**

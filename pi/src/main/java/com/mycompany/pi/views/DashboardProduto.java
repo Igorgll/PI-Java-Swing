@@ -429,7 +429,9 @@ public class DashboardProduto extends javax.swing.JFrame {
 
     private void consultarProdutoNomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarProdutoNomeBtnActionPerformed
         if(validaNomeConsulta()) {
-            JOptionPane.showConfirmDialog(this, "Consulta realizada com sucesso!");
+            JOptionPane.showMessageDialog(this, "Consulta realizada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor insira o nome do produto a ser consultado!");
         }
     }//GEN-LAST:event_consultarProdutoNomeBtnActionPerformed
 
