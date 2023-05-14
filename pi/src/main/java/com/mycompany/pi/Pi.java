@@ -1,5 +1,6 @@
 package com.mycompany.pi;
 
+import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.themes.tema;
 import com.mycompany.pi.views.BemVindo;
 import java.awt.Font;
@@ -38,6 +39,13 @@ public class Pi {
         UIManager.put("RadioButtonMenuItem.font", font);
         UIManager.put("ToggleButton.font", font);
         UIManager.put("Tree.font", font);
+
+        // criação de tabelas
+        ProdutosDAO.criaTabelaClientes();
+        ProdutosDAO.criaTabelaEnderecos();
+        ProdutosDAO.criaTabelaFuncionarios();
+        ProdutosDAO.criaTabelaBrinquedos();
+        ProdutosDAO.criaTabelaVendas();
 
         BemVindo bemVindo = new BemVindo();
         bemVindo.setLocationRelativeTo(null);

@@ -12,15 +12,15 @@ import com.mycompany.pi.utils.Categoria;
  */
 public class Produto {
     
-    private int id_produto;
+    private int id_brinquedo;
     private int estoque;
     private String nome;
     private Categoria categoria;
     private double valor_unitario;
     private String descricao;
 
-    public Produto(int id_produto, int estoque, String nome, Categoria categoria, double valor_unitario, String descricao) {
-        this.id_produto = id_produto;
+    public Produto(int id_brinquedo, int estoque, String nome, Categoria categoria, double valor_unitario, String descricao) {
+        this.id_brinquedo = id_brinquedo;
         this.estoque = estoque;
         this.nome = nome;
         this.categoria = categoria;
@@ -28,12 +28,12 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public int getId_produto() {
-        return id_produto;
+    public int getId_brinquedo() {
+        return id_brinquedo;
     }
 
-    public void setId_produto(int id_produto) {
-        this.id_produto = id_produto;
+    public void setId_brinquedo(int id_brinquedo) {
+        this.id_brinquedo = id_brinquedo;
     }
 
     public int getEstoque() {
