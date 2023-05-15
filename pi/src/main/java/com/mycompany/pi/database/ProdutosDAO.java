@@ -2,11 +2,15 @@ package com.mycompany.pi.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
+import com.mycompany.pi.models.Funcionario;
+import com.mysql.cj.protocol.Resultset;
 
 public class ProdutosDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -37,18 +41,18 @@ public class ProdutosDAO {
         }
     }
 
-    public static void criaTabelaCategorias() {
-        try {
-            Statement statement = conexao.createStatement();
+    // public static void criaTabelaCategorias() {
+    //     try {
+    //         Statement statement = conexao.createStatement();
 
-            String sql = Queries.CRIA_TABELA_CATEGORIAS_SQL;
+    //         String sql = Queries.CRIA_TABELA_CATEGORIAS_SQL;
 
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    //         statement.executeUpdate(sql);
+    //         statement.close();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     public static void criaTabelaClientes() {
         try {
@@ -110,9 +114,50 @@ public class ProdutosDAO {
 
             statement.executeUpdate(sql);
             statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void criaFuncionarioAdmin(){
+        try {
+            Statement statement = conexao.createStatement();
+
+            String sql = Queries.CRIA_FUNCIONARIO_ADMIN;
+
+            statement.executeUpdate(sql);
+            statement.close();
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Funcionario> consultaFuncionarioNoBanco(String usuario, String senha) {
+        ArrayList<Funcionario> retornoFuncionarios = new ArrayList<Funcionario>();
+        try  {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            PreparedStatement preparedStatement = conexao.prepareStatement(Queries.CONSULTA_FUNCIONARIOS);
+            preparedStatement.setString(1, usuario);
+            preparedStatement.setString(2, senha);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                int id_funcionario = resultSet.getInt("id_funcionario");
+                String usuarioBD = resultSet.getString("usuario");
+                String senhaBD = resultSet.getString("senha");
+                Funcionario funcionario = new Funcionario();
+                funcionario.setId_funcionario(id_funcionario);
+                funcionario.setUsuario(usuarioBD);
+                funcionario.setSenha(senhaBD);
+                retornoFuncionarios.add(funcionario);
+            }
+            resultSet.close();
+            preparedStatement.close();
+        }catch (SQLException e) {
+            retornoFuncionarios.add(new Funcionario());
+        }
+        return retornoFuncionarios;
     }
 }

@@ -1,8 +1,14 @@
 package com.mycompany.pi.views;
 
 import java.awt.Color;
+import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+
+import com.mycompany.pi.database.ProdutosDAO;
+import com.mycompany.pi.models.Funcionario;
 
 /**
  *
@@ -180,14 +186,24 @@ public class Login extends javax.swing.JFrame {
     }// GEN-LAST:event_sairBtnActionPerformed
 
     private void acessarBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_acessarBtnActionPerformed
-        TelaInicial telaInicial = new TelaInicial();
-        telaInicial.setLocationRelativeTo(null);
-        telaInicial.setExtendedState(TelaInicial.MAXIMIZED_BOTH);
-        telaInicial.setVisible(true);
-        DashboardCliente dashBoardCliente = new DashboardCliente();
-        dashBoardCliente.setLocationRelativeTo(null);
-        dashBoardCliente.setVisible(true);
-        dispose();
+        String usuario = usuarioTxt.getText().trim();
+        String senha = new String(senhaTxt.getPassword()).trim();
+        ArrayList<Funcionario> funcionarios = ProdutosDAO.consultaFuncionarioNoBanco(usuario, senha);
+
+        if(!funcionarios.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
+            TelaInicial telaInicial = new TelaInicial();
+            telaInicial.setLocationRelativeTo(null);
+            telaInicial.setExtendedState(TelaInicial.MAXIMIZED_BOTH);
+            telaInicial.setVisible(true);
+            DashboardCliente dashBoardCliente = new DashboardCliente();
+            dashBoardCliente.setLocationRelativeTo(null);
+            dashBoardCliente.setVisible(true);
+            dispose();
+        }else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
+        }
+
     }// GEN-LAST:event_acessarBtnActionPerformed
 
     private void senhaTxtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_senhaTxtActionPerformed
@@ -197,6 +213,7 @@ public class Login extends javax.swing.JFrame {
     private void verificaCamposHabilitaBotao() {
         String usuario = usuarioTxt.getText().trim();
         String senha = new String(senhaTxt.getPassword()).trim();
+        ProdutosDAO.consultaFuncionarioNoBanco(usuario, senha);
         boolean senhaOk = senha.length() >= 5 && !senha.isEmpty();
         Color vermelho = new Color(255, 128, 128);
         boolean camposValidos = true;

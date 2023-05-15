@@ -45,14 +45,17 @@ public class Pi {
         ProdutosDAO.criaTabelaEnderecos();
         ProdutosDAO.criaTabelaFuncionarios();
         ProdutosDAO.criaTabelaBrinquedos();
-        ProdutosDAO.criaTabelaCategorias();
+        // ProdutosDAO.criaTabelaCategorias();
         ProdutosDAO.criaTabelaVendas();
 
         // populando tabela de brinquedos
         ProdutosDAO.populaTabelaBrinquedos();
 
-        // BemVindo bemVindo = new BemVindo();
-        // bemVindo.setLocationRelativeTo(null);
-        // bemVindo.setVisible(true);
+        // cria funcionario admin
+        ProdutosDAO.criaFuncionarioAdmin();
+
+        BemVindo bemVindo = new BemVindo();
+        bemVindo.setLocationRelativeTo(null);
+        bemVindo.setVisible(true);
     }
 }

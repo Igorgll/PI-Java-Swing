@@ -10,17 +10,17 @@ public class Queries {
     + "descricao VARCHAR(200) NOT NULL,"
     + "PRIMARY KEY (id_brinquedo));";
 
-    public static final String CRIA_TABELA_CATEGORIAS_SQL = "CREATE TABLE IF NOT EXISTS categorias (" // cria a tabela somente se não existir na base
-    + "id_categoria INT NOT NULL AUTO_INCREMENT,"
-    + "DE_1_A_2_ANOS VARCHAR(50) NOT NULL," 
-    + "DE_3_A_4_ANOS VARCHAR(50) NOT NULL,"
-    + "DE_5_A_7_ANOS VARCHAR(50) NOT NULL,"
-    + "DE_8_A_10_ANOS VARCHAR(50) NOT NULL,"
-    + "DE_11_A_12_ANOS VARCHAR(50) NOT NULL,"
-    + "PRIMARY KEY (id_categoria));";
+    // public static final String CRIA_TABELA_CATEGORIAS_SQL = "CREATE TABLE IF NOT EXISTS categorias (" // cria a tabela somente se não existir na base
+    // + "id_categoria INT NOT NULL AUTO_INCREMENT,"
+    // + "DE_1_A_2_ANOS VARCHAR(50) NOT NULL," 
+    // + "DE_3_A_4_ANOS VARCHAR(50) NOT NULL,"
+    // + "DE_5_A_7_ANOS VARCHAR(50) NOT NULL,"
+    // + "DE_8_A_10_ANOS VARCHAR(50) NOT NULL,"
+    // + "DE_11_A_12_ANOS VARCHAR(50) NOT NULL,"
+    // + "PRIMARY KEY (id_categoria));";
 
-    public static final String ADICIONA_FK_CATEGORIAS_SQL = "ALTER TABLE brinquedos ADD CONSTRAINT FK1 " +
-    "FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)";
+    // public static final String ADICIONA_FK_CATEGORIAS_SQL = "ALTER TABLE brinquedos ADD CONSTRAINT FK1 " +
+    // "FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)";
 
     public static final String CRIA_TABELA_CLIENTES_SQL = "CREATE TABLE IF NOT EXISTS clientes (" // cria a tabela somente se não existir na base
     + "id_cliente INT NOT NULL AUTO_INCREMENT,"
@@ -77,4 +77,8 @@ public class Queries {
     "(12, 'Patins Azul', 'DE_8_A_10_ANOS', 139.90, 'Patins azul com ajuste para tamanhos 37 a 40')," +
     "(15, 'Lego Technic', 'DE_11_A_12_ANOS', 99.99, 'Conjunto de Lego Technic com 200 peças para construir máquinas e mecanismos')," +
     "(17, 'Mini Game', 'DE_5_A_7_ANOS', 49.90, 'Mini game portátil com tela colorida e 100 jogos diferentes');";
+
+    public static final String CRIA_FUNCIONARIO_ADMIN = "INSERT INTO funcionarios(nome, usuario, senha) SELECT 'admin', 'admin', 'admin' WHERE NOT EXISTS (SELECT 1 FROM funcionarios WHERE nome = 'admin' AND usuario = 'admin' AND senha = 'admin');";
+
+    public static final String CONSULTA_FUNCIONARIOS = "SELECT id_funcionario, usuario, senha FROM funcionarios WHERE usuario = ? AND senha = ?;";
 }

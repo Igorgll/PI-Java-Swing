@@ -15,6 +15,8 @@ public class Funcionario {
     private String usuario;
     private String senha;
 
+    public Funcionario(){}
+
     public Funcionario(int id_funcionario, String nome, String usuario, String senha) {
         this.id_funcionario = id_funcionario;
         this.nome = nome;
