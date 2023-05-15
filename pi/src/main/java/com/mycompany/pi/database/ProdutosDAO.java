@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Funcionario;
+import com.mycompany.pi.models.Produto;
+import com.mycompany.pi.utils.Categoria;
 import com.mysql.cj.protocol.Resultset;
 
 public class ProdutosDAO {
@@ -159,5 +161,38 @@ public class ProdutosDAO {
             retornoFuncionarios.add(new Funcionario());
         }
         return retornoFuncionarios;
+    }
+
+    public static ArrayList<Produto> consultaListaBrinquedos() {
+        ArrayList<Produto> retornoBrinquedos = new ArrayList<Produto>();
+        try  {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            Statement statement = conexao.createStatement();
+            ResultSet resultSet = statement.executeQuery(Queries.CONSULTA_BRINQUEDOS);
+            while(resultSet.next()) {
+                int id_brinquedo = resultSet.getInt("id_brinquedo");
+                int estoque = resultSet.getInt("estoque");
+                String nome = resultSet.getString("nome");
+                String categoriaString = resultSet.getString("categoria");
+                Categoria categoria = Categoria.valueOf(categoriaString);
+                Double valor_unitario = resultSet.getDouble("valor_unitario");
+                String descricao = resultSet.getString("descricao");
+                Produto brinquedo = new Produto();
+                brinquedo.setId_brinquedo(id_brinquedo);
+                brinquedo.setEstoque(estoque);
+                brinquedo.setNome(nome);
+                brinquedo.setCategoria(categoria);
+                brinquedo.setValor_unitario(valor_unitario);
+                brinquedo.setDescricao(descricao);
+                retornoBrinquedos.add(brinquedo);
+            }
+            resultSet.close();
+            statement.close();
+        }catch (SQLException e) {
+            retornoBrinquedos.add(new Produto());
+        }
+        return retornoBrinquedos;
     }
 }

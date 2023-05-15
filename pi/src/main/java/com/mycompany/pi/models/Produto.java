@@ -19,6 +19,8 @@ public class Produto {
     private double valor_unitario;
     private String descricao;
 
+    public Produto(){}
+
     public Produto(int id_brinquedo, int estoque, String nome, Categoria categoria, double valor_unitario, String descricao) {
         this.id_brinquedo = id_brinquedo;
         this.estoque = estoque;

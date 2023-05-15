@@ -7,11 +7,16 @@ package com.mycompany.pi.views;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.ScrollPane;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+
+import com.mycompany.pi.database.ProdutosDAO;
+import com.mycompany.pi.models.Produto;
 
 /**
  *
@@ -64,7 +69,7 @@ public class DashboardProduto extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         msgValidacaoConsulta = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaBrinquedos = new javax.swing.JTable();
         jLayeredPane4 = new javax.swing.JLayeredPane();
         jButton4 = new javax.swing.JButton();
 
@@ -239,6 +244,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         });
 
         consultaProdutosBtn.setText("Consultar");
+        consultaProdutosBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultaProdutosBtnActionPerformed(evt);
+            }
+        });
 
         consultarProdutoNomeBtn.setText("Consultar");
         consultarProdutoNomeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -346,7 +356,7 @@ public class DashboardProduto extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaBrinquedos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -365,7 +375,7 @@ public class DashboardProduto extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tabelaBrinquedos);
 
         jButton4.setBackground(new java.awt.Color(51, 51, 51));
         jButton4.setText("Voltar");
@@ -434,6 +444,22 @@ public class DashboardProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor insira o nome do produto a ser consultado!");
         }
     }//GEN-LAST:event_consultarProdutoNomeBtnActionPerformed
+
+    private void consultaProdutosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaProdutosBtnActionPerformed
+        ArrayList<Produto> listaBrinquedos = ProdutosDAO.consultaListaBrinquedos();
+
+        DefaultTableModel modeloTabelaBrinquedos = new DefaultTableModel(
+            new Object[][]{},
+            new String[]{"Id", "Estoque", "Nome", "Categoria", "Valor Unitário", "Descrição"}
+        );
+
+        //preenchendo a tabela com os dados da lista de brinquedos
+        for(Produto b : listaBrinquedos) {
+            modeloTabelaBrinquedos.addRow(new Object[]{b.getId_brinquedo(), b.getEstoque(), b.getNome(), b.getCategoria(), b.getValor_unitario(), b.getDescricao()});
+        }
+
+        tabelaBrinquedos.setModel(modeloTabelaBrinquedos);
+    }//GEN-LAST:event_consultaProdutosBtnActionPerformed
 
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
     private void msgValidacao(String mensagem) {
@@ -653,9 +679,9 @@ public class DashboardProduto extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel msgValidacao;
     private javax.swing.JLabel msgValidacaoConsulta;
+    private javax.swing.JTable tabelaBrinquedos;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtNome;

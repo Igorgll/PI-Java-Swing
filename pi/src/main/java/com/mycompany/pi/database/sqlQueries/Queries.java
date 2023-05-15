@@ -81,4 +81,6 @@ public class Queries {
     public static final String CRIA_FUNCIONARIO_ADMIN = "INSERT INTO funcionarios(nome, usuario, senha) SELECT 'admin', 'admin', 'admin' WHERE NOT EXISTS (SELECT 1 FROM funcionarios WHERE nome = 'admin' AND usuario = 'admin' AND senha = 'admin');";
 
     public static final String CONSULTA_FUNCIONARIOS = "SELECT id_funcionario, usuario, senha FROM funcionarios WHERE usuario = ? AND senha = ?;";
+
+    public static final String CONSULTA_BRINQUEDOS = "SELECT * FROM brinquedos;";
 }
