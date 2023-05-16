@@ -65,7 +65,6 @@ public class DashboardProduto extends javax.swing.JFrame {
         txtNomeConsulta = new javax.swing.JTextField();
         consultaProdutosBtn = new javax.swing.JButton();
         consultarProdutoNomeBtn = new javax.swing.JButton();
-        consultarProdutoCategoriaBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         msgValidacaoConsulta = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -130,7 +129,7 @@ public class DashboardProduto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtDescricao);
 
-        txtSelecionaCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1-2 anos", "3-4 anos", "5-7 anos", "8-10 anos", "11-12 anos" }));
+        txtSelecionaCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DE_1_A_2_ANOS", "DE_3_A_4_ANOS", "DE_5_A_7_ANOS", "DE_8_A_10_ANOS", "DE_11_A_12_ANOS" }));
 
         cadastrarProdutoBtn.setText("Cadastrar");
         cadastrarProdutoBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +186,7 @@ public class DashboardProduto extends javax.swing.JFrame {
                                 .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(msgValidacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 10, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jLayeredPane2Layout.setVerticalGroup(
@@ -230,7 +229,12 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         jLabel11.setText("Categoria:");
 
-        txtSelecionaCategoriaConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1-2 anos", "3-4 anos", "5-7 anos", "8-10 anos", "11-12 anos" }));
+        txtSelecionaCategoriaConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DE_1_A_2_ANOS", "DE_3_A_4_ANOS", "DE_5_A_7_ANOS", "DE_8_A_10_ANOS", "DE_11_A_12_ANOS" }));
+        txtSelecionaCategoriaConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSelecionaCategoriaConsultaActionPerformed(evt);
+            }
+        });
 
         txtNomeConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,13 +261,6 @@ public class DashboardProduto extends javax.swing.JFrame {
             }
         });
 
-        consultarProdutoCategoriaBtn.setText("Consultar");
-        consultarProdutoCategoriaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarProdutoCategoriaBtnActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Consultar Lista Completa de Produtos");
@@ -275,7 +272,6 @@ public class DashboardProduto extends javax.swing.JFrame {
         jLayeredPane3.setLayer(txtNomeConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(consultaProdutosBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(consultarProdutoNomeBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(consultarProdutoCategoriaBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(msgValidacaoConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -297,12 +293,9 @@ public class DashboardProduto extends javax.swing.JFrame {
                                 .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(consultarProdutoNomeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane3Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(consultarProdutoCategoriaBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel11)
+                        .addGap(29, 29, 29)
+                        .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane3Layout.createSequentialGroup()
                         .addComponent(msgValidacaoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -320,9 +313,7 @@ public class DashboardProduto extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(consultarProdutoNomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(consultarProdutoCategoriaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(consultarProdutoNomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(msgValidacaoConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(30, 30, 30)
@@ -429,10 +420,6 @@ public class DashboardProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void consultarProdutoCategoriaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarProdutoCategoriaBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_consultarProdutoCategoriaBtnActionPerformed
-
     private void txtNomeConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeConsultaActionPerformed
@@ -460,6 +447,23 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         tabelaBrinquedos.setModel(modeloTabelaBrinquedos);
     }//GEN-LAST:event_consultaProdutosBtnActionPerformed
+
+    private void txtSelecionaCategoriaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSelecionaCategoriaConsultaActionPerformed
+        String categoriaSelecionada = (String) txtSelecionaCategoriaConsulta.getSelectedItem();
+        ArrayList<Produto> listaBrinquedos = ProdutosDAO.consultaListaBrinquedosPorCategoria(categoriaSelecionada);
+
+        DefaultTableModel modeloTabelaBrinquedos = new DefaultTableModel(
+            new Object[][]{},
+            new String[]{"Id", "Estoque", "Nome", "Categoria", "Valor Unitário", "Descrição"}
+        );
+
+        //preenchendo a tabela com os dados da lista de brinquedos
+        for(Produto b : listaBrinquedos) {
+            modeloTabelaBrinquedos.addRow(new Object[]{b.getId_brinquedo(), b.getEstoque(), b.getNome(), b.getCategoria(), b.getValor_unitario(), b.getDescricao()});
+        }
+
+        tabelaBrinquedos.setModel(modeloTabelaBrinquedos);
+    }//GEN-LAST:event_txtSelecionaCategoriaConsultaActionPerformed
 
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
     private void msgValidacao(String mensagem) {
@@ -497,12 +501,6 @@ public class DashboardProduto extends javax.swing.JFrame {
     }// GEN-LAST:event_txtSelecionaCategoriaMouseExited
 
     private void txtSelecionaCategoriaConsultaMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_txtSelecionaCategoriaConsultaMouseExited
-        // if (txtSelecionaCategoriaConsulta.getSelectedIndex() == -1) { // pega o index
-        // da seleção e verifica se é nulo(-1)
-        // txtSelecionaCategoriaConsulta.setBorder(BorderFactory.createLineBorder(vermelho));
-        // }else {
-        // txtSelecionaCategoriaConsulta.setBorder(UIManager.getBorder("TextField.border"));
-        // }
     }
     // GEN-LAST:event_txtSelecionaCategoriaConsultaMouseExited
 
@@ -660,7 +658,6 @@ public class DashboardProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarProdutoBtn;
     private javax.swing.JButton consultaProdutosBtn;
-    private javax.swing.JButton consultarProdutoCategoriaBtn;
     private javax.swing.JButton consultarProdutoNomeBtn;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;

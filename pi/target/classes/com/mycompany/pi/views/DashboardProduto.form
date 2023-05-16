@@ -137,7 +137,7 @@
                                       <Component id="msgValidacao" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -257,11 +257,11 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
-                    <StringItem index="0" value="1-2 anos"/>
-                    <StringItem index="1" value="3-4 anos"/>
-                    <StringItem index="2" value="5-7 anos"/>
-                    <StringItem index="3" value="8-10 anos"/>
-                    <StringItem index="4" value="11-12 anos"/>
+                    <StringItem index="0" value="DE_1_A_2_ANOS"/>
+                    <StringItem index="1" value="DE_3_A_4_ANOS"/>
+                    <StringItem index="2" value="DE_5_A_7_ANOS"/>
+                    <StringItem index="3" value="DE_8_A_10_ANOS"/>
+                    <StringItem index="4" value="DE_11_A_12_ANOS"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -309,14 +309,9 @@
                                   <Component id="consultarProdutoNomeBtn" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace pref="26" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="txtSelecionaCategoriaConsulta" min="-2" pref="166" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="consultarProdutoCategoriaBtn" alignment="1" min="-2" pref="269" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="txtSelecionaCategoriaConsulta" min="-2" pref="166" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="msgValidacaoConsulta" min="-2" pref="355" max="-2" attributes="0"/>
@@ -340,10 +335,7 @@
                           <Component id="txtSelecionaCategoriaConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="consultarProdutoNomeBtn" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="consultarProdutoCategoriaBtn" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="consultarProdutoNomeBtn" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="msgValidacaoConsulta" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -379,14 +371,17 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
-                    <StringItem index="0" value="1-2 anos"/>
-                    <StringItem index="1" value="3-4 anos"/>
-                    <StringItem index="2" value="5-7 anos"/>
-                    <StringItem index="3" value="8-10 anos"/>
-                    <StringItem index="4" value="11-12 anos"/>
+                    <StringItem index="0" value="DE_1_A_2_ANOS"/>
+                    <StringItem index="1" value="DE_3_A_4_ANOS"/>
+                    <StringItem index="2" value="DE_5_A_7_ANOS"/>
+                    <StringItem index="3" value="DE_8_A_10_ANOS"/>
+                    <StringItem index="4" value="DE_11_A_12_ANOS"/>
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSelecionaCategoriaConsultaActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -411,14 +406,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarProdutoNomeBtnActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="consultarProdutoCategoriaBtn">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarProdutoCategoriaBtnActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">

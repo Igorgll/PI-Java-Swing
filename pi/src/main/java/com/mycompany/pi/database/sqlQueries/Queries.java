@@ -83,4 +83,6 @@ public class Queries {
     public static final String CONSULTA_FUNCIONARIOS = "SELECT id_funcionario, usuario, senha FROM funcionarios WHERE usuario = ? AND senha = ?;";
 
     public static final String CONSULTA_BRINQUEDOS = "SELECT * FROM brinquedos;";
+
+    public static final String CONSULTA_BRINQUEDOS_POR_CATEGORIA = "SELECT * FROM brinquedos WHERE categoria = ?;";
 }

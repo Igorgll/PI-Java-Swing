@@ -195,4 +195,39 @@ public class ProdutosDAO {
         }
         return retornoBrinquedos;
     }
+
+    public static ArrayList<Produto> consultaListaBrinquedosPorCategoria(String categoriaSelecionada) {
+        ArrayList<Produto> retornoBrinquedos = new ArrayList<Produto>();
+        try  {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.CONSULTA_BRINQUEDOS_POR_CATEGORIA;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, categoriaSelecionada);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                int id_brinquedo = resultSet.getInt("id_brinquedo");
+                int estoque = resultSet.getInt("estoque");
+                String nome = resultSet.getString("nome");
+                String categoriaString = resultSet.getString("categoria");
+                Categoria categoria = Categoria.valueOf(categoriaString);
+                Double valor_unitario = resultSet.getDouble("valor_unitario");
+                String descricao = resultSet.getString("descricao");
+                Produto brinquedo = new Produto();
+                brinquedo.setId_brinquedo(id_brinquedo);
+                brinquedo.setEstoque(estoque);
+                brinquedo.setNome(nome);
+                brinquedo.setCategoria(categoria);
+                brinquedo.setValor_unitario(valor_unitario);
+                brinquedo.setDescricao(descricao);
+                retornoBrinquedos.add(brinquedo);
+            }
+            resultSet.close();
+            preparedStatement.close();
+        }catch (SQLException e) {
+            retornoBrinquedos.add(new Produto());
+        }
+        return retornoBrinquedos;
+    }
 }
