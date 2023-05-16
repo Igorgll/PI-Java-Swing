@@ -442,7 +442,7 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         //preenchendo a tabela com os dados da lista de brinquedos
         for(Produto b : listaBrinquedos) {
-            modeloTabelaBrinquedos.addRow(new Object[]{b.getId_brinquedo(), b.getEstoque(), b.getNome(), b.getCategoria(), b.getValor_unitario(), b.getDescricao()});
+            modeloTabelaBrinquedos.addRow(new Object[]{b.getId_brinquedo(), b.getEstoque(), b.getNome(), b.getCategoria().getFaixaIdade(), b.getValor_unitario(), b.getDescricao()});
         }
 
         tabelaBrinquedos.setModel(modeloTabelaBrinquedos);
@@ -459,7 +459,7 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         //preenchendo a tabela com os dados da lista de brinquedos
         for(Produto b : listaBrinquedos) {
-            modeloTabelaBrinquedos.addRow(new Object[]{b.getId_brinquedo(), b.getEstoque(), b.getNome(), b.getCategoria(), b.getValor_unitario(), b.getDescricao()});
+            modeloTabelaBrinquedos.addRow(new Object[]{b.getId_brinquedo(), b.getEstoque(), b.getNome(), b.getCategoria().getFaixaIdade(), b.getValor_unitario(), b.getDescricao()});
         }
 
         tabelaBrinquedos.setModel(modeloTabelaBrinquedos);
