@@ -442,9 +442,20 @@ public class DashboardProduto extends javax.swing.JFrame {
         if(linhaSelecionada != -1) {
             DefaultTableModel modelo = (DefaultTableModel)tabelaBrinquedos.getModel();
             int id = (int) modelo.getValueAt(linhaSelecionada, 0);
-            ProdutosDAO produtosDAO = new ProdutosDAO();
-            produtosDAO.deletarBrinquedo(id);
-            modelo.removeRow(linhaSelecionada); // remove a linha da tabela brinquedos
+            String nome = (String) modelo.getValueAt(linhaSelecionada, 2); // pega o nome da linha selecionada
+
+            int resposta = JOptionPane.showConfirmDialog(
+                null,
+                "Tem certeza de que deseja excluir o brinquedo '" + nome + "'?",
+                "Confirmação de Exclusão",
+                JOptionPane.YES_NO_OPTION
+            );
+
+            if(resposta == JOptionPane.YES_OPTION) {
+                ProdutosDAO produtosDAO = new ProdutosDAO();
+                produtosDAO.deletarBrinquedo(id);
+                modelo.removeRow(linhaSelecionada); // remove a linha da tabela brinquedos
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecione a linha com o brinquedo que deseja apagar primeiro.");
         }
