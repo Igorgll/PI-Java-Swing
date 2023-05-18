@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Funcionario;
@@ -292,5 +294,36 @@ public class ProdutosDAO {
         } catch(SQLException e) { 
             e.printStackTrace();
         }
+    }
+
+    public void deletaBrinquedoLinha(JTable table) {
+        int linhaSelecionada = table.getSelectedRow();
+            if(linhaSelecionada != -1) {
+                DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+                modelo.removeRow(linhaSelecionada); // deleta a row com a linha selecionada
+
+                int id = (int) modelo.getValueAt(linhaSelecionada, 0); // pega o id do brinquedo
+                deletarBrinquedo(id);
+            }
+    }
+
+    public void deletarBrinquedo(int id) {
+        try {
+            if(conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.DELETA_BRINQUEDO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, id); // define o valor do parametro
+
+            int linhasAfetadas = preparedStatement.executeUpdate();
+            if(linhasAfetadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brinquedo deletado com sucesso!");
+            }
+            preparedStatement.close();
+            conexao.close();
+         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar deletar brinquedo. " + e.getMessage());
+         }
     }
 }

@@ -113,4 +113,6 @@ public class Queries {
 
     public static final String CRIA_BRINQUEDO = "INSERT INTO brinquedos (estoque, nome, categoria, valor_unitario, descricao) SELECT ?, ?, ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM brinquedos WHERE nome = ?)";
 
+    public static final String DELETA_BRINQUEDO = "DELETE FROM brinquedos WHERE id_brinquedo = ?;"; 
+
 }
