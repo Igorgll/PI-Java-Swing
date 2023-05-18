@@ -109,5 +109,8 @@ public class Queries {
 
     public static final String CONSULTA_BRINQUEDOS_POR_CATEGORIA = "SELECT * FROM brinquedos WHERE categoria = ?;";
 
-    public static final String CONSULTA_BRINQUEDOS_POR_NOME = "SELECT * FROM brinquedos WHERE nome LIKE ?;"; // faz a consulta do nome do brinquedo sem precisar do nome por completo
+    public static final String CONSULTA_BRINQUEDOS_POR_NOME = "SELECT * FROM brinquedos WHERE nome LIKE ?;";
+
+    public static final String CRIA_BRINQUEDO = "INSERT INTO brinquedos (estoque, nome, categoria, valor_unitario, descricao) SELECT ?, ?, ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM brinquedos WHERE nome = ?)";
+
 }

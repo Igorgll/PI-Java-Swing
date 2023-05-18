@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Funcionario;
 import com.mycompany.pi.models.Produto;
@@ -44,16 +46,16 @@ public class ProdutosDAO {
     }
 
     // public static void criaTabelaCategorias() {
-    //     try {
-    //         Statement statement = conexao.createStatement();
+    // try {
+    // Statement statement = conexao.createStatement();
 
-    //         String sql = Queries.CRIA_TABELA_CATEGORIAS_SQL;
+    // String sql = Queries.CRIA_TABELA_CATEGORIAS_SQL;
 
-    //         statement.executeUpdate(sql);
-    //         statement.close();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
+    // statement.executeUpdate(sql);
+    // statement.close();
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // }
     // }
 
     public static void criaTabelaClientes() {
@@ -121,7 +123,7 @@ public class ProdutosDAO {
         }
     }
 
-    public static void criaFuncionarioAdmin(){
+    public static void criaFuncionarioAdmin() {
         try {
             Statement statement = conexao.createStatement();
 
@@ -137,7 +139,7 @@ public class ProdutosDAO {
 
     public static ArrayList<Funcionario> consultaFuncionarioNoBanco(String usuario, String senha) {
         ArrayList<Funcionario> retornoFuncionarios = new ArrayList<Funcionario>();
-        try  {
+        try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
@@ -145,7 +147,7 @@ public class ProdutosDAO {
             preparedStatement.setString(1, usuario);
             preparedStatement.setString(2, senha);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 int id_funcionario = resultSet.getInt("id_funcionario");
                 String usuarioBD = resultSet.getString("usuario");
                 String senhaBD = resultSet.getString("senha");
@@ -157,7 +159,7 @@ public class ProdutosDAO {
             }
             resultSet.close();
             preparedStatement.close();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             retornoFuncionarios.add(new Funcionario());
         }
         return retornoFuncionarios;
@@ -165,13 +167,13 @@ public class ProdutosDAO {
 
     public static ArrayList<Produto> consultaListaBrinquedos() {
         ArrayList<Produto> retornoBrinquedos = new ArrayList<Produto>();
-        try  {
+        try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
             Statement statement = conexao.createStatement();
             ResultSet resultSet = statement.executeQuery(Queries.CONSULTA_BRINQUEDOS);
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 int id_brinquedo = resultSet.getInt("id_brinquedo");
                 int estoque = resultSet.getInt("estoque");
                 String nome = resultSet.getString("nome");
@@ -190,7 +192,7 @@ public class ProdutosDAO {
             }
             resultSet.close();
             statement.close();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             retornoBrinquedos.add(new Produto());
         }
         return retornoBrinquedos;
@@ -198,7 +200,7 @@ public class ProdutosDAO {
 
     public static ArrayList<Produto> consultaListaBrinquedosPorCategoria(String categoriaSelecionada) {
         ArrayList<Produto> retornoBrinquedos = new ArrayList<Produto>();
-        try  {
+        try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
@@ -206,7 +208,7 @@ public class ProdutosDAO {
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, categoriaSelecionada);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 int id_brinquedo = resultSet.getInt("id_brinquedo");
                 int estoque = resultSet.getInt("estoque");
                 String nome = resultSet.getString("nome");
@@ -225,7 +227,7 @@ public class ProdutosDAO {
             }
             resultSet.close();
             preparedStatement.close();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             retornoBrinquedos.add(new Produto());
         }
         return retornoBrinquedos;
@@ -233,15 +235,15 @@ public class ProdutosDAO {
 
     public static ArrayList<Produto> consultaListaBrinquedosPorNome(String nomeConsulta) {
         ArrayList<Produto> retornoBrinquedosPorNome = new ArrayList<Produto>();
-        try  {
+        try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
             String sql = Queries.CONSULTA_BRINQUEDOS_POR_NOME;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-            preparedStatement.setString(1, nomeConsulta + "%");
+            preparedStatement.setString(1, "%" + nomeConsulta + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 int id_brinquedo = resultSet.getInt("id_brinquedo");
                 int estoque = resultSet.getInt("estoque");
                 String nome = resultSet.getString("nome");
@@ -260,9 +262,35 @@ public class ProdutosDAO {
             }
             resultSet.close();
             preparedStatement.close();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             retornoBrinquedosPorNome.add(new Produto());
         }
         return retornoBrinquedosPorNome;
+    }
+
+    public static void criaBrinquedo(Produto brinquedo) {
+        try {
+            if(conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.CRIA_BRINQUEDO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, brinquedo.getEstoque());
+            preparedStatement.setString(2, brinquedo.getNome());
+            preparedStatement.setString(3, brinquedo.getCategoria().toString());
+            preparedStatement.setDouble(4, brinquedo.getValor_unitario());
+            preparedStatement.setString(5, brinquedo.getDescricao());
+            preparedStatement.setString(6, brinquedo.getNome()); // adicional para verificar duplicidade de nome no banco de dados
+            int linhasAfetadas = preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+            if(linhasAfetadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brinquedo criado com sucesso!");
+            }else {
+                JOptionPane.showMessageDialog(null, "Já existe um brinquedo com o mesmo nome no banco de dados!");
+            }
+        } catch(SQLException e) { 
+            e.printStackTrace();
+        }
     }
 }
