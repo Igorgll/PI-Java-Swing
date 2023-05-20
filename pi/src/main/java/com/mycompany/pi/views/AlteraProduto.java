@@ -4,6 +4,7 @@
  */
 package com.mycompany.pi.views;
 
+import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.utils.Categoria;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -13,12 +14,12 @@ import javax.swing.JTextField;
  * @author igor
  */
 public class AlteraProduto extends javax.swing.JFrame {
-
     /**
      * Creates new form AlteraProduto
      */
     public AlteraProduto() {
         initComponents();
+        
     }
 
     /**
@@ -38,7 +39,7 @@ public class AlteraProduto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        salvarAlteracaoBrinquedo = new javax.swing.JButton();
         txtEstoqueAlterar = new javax.swing.JTextField();
         txtNomeAlterar = new javax.swing.JTextField();
         opcoesCategoriasAlterar = new javax.swing.JComboBox<>();
@@ -70,7 +71,12 @@ public class AlteraProduto extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Salvar");
+        salvarAlteracaoBrinquedo.setText("Salvar");
+        salvarAlteracaoBrinquedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarAlteracaoBrinquedoActionPerformed(evt);
+            }
+        });
 
         opcoesCategoriasAlterar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DE_1_A_2_ANOS", "DE_3_A_4_ANOS", "DE_5_A_7_ANOS", "DE_8_A_10_ANOS", "DE_11_A_12_ANOS" }));
 
@@ -110,7 +116,7 @@ public class AlteraProduto extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(salvarAlteracaoBrinquedo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -149,7 +155,7 @@ public class AlteraProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(salvarAlteracaoBrinquedo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -159,6 +165,18 @@ public class AlteraProduto extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void salvarAlteracaoBrinquedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarAlteracaoBrinquedoActionPerformed
+        int id_brinquedo = Integer.parseInt(txtIdAlterar.getText());
+        int estoque = Integer.parseInt(txtEstoqueAlterar.getText());
+        String nome = txtNomeAlterar.getText();
+        String categoriaSelecionada = (String) opcoesCategoriasAlterar.getSelectedItem();
+        Double valor_unitario = Double.parseDouble(txtValorUnitarioAlterar.getText());
+        String descricao = txtDescricaoAlterar.getText();
+        
+        ProdutosDAO dao = new ProdutosDAO();
+        dao.alteraBrinquedo(id_brinquedo, estoque, nome, categoriaSelecionada, valor_unitario, descricao, evt);
+    }//GEN-LAST:event_salvarAlteracaoBrinquedoActionPerformed
 
     public JComboBox<String> getComboBoxCategoria() {
         return opcoesCategoriasAlterar;
@@ -225,7 +243,6 @@ public class AlteraProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -234,6 +251,7 @@ public class AlteraProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> opcoesCategoriasAlterar;
+    private javax.swing.JButton salvarAlteracaoBrinquedo;
     private javax.swing.JTextArea txtDescricaoAlterar;
     private javax.swing.JTextField txtEstoqueAlterar;
     private javax.swing.JTextField txtIdAlterar;

@@ -137,6 +137,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtDescricao);
 
         txtSelecionaCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DE_1_A_2_ANOS", "DE_3_A_4_ANOS", "DE_5_A_7_ANOS", "DE_8_A_10_ANOS", "DE_11_A_12_ANOS" }));
+        txtSelecionaCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSelecionaCategoriaActionPerformed(evt);
+            }
+        });
 
         cadastrarProdutoBtn.setText("Cadastrar");
         cadastrarProdutoBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -299,7 +304,7 @@ public class DashboardProduto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(consultarProdutoNomeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addGap(29, 29, 29)
                         .addComponent(txtSelecionaCategoriaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -452,6 +457,30 @@ public class DashboardProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // convertendo a value String que vem da tabela para o formato enum do banco de dados
+    public static String retornaConversaoCategoria(String categoria) {
+        switch (categoria) {
+            case "1-2 anos":
+                categoria = "DE_1_A_2_ANOS";
+                break;
+            case "3-4 anos":
+                categoria = "DE_3_A_4_ANOS";
+                break;
+            case "5-7 anos":
+                categoria = "DE_5_A_7_ANOS";
+                break;
+            case "8-10 anos":
+                categoria = "DE_8_A_10_ANOS";
+                break;
+            case "11-12 anos":
+                categoria = "DE_11_A_12_ANOS";
+                break;
+                default: categoria = null;
+        }
+        
+        return categoria;
+    }
+    
     private void deletarBrinquedoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarBrinquedoBtnActionPerformed
         int linhaSelecionada = tabelaBrinquedos.getSelectedRow(); // pega a linha selecionada
         if(linhaSelecionada != -1) {
@@ -485,27 +514,8 @@ public class DashboardProduto extends javax.swing.JFrame {
             String estoque = modelo.getValueAt(linhaSelecionada, 1).toString();            
             String nome = modelo.getValueAt(linhaSelecionada, 2).toString();
             
-            String categoriaTable = modelo.getValueAt(linhaSelecionada, 3).toString();
-            // convertendo a value String que vem da tabela para o formato enum do banco de dados
-            switch (categoriaTable) {
-                case "1-2 anos":
-                    categoriaTable = "DE_1_A_2_ANOS";
-                    break;
-                case "3-4 anos":
-                    categoriaTable = "DE_3_A_4_ANOS";
-                    break;
-                case "5-7 anos":
-                    categoriaTable = "DE_5_A_7_ANOS";
-                    break;
-                case "8-10 anos":
-                    categoriaTable = "DE_8_A_10_ANOS";
-                    break;
-                case "11-12 anos":
-                    categoriaTable = "DE_11_A_12_ANOS";
-                    break;
-                default:
-                    categoriaTable = null;
-            }
+            String categoria = modelo.getValueAt(linhaSelecionada, 3).toString();
+            String categoriaBD = retornaConversaoCategoria(categoria);
             
             String valor_unitario = modelo.getValueAt(linhaSelecionada, 4).toString();
             String descricao = modelo.getValueAt(linhaSelecionada, 5).toString();
@@ -514,7 +524,7 @@ public class DashboardProduto extends javax.swing.JFrame {
             alteraProduto.setTxtIdAlterar(id_brinquedo);            
             alteraProduto.setTxtEstoqueAlterar(estoque);
             alteraProduto.setTxtNomeAlterar(nome);
-            alteraProduto.getComboBoxCategoria().setSelectedItem(categoriaTable);
+            alteraProduto.getComboBoxCategoria().setSelectedItem(categoriaBD);
             alteraProduto.setTxtValorUnitarioAlterar(valor_unitario);
             alteraProduto.setTxtDescricaoAlterar(descricao);
 
@@ -527,6 +537,10 @@ public class DashboardProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, selecione a linha com o brinquedo que deseja alterar antes!");
         }
     }//GEN-LAST:event_alterarBrinquedoBtnActionPerformed
+
+    private void txtSelecionaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSelecionaCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSelecionaCategoriaActionPerformed
 
     private void txtNomeConsultaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtNomeConsultaActionPerformed
     }// GEN-LAST:event_txtNomeConsultaActionPerformed

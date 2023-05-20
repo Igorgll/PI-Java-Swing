@@ -16,7 +16,12 @@ import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Funcionario;
 import com.mycompany.pi.models.Produto;
 import com.mycompany.pi.utils.Categoria;
+import com.mycompany.pi.views.DashboardProduto;
 import com.mysql.cj.protocol.Resultset;
+import java.awt.Component;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingUtilities;
 
 public class ProdutosDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -327,7 +332,7 @@ public class ProdutosDAO {
          }
     }
 
-    public void alteraBrinquedo(int id, int estoque, String nome, String categoria, double valor_unitario, String descricao) {
+    public void alteraBrinquedo(int id, int estoque, String nome, String categoria, double valor_unitario, String descricao, ActionEvent evt) {
         try {
             if(conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
@@ -345,6 +350,8 @@ public class ProdutosDAO {
             int linhasAfetadas = preparedStatement.executeUpdate();
             if(linhasAfetadas > 0) {
                 JOptionPane.showMessageDialog(null, "Brinquedo alterado com sucesso!");
+                Window window = SwingUtilities.getWindowAncestor((Component) evt.getSource());
+                window.dispose();
             }
             preparedStatement.close();
         } catch (SQLException e) {

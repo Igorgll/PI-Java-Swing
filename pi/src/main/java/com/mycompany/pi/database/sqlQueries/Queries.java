@@ -115,6 +115,5 @@ public class Queries {
 
     public static final String DELETA_BRINQUEDO = "DELETE FROM brinquedos WHERE id_brinquedo = ?;"; 
 
-    public static final String ALTERA_BRINQUEDO = "UPDATE brinquedos SET estoque = ?, nome = ?, categoria = ?, valor_unitario = ? AND descricao = ? WHERE id_brinquedo = ?;";
-
+    public static final String ALTERA_BRINQUEDO = "UPDATE brinquedos SET estoque = ?, nome = ?, categoria = ?, valor_unitario = ?, descricao = ? WHERE id_brinquedo = ?;";
 }
