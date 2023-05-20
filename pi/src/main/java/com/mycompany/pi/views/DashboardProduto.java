@@ -18,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.models.Produto;
 import com.mycompany.pi.utils.Categoria;
+import javax.swing.JComboBox;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -74,6 +76,7 @@ public class DashboardProduto extends javax.swing.JFrame {
         tabelaBrinquedos = new javax.swing.JTable();
         jLayeredPane4 = new javax.swing.JLayeredPane();
         jButton4 = new javax.swing.JButton();
+        alterarBrinquedoBtn = new javax.swing.JButton();
         deletarBrinquedoBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -380,7 +383,15 @@ public class DashboardProduto extends javax.swing.JFrame {
             }
         });
 
+        alterarBrinquedoBtn.setText("Alterar");
+        alterarBrinquedoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarBrinquedoBtnActionPerformed(evt);
+            }
+        });
+
         jLayeredPane4.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(alterarBrinquedoBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
@@ -388,12 +399,16 @@ public class DashboardProduto extends javax.swing.JFrame {
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane4Layout.createSequentialGroup()
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(alterarBrinquedoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jLayeredPane4Layout.setVerticalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane4Layout.createSequentialGroup()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(alterarBrinquedoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -461,12 +476,63 @@ public class DashboardProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deletarBrinquedoBtnActionPerformed
 
+    private void alterarBrinquedoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarBrinquedoBtnActionPerformed
+        int linhaSelecionada = tabelaBrinquedos.getSelectedRow();
+        if(linhaSelecionada != -1) {
+            TableModel modelo = tabelaBrinquedos.getModel();
+            
+            String id_brinquedo = modelo.getValueAt(linhaSelecionada, 0).toString();            
+            String estoque = modelo.getValueAt(linhaSelecionada, 1).toString();            
+            String nome = modelo.getValueAt(linhaSelecionada, 2).toString();
+            
+            String categoriaTable = modelo.getValueAt(linhaSelecionada, 3).toString();
+            // convertendo a value String que vem da tabela para o formato enum do banco de dados
+            switch (categoriaTable) {
+                case "1-2 anos":
+                    categoriaTable = "DE_1_A_2_ANOS";
+                    break;
+                case "3-4 anos":
+                    categoriaTable = "DE_3_A_4_ANOS";
+                    break;
+                case "5-7 anos":
+                    categoriaTable = "DE_5_A_7_ANOS";
+                    break;
+                case "8-10 anos":
+                    categoriaTable = "DE_8_A_10_ANOS";
+                    break;
+                case "11-12 anos":
+                    categoriaTable = "DE_11_A_12_ANOS";
+                    break;
+                default:
+                    categoriaTable = null;
+            }
+            
+            String valor_unitario = modelo.getValueAt(linhaSelecionada, 4).toString();
+            String descricao = modelo.getValueAt(linhaSelecionada, 5).toString();
+            
+            AlteraProduto alteraProduto = new AlteraProduto();
+            alteraProduto.setTxtIdAlterar(id_brinquedo);            
+            alteraProduto.setTxtEstoqueAlterar(estoque);
+            alteraProduto.setTxtNomeAlterar(nome);
+            alteraProduto.getComboBoxCategoria().setSelectedItem(categoriaTable);
+            alteraProduto.setTxtValorUnitarioAlterar(valor_unitario);
+            alteraProduto.setTxtDescricaoAlterar(descricao);
+
+            // deixa o campo id desabilitado para alterações
+            alteraProduto.getTxtIdAlterar().setEditable(false);
+            
+            alteraProduto.setLocationRelativeTo(null);
+            alteraProduto.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione a linha com o brinquedo que deseja alterar antes!");
+        }
+    }//GEN-LAST:event_alterarBrinquedoBtnActionPerformed
+
     private void txtNomeConsultaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtNomeConsultaActionPerformed
     }// GEN-LAST:event_txtNomeConsultaActionPerformed
 
     private void consultarProdutoNomeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_consultarProdutoNomeBtnActionPerformed
         String nomeConsulta = txtNomeConsulta.getText();
-        System.out.println("nome consulta: " + nomeConsulta);
         if (validaNomeConsulta()) {
             ArrayList<Produto> listaBrinquedos = ProdutosDAO.consultaListaBrinquedosPorNome(nomeConsulta);
 
@@ -752,6 +818,7 @@ public class DashboardProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alterarBrinquedoBtn;
     private javax.swing.JButton cadastrarProdutoBtn;
     private javax.swing.JButton consultaProdutosBtn;
     private javax.swing.JButton consultarProdutoNomeBtn;

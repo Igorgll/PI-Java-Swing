@@ -326,4 +326,29 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null, "Erro ao tentar deletar brinquedo. " + e.getMessage());
          }
     }
+
+    public void alteraBrinquedo(int id, int estoque, String nome, String categoria, double valor_unitario, String descricao) {
+        try {
+            if(conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+
+            String sql = Queries.ALTERA_BRINQUEDO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, estoque);
+            preparedStatement.setString(2, nome);
+            preparedStatement.setString(3, categoria);
+            preparedStatement.setDouble(4, valor_unitario);
+            preparedStatement.setString(5, descricao);
+            preparedStatement.setInt(6, id);
+            
+            int linhasAfetadas = preparedStatement.executeUpdate();
+            if(linhasAfetadas > 0) {
+                JOptionPane.showMessageDialog(null, "Brinquedo alterado com sucesso!");
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar brinquedo. " + e.getMessage());
+        }
+    }
 }
