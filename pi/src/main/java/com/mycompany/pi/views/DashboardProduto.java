@@ -714,7 +714,7 @@ public class DashboardProduto extends javax.swing.JFrame {
 
         if (valor.isEmpty()) {
             txtValorUnitario.setBorder(BorderFactory.createLineBorder(vermelho));
-            msgValidacao("O campo valor não pode ser vazio.");
+            msgValidacao("O campo valor unitário não pode ser vazio.");
         } else if (matcher.matches()) {
             txtValorUnitario.setBorder(BorderFactory.createLineBorder(vermelho));
             msgValidacao("Digite apenas números.");
