@@ -1024,7 +1024,35 @@ public class DashboardCliente extends javax.swing.JFrame {
 
     private void consultarPorCpfBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_consultarPorCpfBtnActionPerformed
         if (validaCpfConsulta()) {
-            JOptionPane.showMessageDialog(this, "Consulta realizada com sucesso!");
+            String CPF = txtCpfConsulta.getText();
+            ArrayList<Cliente> listaClientes = ClientesDAO.consultaListaClientesPorCPF(CPF);
+
+            if (listaClientes.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Cliente não cadastrado!");
+            } else {
+                DefaultTableModel modeloTabelaClientes = new DefaultTableModel(
+                        new Object[][] {},
+                        new String[] { "Id", "Nome", "CPF", "Email", "Rua", "Número", "Cidade", "Estado", "Telefone" });
+
+                // preenchendo a tabela com os dados da lista de clientes
+                for (Cliente c : listaClientes) {
+                    for (Endereco endereco : c.getEnderecos()) { // adiciona uma linha para cada endereço do cliente
+                        modeloTabelaClientes.addRow(new Object[] {
+                                c.getId_cliente(),
+                                c.getNome(),
+                                c.getCPF(),
+                                c.getEmail(),
+                                endereco.getRua(),
+                                endereco.getNumero(),
+                                endereco.getCidade(),
+                                endereco.getEstado(),
+                                c.getTelefone()
+                        });
+                    }
+                }
+
+                tabelaClientes.setModel(modeloTabelaClientes);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor insira o CPF a ser consultado!");
         }
