@@ -149,4 +149,69 @@ public class ClientesDAO {
 
         return retornoClientes;
     }
+
+    public static ArrayList<Cliente> consultaListaClientesPorNome(String nomeConsulta) {
+        ArrayList<Cliente> retornoClientesPorNome = new ArrayList<>();
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.CONSULTA_CLIENTE_POR_NOME;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, "%" + nomeConsulta + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id_cliente = resultSet.getInt("id_cliente");
+                String CPF = resultSet.getString("CPF");
+                String email = resultSet.getString("email");
+                String rua = resultSet.getString("rua");
+                int numero = resultSet.getInt("numero");
+                String cidade = resultSet.getString("cidade");
+                String estado = resultSet.getString("estado");
+
+                // verifica se o cliente já existe na lista
+                Cliente cliente = null;
+                for (Cliente c : retornoClientesPorNome) {
+                    if (c.getNome().equals(nomeConsulta)) {
+                        cliente = c;
+                        break;
+                    }
+                }
+
+                // se o cliente não existe na lista, cria um novo objeto Cliente e adiciona à
+                // lista
+                if (cliente == null) {
+                    cliente = new Cliente();
+                    cliente.setId_cliente(id_cliente);
+                    cliente.setCPF(CPF);
+                    cliente.setEmail(email);
+                    cliente.setEnderecos(new ArrayList<Endereco>());
+                    retornoClientesPorNome.add(cliente);
+                }
+
+                // cria um novo objeto Endereco e configura seus atributos
+                Endereco endereco = new Endereco();
+                endereco.setRua(rua);
+                endereco.setNumero(numero);
+                endereco.setCidade(cidade);
+                endereco.setEstado(estado);
+
+                // adiciona o objeto Endereco ao cliente
+                cliente.getEnderecos().add(endereco);
+
+                // configura nome e telefone do cliente
+                String nome = resultSet.getString("nome");
+                String telefone = resultSet.getString("telefone");
+                cliente.setNome(nome);
+                cliente.setTelefone(telefone);
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return retornoClientesPorNome;
+    }
+
 }

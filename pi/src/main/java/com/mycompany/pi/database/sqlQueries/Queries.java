@@ -110,4 +110,6 @@ public class Queries {
     public static final String CRIA_ENDERECO = "INSERT INTO enderecos (id_cliente, rua, numero, cidade, estado) VALUES(?, ?, ?, ?, ?)";
 
     public static final String CONSULTA_CLIENTES = "SELECT c.id_cliente, c.nome, c.CPF, c.email, c.telefone, e.rua, e.numero, e.cidade, e.estado FROM clientes c JOIN enderecos e ON c.id_cliente = e.id_cliente";
+
+    public static final String CONSULTA_CLIENTE_POR_NOME = "SELECT c.id_cliente, c.nome, c.CPF, c.email, c.telefone, e.rua, e.numero, e.cidade, e.estado FROM clientes c JOIN enderecos e ON c.id_cliente = e.id_cliente WHERE c.nome LIKE ?";
 }
