@@ -12,24 +12,11 @@ public class Queries {
             + "descricao VARCHAR(200) NOT NULL,"
             + "PRIMARY KEY (id_brinquedo));";
 
-    // public static final String CRIA_TABELA_CATEGORIAS_SQL = "CREATE TABLE IF NOT
-    // EXISTS categorias (" // cria a tabela somente se não existir na base
-    // + "id_categoria INT NOT NULL AUTO_INCREMENT,"
-    // + "DE_1_A_2_ANOS VARCHAR(50) NOT NULL,"
-    // + "DE_3_A_4_ANOS VARCHAR(50) NOT NULL,"
-    // + "DE_5_A_7_ANOS VARCHAR(50) NOT NULL,"
-    // + "DE_8_A_10_ANOS VARCHAR(50) NOT NULL,"
-    // + "DE_11_A_12_ANOS VARCHAR(50) NOT NULL,"
-    // + "PRIMARY KEY (id_categoria));";
-
-    // public static final String ADICIONA_FK_CATEGORIAS_SQL = "ALTER TABLE
-    // brinquedos ADD CONSTRAINT FK1 " +
-    // "FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)";
-
     public static final String CRIA_TABELA_CLIENTES_SQL = "CREATE TABLE IF NOT EXISTS clientes (" // cria a tabela
                                                                                                   // somente se não
                                                                                                   // existir na base
             + "id_cliente INT NOT NULL AUTO_INCREMENT,"
+            + "CPF VARCHAR(50) NOT NULL,"
             + "nome VARCHAR(50) NOT NULL,"
             + "email VARCHAR(50) NOT NULL,"
             + "telefone VARCHAR(50) NOT NULL,"
@@ -50,8 +37,9 @@ public class Queries {
                                                                                                     // somente se não
                                                                                                     // existir na base
             + "id_endereco INT NOT NULL AUTO_INCREMENT,"
+            + "id_cliente INT NOT NULL,"
             + "rua VARCHAR(50) NOT NULL,"
-            + "numero VARCHAR(50) NOT NULL,"
+            + "numero INT NOT NULL,"
             + "cidade VARCHAR(50) NOT NULL,"
             + "estado VARCHAR(50) NOT NULL,"
             + "PRIMARY KEY (id_endereco));";
@@ -116,4 +104,10 @@ public class Queries {
     public static final String DELETA_BRINQUEDO = "DELETE FROM brinquedos WHERE id_brinquedo = ?;"; 
 
     public static final String ALTERA_BRINQUEDO = "UPDATE brinquedos SET estoque = ?, nome = ?, categoria = ?, valor_unitario = ?, descricao = ? WHERE id_brinquedo = ?;";
+
+    public static final String CRIA_CLIENTE = "INSERT INTO clientes (nome, CPF, email, telefone) SELECT ?, ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM clientes WHERE CPF = ?)";
+
+    public static final String CRIA_ENDERECO = "INSERT INTO enderecos (id_cliente, rua, numero, cidade, estado) VALUES(?, ?, ?, ?, ?)";
+
+    public static final String CONSULTA_CLIENTES = "SELECT c.id_cliente, c.nome, c.CPF, c.email, c.telefone, e.rua, e.numero, e.cidade, e.estado FROM clientes c JOIN enderecos e ON c.id_cliente = e.id_cliente";
 }

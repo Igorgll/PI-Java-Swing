@@ -4,17 +4,22 @@
  */
 package com.mycompany.pi.models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author igor
  */
 public class Endereco {
-    
+
     private int id_endereco;
     private String rua;
     private int numero;
     private String cidade;
     private String estado;
+
+    public Endereco() {
+    }
 
     public Endereco(int id_endereco, String rua, int numero, String cidade, String estado) {
         this.id_endereco = id_endereco;

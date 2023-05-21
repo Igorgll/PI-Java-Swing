@@ -6,12 +6,18 @@ package com.mycompany.pi.views;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+
+import com.mycompany.pi.database.ClientesDAO;
+import com.mycompany.pi.models.Cliente;
+import com.mycompany.pi.models.Endereco;
 
 /**
  *
@@ -54,20 +60,22 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JFormattedTextField();
         msgValidacao = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JFormattedTextField();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtNomeConsulta = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JFormattedTextField();
+        txtCpfConsulta = new javax.swing.JFormattedTextField();
         consultarPorNomeBtn = new javax.swing.JButton();
         consultarPorCpfBtn = new javax.swing.JButton();
         msgConsulta = new javax.swing.JLabel();
-        consultarListaBtn = new javax.swing.JButton();
+        consultaClientesBtn = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaClientes = new javax.swing.JTable();
         jLayeredPane4 = new javax.swing.JLayeredPane();
         jButton3 = new javax.swing.JButton();
 
@@ -169,6 +177,19 @@ public class DashboardCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel13.setText("CPF:");
+
+        try {
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfKeyReleased(evt);
+            }
+        });
+
         jLayeredPane2.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(txtNome, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -186,6 +207,8 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLayeredPane2.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(txtTelefone, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(msgValidacao, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(txtCpf, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
         jLayeredPane2.setLayout(jLayeredPane2Layout);
@@ -194,76 +217,86 @@ public class DashboardCliente extends javax.swing.JFrame {
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(msgValidacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cadastrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(32, 32, 32)
-                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(msgValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(selecionaEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cadastrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane2Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane2Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                                    .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addGap(22, 22, 22)
+                                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addGap(12, 12, 12)
+                                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel4)
+                                                .addComponent(jLabel3))
+                                            .addGap(24, 24, 24)
+                                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                                                .addComponent(txtRua))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                            .addComponent(jLabel13)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtCpf))
+                                        .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5)
+                                                .addComponent(jLabel7))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(selecionaEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addGap(41, 41, 41)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(21, 21, 21)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(25, 25, 25)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)
-                        .addComponent(selecionaEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23)
-                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel12))
-                    .addComponent(msgValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(24, 24, 24)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(selecionaEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(msgValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(cadastrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -290,18 +323,18 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLabel11.setText("CPF:");
 
         try {
-            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCpfConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCpf.addActionListener(new java.awt.event.ActionListener() {
+        txtCpfConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCpfActionPerformed(evt);
+                txtCpfConsultaActionPerformed(evt);
             }
         });
-        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCpfConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCpfKeyReleased(evt);
+                txtCpfConsultaKeyReleased(evt);
             }
         });
 
@@ -319,10 +352,10 @@ public class DashboardCliente extends javax.swing.JFrame {
             }
         });
 
-        consultarListaBtn.setText("Consultar");
-        consultarListaBtn.addActionListener(new java.awt.event.ActionListener() {
+        consultaClientesBtn.setText("Consultar");
+        consultaClientesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarListaBtnActionPerformed(evt);
+                consultaClientesBtnActionPerformed(evt);
             }
         });
 
@@ -334,11 +367,11 @@ public class DashboardCliente extends javax.swing.JFrame {
         jLayeredPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(txtNomeConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(txtCpf, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(txtCpfConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(consultarPorNomeBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(consultarPorCpfBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(msgConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(consultarListaBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(consultaClientesBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
@@ -351,8 +384,8 @@ public class DashboardCliente extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jLayeredPane3Layout.createSequentialGroup()
                         .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(consultarListaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+                            .addComponent(consultaClientesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jLayeredPane3Layout.createSequentialGroup()
                                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(msgConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -361,12 +394,12 @@ public class DashboardCliente extends javax.swing.JFrame {
                                         .addGap(29, 29, 29)
                                         .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(consultarPorNomeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane3Layout.createSequentialGroup()
                                         .addComponent(jLabel11)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtCpfConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(consultarPorCpfBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())))
         );
@@ -380,17 +413,17 @@ public class DashboardCliente extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(txtNomeConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpfConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(consultarPorNomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(consultarPorCpfBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(msgConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(consultarListaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(consultaClientesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -400,7 +433,7 @@ public class DashboardCliente extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLayeredPane3)
                 .addContainerGap())
@@ -417,7 +450,7 @@ public class DashboardCliente extends javax.swing.JFrame {
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -436,7 +469,7 @@ public class DashboardCliente extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaClientes);
 
         jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -529,9 +562,9 @@ public class DashboardCliente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtNomeConsultaActionPerformed
 
-    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
+    private void txtCpfConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfConsultaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCpfActionPerformed
+    }//GEN-LAST:event_txtCpfConsultaActionPerformed
 
     // VALIDAÇÕES DE CAMPOS
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
@@ -572,6 +605,28 @@ public class DashboardCliente extends javax.swing.JFrame {
            nomeOk = true;
         }
         return nomeOk;
+    }
+
+    private boolean validaCpf(){
+        String cpf = txtCpf.getText();
+        Pattern regex = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"); // regex para verificar formato CPF
+        Matcher matcher = regex.matcher(cpf);
+        boolean cpfOk = false;
+        
+        if(cpf.isEmpty()) {
+            txtCpf.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("O campo CPF não pode estar vazio!");
+        }else if(!matcher.matches()) {
+            txtCpf.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("Símbolos não são permitidos!");
+        }
+        else {
+            txtCpf.setBorder(UIManager.getBorder("TextField.border"));
+            cpfOk = true;
+            msgValidacao("");
+        }
+        
+        return cpfOk;
     }
     
         private boolean validaRua() {
@@ -676,10 +731,6 @@ public class DashboardCliente extends javax.swing.JFrame {
         validaRua();
     }//GEN-LAST:event_txtRuaKeyReleased
 
-    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
-        validaCidade();
-    }//GEN-LAST:event_txtCidadeKeyReleased
-
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
         validaEmail();
     }//GEN-LAST:event_txtEmailKeyReleased
@@ -709,21 +760,21 @@ public class DashboardCliente extends javax.swing.JFrame {
         return nomeConsultaOk;
     }
     
-    private boolean validaCpf(){
-        String cpf = txtCpf.getText();
+    private boolean validaCpfConsulta(){
+        String cpf = txtCpfConsulta.getText();
         Pattern regex = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"); // regex para verificar formato CPF
         Matcher matcher = regex.matcher(cpf);
         boolean cpfOk = false;
         
         if(cpf.isEmpty()) {
-            txtCpf.setBorder(BorderFactory.createLineBorder(vermelho));
+            txtCpfConsulta.setBorder(BorderFactory.createLineBorder(vermelho));
             msgConsulta("O campo CPF não pode estar vazio na consulta!");
         }else if(!matcher.matches()) {
-            txtCpf.setBorder(BorderFactory.createLineBorder(vermelho));
+            txtCpfConsulta.setBorder(BorderFactory.createLineBorder(vermelho));
             msgConsulta("Símbolos não são permitidos!");
         }
         else {
-            txtCpf.setBorder(UIManager.getBorder("TextField.border"));
+            txtCpfConsulta.setBorder(UIManager.getBorder("TextField.border"));
             cpfOk = true;
             msgConsulta("");
         }
@@ -735,25 +786,83 @@ public class DashboardCliente extends javax.swing.JFrame {
         validaNomeConsulta();
     }//GEN-LAST:event_txtNomeConsultaKeyReleased
 
-    private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
-        validaCpf();
-    }//GEN-LAST:event_txtCpfKeyReleased
+    private void txtCpfConsultaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfConsultaKeyReleased
+        validaCpfConsulta();
+    }//GEN-LAST:event_txtCpfConsultaKeyReleased
 
     private void txtTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyReleased
         validaTelefone();
     }//GEN-LAST:event_txtTelefoneKeyReleased
     
     private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtnActionPerformed
-        if(validaNome() 
-            && validaRua() 
-            && validaCidade()
-            && validaTelefone()
-            && validaEmail()
-            && validaNumero()
-            ) {
-            JOptionPane.showMessageDialog(this,"Cliente cadastrado com sucesso!");
-        }else {
-            JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos corretamente!");
+        try {
+            String nome = txtNome.getText();
+            String CPF = txtCpf.getText();
+            String email = txtEmail.getText();
+            String rua = txtRua.getText();
+            int numero = Integer.parseInt(txtNumero.getText());
+            String cidade = txtCidade.getText();
+            String estadoSelecionado = (String) selecionaEstado.getSelectedItem();
+            String telefone = txtTelefone.getText();
+            
+            if(validaNome() 
+                && validaCpf()
+                && validaRua() 
+                && validaCidade()
+                && validaTelefone()
+                && validaEmail()
+                && validaNumero()
+                ) {
+                // cria o cliente
+                Cliente cliente = new Cliente();
+                cliente.setNome(nome);
+                cliente.setCPF(CPF);
+                cliente.setEmail(email);
+                cliente.setTelefone(telefone);
+                cliente.setEnderecos(new ArrayList<Endereco>());
+
+                // cria e adiciona o endereço ao cliente
+                Endereco endereco = new Endereco();
+                endereco.setRua(rua);
+                endereco.setNumero(numero);
+                endereco.setCidade(cidade);
+                endereco.setEstado(estadoSelecionado);
+                cliente.addEndereco(endereco);
+
+                // cria o cliente com endereço
+                ClientesDAO.criaCliente(cliente);
+
+                ArrayList<Cliente> listaClientes = ClientesDAO.consultaListaClientes();
+
+                DefaultTableModel modeloTabelaClientes = new DefaultTableModel(
+                    new Object[][] {},
+                    new String[] { "Id", "Nome", "CPF", "Email", "Rua", "Número", "Cidade", "Estado", "Telefone" });
+        
+                // preenchendo a tabela com os dados da lista de clientes
+                for (Cliente c : listaClientes) {
+                    for (Endereco e : c.getEnderecos()) { // adiciona uma linha para cada endereço do cliente
+                        modeloTabelaClientes.addRow(new Object[] {
+                            c.getId_cliente(), 
+                            c.getNome(), 
+                            c.getCPF(), 
+                            c.getEmail(), 
+                            e.getRua(),
+                            e.getNumero(),
+                            e.getCidade(),
+                            e.getEstado(),
+                            c.getTelefone()
+                        });
+                    }
+                }
+        
+                tabelaClientes.setModel(modeloTabelaClientes);
+            }else {
+                JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos corretamente!");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, insira valores numéricos válidos para o campo número.", "Erro",
+                    JOptionPane.ERROR_MESSAGE); // trata caso haja erro na conversão de String para int
         }
     }//GEN-LAST:event_cadastrarBtnActionPerformed
 
@@ -766,7 +875,7 @@ public class DashboardCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_consultarPorNomeBtnActionPerformed
 
     private void consultarPorCpfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarPorCpfBtnActionPerformed
-        if(validaCpf()) {
+        if(validaCpfConsulta()) {
             JOptionPane.showMessageDialog(this,"Consulta realizada com sucesso!");
         }else {
             JOptionPane.showMessageDialog(this,"Por favor insira o CPF a ser consultado!");
@@ -777,9 +886,40 @@ public class DashboardCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumeroActionPerformed
 
-    private void consultarListaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarListaBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_consultarListaBtnActionPerformed
+    private void consultaClientesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaClientesBtnActionPerformed
+        ArrayList<Cliente> listaClientes = ClientesDAO.consultaListaClientes();
+
+        DefaultTableModel modeloTabelaClientes = new DefaultTableModel(
+            new Object[][] {},
+            new String[] { "Id", "Nome", "CPF", "Email", "Rua", "Número", "Cidade", "Estado", "Telefone" });
+
+        // preenchendo a tabela com os dados da lista de clientes
+        for (Cliente c : listaClientes) {
+            for (Endereco endereco : c.getEnderecos()) { // adiciona uma linha para cada endereço do cliente
+                modeloTabelaClientes.addRow(new Object[] {
+                    c.getId_cliente(), 
+                    c.getNome(), 
+                    c.getCPF(), 
+                    c.getEmail(), 
+                    endereco.getRua(),
+                    endereco.getNumero(),
+                    endereco.getCidade(),
+                    endereco.getEstado(),
+                    c.getTelefone()
+                });
+            }
+        }
+
+        tabelaClientes.setModel(modeloTabelaClientes);
+    }//GEN-LAST:event_consultaClientesBtnActionPerformed
+
+    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
+        validaCidade();
+    }//GEN-LAST:event_txtCidadeKeyReleased
+
+    private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        validaCpf();
+    }//GEN-LAST:event_txtCpfKeyReleased
 
     /**
      * @param args the command line arguments
@@ -795,7 +935,7 @@ public class DashboardCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarBtn;
-    private javax.swing.JButton consultarListaBtn;
+    private javax.swing.JButton consultaClientesBtn;
     private javax.swing.JButton consultarPorCpfBtn;
     private javax.swing.JButton consultarPorNomeBtn;
     private javax.swing.JButton jButton3;
@@ -803,6 +943,7 @@ public class DashboardCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -817,12 +958,13 @@ public class DashboardCliente extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel msgConsulta;
     private javax.swing.JLabel msgValidacao;
     private javax.swing.JComboBox<String> selecionaEstado;
+    private javax.swing.JTable tabelaClientes;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JFormattedTextField txtCpf;
+    private javax.swing.JFormattedTextField txtCpfConsulta;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeConsulta;

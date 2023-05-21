@@ -1,25 +1,43 @@
 package com.mycompany.pi.models;
 
+import java.util.ArrayList;
+
 public class Cliente {
 
     private int id_cliente;
+    private String CPF;
     private String nome;    
     private String email;
     private String telefone;
+    private ArrayList<Endereco> enderecos;
 
-    public Cliente(int id_cliente, String nome, String email, String telefone) {
+    public Cliente() {
+    }
+
+    public Cliente(int id_cliente, String cPF, String nome, String email, String telefone,
+            ArrayList<Endereco> enderecos) {
         this.id_cliente = id_cliente;
+        CPF = cPF;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+        this.enderecos = enderecos;
     }
-    
+
     public int getId_cliente() {
         return id_cliente;
     }
 
     public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
+    }
+
+    public String getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(String cPF) {
+        CPF = cPF;
     }
 
     public String getNome() {
@@ -45,4 +63,17 @@ public class Cliente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public ArrayList<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(ArrayList<Endereco> arrayList) {
+        this.enderecos = arrayList;
+    }
+
+    public void addEndereco(Endereco endereco) {
+        enderecos.add(endereco);
+    }
 }
+
