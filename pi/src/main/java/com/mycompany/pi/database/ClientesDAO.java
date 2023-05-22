@@ -9,10 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Cliente;
 import com.mycompany.pi.models.Endereco;
+import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 
 public class ClientesDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -278,4 +281,34 @@ public class ClientesDAO {
         return retornoClientesPorCPF;
     }
 
+    public void deletarCliente(int id_cliente) {
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            // apaga o endereço atrelado ao cliente
+            String sqlDeletaEndereco = Queries.DELETA_ENDERECO_CLIENTE;
+            PreparedStatement prepareStatementDeletaEndereco = conexao.prepareStatement(sqlDeletaEndereco);
+            prepareStatementDeletaEndereco.setInt(1, id_cliente);
+            int linhasAfetadasEndereco = prepareStatementDeletaEndereco.executeUpdate();
+
+            // apaga o cliente
+            String sqlDeletaCliente = Queries.DELETA_CLIENTE;
+            PreparedStatement preparedStatementDeletaCliente = conexao.prepareStatement(sqlDeletaCliente);
+            preparedStatementDeletaCliente.setInt(1, id_cliente);
+            int linhasAfetadasCliente = preparedStatementDeletaCliente.executeUpdate();
+
+            if (linhasAfetadasEndereco > 0 && linhasAfetadasCliente > 0) {
+                JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso!");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Falha ao deletar cliente!");
+            }
+    
+            prepareStatementDeletaEndereco.close();
+            preparedStatementDeletaCliente.close();
+        } catch (SQLException e) {
+            e.printStackTrace(); 
+        }
+    }
 }
