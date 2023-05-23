@@ -9,7 +9,12 @@ import java.awt.Font;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import com.mycompany.pi.database.ClientesDAO;
 
 /**
  *
@@ -446,6 +451,46 @@ public class AlteraCliente extends javax.swing.JFrame {
         return telefoneOk;
     }
     
+    public JComboBox<String> getComboBoxSelecionaEstado() {
+        return selecionaEstado;
+    }
+
+    public void setTxtId(String valor) {
+        txtId.setText(valor);
+    }
+
+    public JTextField getTxtId() {
+        return txtId;
+    }
+
+    public void setTxtNome(String valor) {
+        txtNome.setText(valor);
+    }
+
+    public void setTxtCpf(String valor) {
+        txtCpf.setText(valor);
+    }
+
+    public void setTxtEmail(String valor) {
+        txtEmail.setText(valor);
+    }
+
+    public void setTxtRua(String valor) {
+        txtRua.setText(valor);
+    }
+
+    public void setTxtNumero(String valor) {
+        txtNumero.setText(valor);
+    }
+
+    public void setTxtCidade(String valor) {
+        txtCidade.setText(valor);
+    }
+ 
+    public void setTxtTelefone(String valor) {
+        txtTelefone.setText(valor);
+    }
+
     private void cancelaAlteracaoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelaAlteracaoClienteActionPerformed
         dispose();
     }//GEN-LAST:event_cancelaAlteracaoClienteActionPerformed
@@ -471,7 +516,26 @@ public class AlteraCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCidadeKeyReleased
 
     private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            int id_cliente = Integer.parseInt(txtId.getText());
+            String nome = txtNome.getText();
+            String CPF = txtCpf.getText();
+            String email = txtEmail.getText();
+            String rua = txtRua.getText();
+            int numero = Integer.parseInt(txtNumero.getText());
+            String cidade = txtCidade.getText();
+            String estadoSelecionado = (String) selecionaEstado.getSelectedItem();
+            String telefone = txtTelefone.getText();
+
+            if (validaNome() && validaCpf() && validaEmail() && validaRua() && validaNumero() && validaCidade() && validaTelefone()) {
+                ClientesDAO dao = new ClientesDAO();
+                dao.alterarCliente(id_cliente, nome, CPF, email, rua, numero, cidade, estadoSelecionado, telefone, evt);
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha os campos 'Número', 'CPF' e 'Telefone' com valores numéricos!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_cadastrarBtnActionPerformed
 
     private void selecionaEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaEstadoActionPerformed

@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.mycompany.pi.database.ClientesDAO;
 import com.mycompany.pi.models.Cliente;
@@ -595,9 +596,39 @@ public class DashboardCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_deletarClienteBtnActionPerformed
 
     private void alterarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarClienteBtnActionPerformed
-        AlteraCliente alteraCliente = new AlteraCliente();
-        alteraCliente.setLocationRelativeTo(this);
-        alteraCliente.setVisible(true);
+        int linhaSelecionada = tabelaClientes.getSelectedRow();
+        if (linhaSelecionada != -1) {
+            TableModel modelo = tabelaClientes.getModel();
+
+            String id_cliente = modelo.getValueAt(linhaSelecionada, 0).toString();
+            String nome = modelo.getValueAt(linhaSelecionada, 1).toString();
+            String CPF = modelo.getValueAt(linhaSelecionada, 2).toString();
+            String email = modelo.getValueAt(linhaSelecionada, 3).toString();
+            String rua = modelo.getValueAt(linhaSelecionada, 4).toString();
+            String numero = modelo.getValueAt(linhaSelecionada, 5).toString();
+            String cidade = modelo.getValueAt(linhaSelecionada,6).toString();
+            String estado = modelo.getValueAt(linhaSelecionada,7).toString();
+            String telefone = modelo.getValueAt(linhaSelecionada,8).toString();
+
+            AlteraCliente alteraCliente = new AlteraCliente();
+            alteraCliente.setTxtId(id_cliente);
+            alteraCliente.setTxtNome(nome);
+            alteraCliente.setTxtCpf(CPF);
+            alteraCliente.setTxtEmail(email);
+            alteraCliente.setTxtRua(rua);
+            alteraCliente.setTxtNumero(numero);
+            alteraCliente.setTxtCidade(cidade);
+            alteraCliente.getComboBoxSelecionaEstado().setSelectedItem(estado);
+            alteraCliente.setTxtTelefone(telefone);
+
+            // deixa o campo id desabilizado para edição
+            alteraCliente.getTxtId().setEditable(false);
+
+            alteraCliente.setLocationRelativeTo(this);
+            alteraCliente.setVisible(true);
+         } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione a linha com o cliente que deseja alterar antes!");
+         }
     }//GEN-LAST:event_alterarClienteBtnActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtEmailActionPerformed

@@ -10,7 +10,12 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+
+import java.awt.Component;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Cliente;
@@ -304,11 +309,41 @@ public class ClientesDAO {
             } else {
                 JOptionPane.showMessageDialog(null, "Falha ao deletar cliente!");
             }
-    
+
             prepareStatementDeletaEndereco.close();
             preparedStatementDeletaCliente.close();
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
+        }
+    }
+
+    public void alterarCliente(int id_cliente, String nome, String CPF, String email, String rua, int numero,
+            String cidade, String estado, String telefone, ActionEvent evt) {
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.ALTERA_CLIENTE;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, nome);
+            preparedStatement.setString(2, CPF);
+            preparedStatement.setString(3, email);
+            preparedStatement.setString(4, rua);
+            preparedStatement.setInt(5, numero);
+            preparedStatement.setString(6, cidade);
+            preparedStatement.setString(7, estado);
+            preparedStatement.setString(8, telefone);
+            preparedStatement.setInt(9, id_cliente);
+
+            int linhasAfetadas = preparedStatement.executeUpdate();
+            if (linhasAfetadas > 0) {
+                JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
+                Window window = SwingUtilities.getWindowAncestor((Component) evt.getSource());
+                window.dispose();
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar cliente. " + e.getMessage());
         }
     }
 }

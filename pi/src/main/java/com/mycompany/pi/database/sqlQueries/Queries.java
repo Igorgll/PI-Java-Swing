@@ -131,4 +131,10 @@ public class Queries {
         public static final String DELETA_CLIENTE = "DELETE FROM clientes WHERE id_cliente = ?";
 
         public static final String DELETA_ENDERECO_CLIENTE = "DELETE FROM enderecos WHERE id_cliente = ?";
+
+        public static final String ALTERA_CLIENTE = "UPDATE clientes c "
+        + "INNER JOIN enderecos e ON c.id_cliente = e.id_cliente "
+        + "SET c.nome = ?, c.CPF = ?, c.email = ?, e.rua = ?, e.numero = ?, e.cidade = ?, e.estado = ?, c.telefone = ? "
+        + "WHERE c.id_cliente = ?";
+
 }
