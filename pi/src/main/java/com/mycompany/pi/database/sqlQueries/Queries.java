@@ -9,10 +9,10 @@ public class Queries {
                                                                                                           // base
                         + "id_brinquedo INT NOT NULL AUTO_INCREMENT,"
                         + "estoque INT NOT NULL,"
-                        + "nome VARCHAR(50) NOT NULL,"
+                        + "nome VARCHAR(255) NOT NULL,"
                         + "categoria VARCHAR(50) NOT NULL,"
                         + "valor_unitario DECIMAL(10, 2) NOT NULL,"
-                        + "descricao VARCHAR(200) NOT NULL,"
+                        + "descricao VARCHAR(255) NOT NULL,"
                         + "PRIMARY KEY (id_brinquedo));";
 
         public static final String CRIA_TABELA_CLIENTES_SQL = "CREATE TABLE IF NOT EXISTS clientes (" // cria a tabela
@@ -20,8 +20,8 @@ public class Queries {
                                                                                                       // existir na base
                         + "id_cliente INT NOT NULL AUTO_INCREMENT,"
                         + "CPF VARCHAR(50) NOT NULL,"
-                        + "nome VARCHAR(50) NOT NULL,"
-                        + "email VARCHAR(50) NOT NULL,"
+                        + "nome VARCHAR(255) NOT NULL,"
+                        + "email VARCHAR(255) NOT NULL,"
                         + "telefone VARCHAR(50) NOT NULL,"
                         + "PRIMARY KEY (id_cliente));";
 
@@ -33,17 +33,17 @@ public class Queries {
                                                                                                               // existir
                                                                                                               // na base
                         + "id_funcionario INT NOT NULL AUTO_INCREMENT,"
-                        + "nome VARCHAR(50) NOT NULL,"
-                        + "usuario VARCHAR(50) NOT NULL,"
-                        + "senha VARCHAR(50) NOT NULL,"
+                        + "nome VARCHAR(255) NOT NULL,"
+                        + "usuario VARCHAR(255) NOT NULL,"
+                        + "senha VARCHAR(255) NOT NULL,"
                         + "PRIMARY KEY (id_funcionario));";
 
         public static final String CRIA_TABELA_ENDERECOS_SQL = "CREATE TABLE IF NOT EXISTS enderecos ("
                         + "id_endereco INT NOT NULL AUTO_INCREMENT,"
                         + "id_cliente INT NOT NULL,"
-                        + "rua VARCHAR(50) NOT NULL,"
+                        + "rua VARCHAR(255) NOT NULL,"
                         + "numero INT NOT NULL,"
-                        + "cidade VARCHAR(50) NOT NULL,"
+                        + "cidade VARCHAR(255) NOT NULL,"
                         + "estado VARCHAR(50) NOT NULL,"
                         + "PRIMARY KEY (id_endereco),"
                         + "FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE);";
@@ -137,4 +137,7 @@ public class Queries {
         + "SET c.nome = ?, c.CPF = ?, c.email = ?, e.rua = ?, e.numero = ?, e.cidade = ?, e.estado = ?, c.telefone = ? "
         + "WHERE c.id_cliente = ?";
 
+        public static final String CRIA_FUNCIONARIO = "INSERT INTO funcionarios (nome, usuario, senha) SELECT ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM funcionarios WHERE usuario = ?)";
+
+        public static final String VERIFICA_FUNCIONARIO = "SELECT COUNT(*) FROM funcionarios WHERE usuario = ?;";
 }

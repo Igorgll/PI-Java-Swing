@@ -6,10 +6,17 @@ package com.mycompany.pi.views;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import com.mycompany.pi.database.sqlQueries.FuncionariosDAO;
+import com.mycompany.pi.models.Funcionario;
 
 /**
  *
@@ -22,7 +29,6 @@ public class CriaVendedor extends javax.swing.JFrame {
      */
     public CriaVendedor() {
         initComponents();
-        criarBtn.setEnabled(false);
     }
 
     /**
@@ -260,28 +266,7 @@ public class CriaVendedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_txtSenhaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
-    }// GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {
-        verificaCamposHabilitaBotaoCriaVendedor();
-    }
-
-    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {
-        verificaCamposHabilitaBotaoCriaVendedor();
-    }
-
-    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {
-        verificaCamposHabilitaBotaoCriaVendedor();
-    }
-
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
-
     private void msgValidacao(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -291,59 +276,137 @@ public class CriaVendedor extends javax.swing.JFrame {
         msgValidacao.setText(mensagem);
     }
 
-    private void verificaCamposHabilitaBotaoCriaVendedor() {
-        String nome = txtNome.getText().trim();
-        String usuario = txtUsuario.getText().trim();
-        String senha = new String(txtSenha.getPassword()).trim();
-        String confirmaSenha = new String(txtConfirmarSenha.getPassword()).trim();
-        boolean camposValidos = true;
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtSenhaActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_txtSenhaActionPerformed
 
-        if (!usuario.isEmpty() && usuario.length() < 5) {
-            txtUsuario.setBorder(BorderFactory.createLineBorder(vermelho));
-            msgValidacao("O campo usuário precisa ter pelo menos 5 caracteres.");
-            camposValidos = false;
-        } else {
-            txtUsuario.setBorder(UIManager.getBorder("TextField.border"));
-        }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-        if (!nome.isEmpty() && nome.length() < 5) {
+    private boolean validaNome() {
+        String nome = txtNome.getText();
+        Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
+        Matcher matcher = regex.matcher(nome);
+        boolean nomeOk = false;
+
+        if (nome.isEmpty() || nome.length() < 5) {
             txtNome.setBorder(BorderFactory.createLineBorder(vermelho));
-            msgValidacao("O campo nome precisa ter pelo menos 5 caracteres.");
-            camposValidos = false;
+            msgValidacao("O campo nome necessita ser maior que 5 caracteres.");
+        } else if (!matcher.matches()) {
+            txtNome.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("Símbolos ou números não são permitidos.");
         } else {
             txtNome.setBorder(UIManager.getBorder("TextField.border"));
+            msgValidacao("");
+            nomeOk = true;
         }
+        return nomeOk;
+    }
 
-        if (!senha.isEmpty() && senha.length() < 5) {
+    private boolean validaUsuario() {
+        String usuario = txtUsuario.getText();
+        Pattern regex = Pattern.compile("^[a-zA-Z0-9_]{5,16}$"); // regex para verificar que o campo só tenha string
+        Matcher matcher = regex.matcher(usuario);
+        boolean usuarioOk = false;
+
+        if (usuario.isEmpty()) {
+            txtUsuario.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("O campo usuário não pode ser vazio.");
+        } else if (usuario.length() < 5) {
+            txtUsuario.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("O campo usuário precisa ser maior que 5 carateres.");
+        } else if (usuario.length() > 16) {
+            txtUsuario.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("O usuário não pode conter mais que 16 caracteres.");
+        } else {
+            txtUsuario.setBorder(UIManager.getBorder("TextField.border"));
+            msgValidacao("");
+            usuarioOk = true;
+        }
+        return usuarioOk;
+    }
+
+    private boolean validaSenha() {
+        char[] senhaChars = txtSenha.getPassword();
+        String senha = new String(senhaChars);
+        boolean senhaOk = false;
+    
+        if (senha.isEmpty()) {
             txtSenha.setBorder(BorderFactory.createLineBorder(vermelho));
-            msgValidacao("O campo senha precisa ter pelo menos 5 caracteres.");
-            camposValidos = false;
+            msgValidacao("A senha não pode ser vazia.");
+        } else if(senha.length() < 6) {
+            txtSenha.setBorder(BorderFactory.createLineBorder(vermelho));
+            msgValidacao("A senha precisa ter no mínimo 6 caracteres.");
         } else {
             txtSenha.setBorder(UIManager.getBorder("TextField.border"));
+            msgValidacao("");
+            senhaOk = true;
         }
+        return senhaOk;
+    }
 
-        if (!confirmaSenha.isEmpty() && confirmaSenha.length() < 5) {
+    private boolean validaConfirmaSenha() {
+        char[] senhaChars = txtSenha.getPassword();
+        char[] confirmarSenhaChars = txtConfirmarSenha.getPassword();
+        String senha = new String(senhaChars);
+        String confirmarSenha = new String(confirmarSenhaChars);
+        boolean confirmaSenhaOk = false;
+    
+        if (!senha.equals(confirmarSenha)) {
             txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(vermelho));
-            msgValidacao("O campo confirmar senha precisa ter pelo menos 5 caracteres.");
-            camposValidos = false;
+            msgValidacao("As senhas não correspondem.");
         } else {
             txtConfirmarSenha.setBorder(UIManager.getBorder("TextField.border"));
-        }
-
-        if (camposValidos && senha.equals(confirmaSenha)) { // compara senhas
-            criarBtn.setEnabled(true);
             msgValidacao("");
-        } else {
-            criarBtn.setEnabled(false);
+            confirmaSenhaOk = true;
         }
+        return confirmaSenhaOk;
+    }
+
+    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {
+        validaNome();
+    }
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {
+        validaUsuario();
+    }
+
+    private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {
+        validaSenha();
     }
 
     private void txtConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {
-        verificaCamposHabilitaBotaoCriaVendedor();
+        validaConfirmaSenha();
     }
 
     private void criarBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        JOptionPane.showMessageDialog(this, "Perfil de vendedor criado com sucesso!");
+        String nome = txtNome.getText();
+        String usuario = txtUsuario.getText();
+        char[] senhaChars = txtSenha.getPassword();
+        String senha = new String(senhaChars);
+    
+        if (validaNome() && validaUsuario() && validaSenha() && validaConfirmaSenha()) {
+            Funcionario funcionario = new Funcionario();
+            funcionario.setNome(nome);
+            funcionario.setUsuario(usuario);
+            funcionario.setSenha(senha);
+    
+            // verifica duplicidade de usuário
+            if (FuncionariosDAO.verificarFuncionarioExistente(usuario)) {
+                JOptionPane.showMessageDialog(this, "Já existe um funcionário com esse usuário!", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // criptografia BCrypt para a senha
+                String senhaCriptografada = BCrypt.hashpw(senha, BCrypt.gensalt());
+
+                funcionario.setSenha(senhaCriptografada);
+
+                FuncionariosDAO.criaFuncionario(funcionario);
+                this.dispose(); // fecha a janela após a criação do funcionário
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtNomeActionPerformed

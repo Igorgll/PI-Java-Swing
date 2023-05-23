@@ -9,7 +9,7 @@ package com.mycompany.pi.models;
  * @author igor
  */
 public class Funcionario {
- 
+
     private int id_funcionario;
     private String nome;
     private String usuario;

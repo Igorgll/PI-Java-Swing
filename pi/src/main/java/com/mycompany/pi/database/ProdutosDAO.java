@@ -52,19 +52,6 @@ public class ProdutosDAO {
         }
     }
 
-    // public static void criaTabelaCategorias() {
-    // try {
-    // Statement statement = conexao.createStatement();
-
-    // String sql = Queries.CRIA_TABELA_CATEGORIAS_SQL;
-
-    // statement.executeUpdate(sql);
-    // statement.close();
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-    // }
-
     public static void criaTabelaClientes() {
         try {
             Statement statement = conexao.createStatement();
