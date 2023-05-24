@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import com.mycompany.pi.database.ProdutosDAO;
+import com.mycompany.pi.database.sqlQueries.FuncionariosDAO;
 import com.mycompany.pi.models.Funcionario;
 
 /**
@@ -188,22 +189,23 @@ public class Login extends javax.swing.JFrame {
     private void acessarBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_acessarBtnActionPerformed
         String usuario = usuarioTxt.getText().trim();
         String senha = new String(senhaTxt.getPassword()).trim();
-        ArrayList<Funcionario> funcionarios = ProdutosDAO.consultaFuncionarioNoBanco(usuario, senha);
 
-        if(!funcionarios.isEmpty()) {
+        if(FuncionariosDAO.efetuarLogin(usuario, senha)) {
             JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
+            
             TelaInicial telaInicial = new TelaInicial();
             telaInicial.setLocationRelativeTo(null);
             telaInicial.setExtendedState(TelaInicial.MAXIMIZED_BOTH);
             telaInicial.setVisible(true);
+            
             DashboardCliente dashBoardCliente = new DashboardCliente();
             dashBoardCliente.setLocationRelativeTo(null);
             dashBoardCliente.setVisible(true);
+            
             dispose();
         }else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
         }
-
     }// GEN-LAST:event_acessarBtnActionPerformed
 
     private void senhaTxtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_senhaTxtActionPerformed

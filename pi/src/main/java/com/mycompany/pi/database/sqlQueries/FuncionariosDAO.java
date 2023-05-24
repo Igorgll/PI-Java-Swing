@@ -8,6 +8,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.mycompany.pi.models.Funcionario;
 
 public class FuncionariosDAO {
@@ -53,23 +55,53 @@ public class FuncionariosDAO {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
-            
+
             String sql = Queries.VERIFICA_FUNCIONARIO;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, usuario);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            
+
             int count = resultSet.getInt(1);
-            
+
             resultSet.close();
             preparedStatement.close();
-            
+
             return count > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-    
+
+    public static boolean efetuarLogin(String usuario, String senha) {
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.VERIFICA_SENHA_FUNCIONARIO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, usuario);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String senhaArmazenada = resultSet.getString("senha");
+
+                // verificação da senha fornecida da criptografada
+                if (BCrypt.checkpw(senha, senhaArmazenada)) { // faz a comparação
+                    resultSet.close();
+                    preparedStatement.close();
+                    return true; // retorna verdadeiro para login bem-sucedido
+                }
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+            return false; // login falho
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // login falho
+        }
+    }
+
 }

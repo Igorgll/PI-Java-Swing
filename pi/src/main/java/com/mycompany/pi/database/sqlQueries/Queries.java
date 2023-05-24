@@ -140,4 +140,6 @@ public class Queries {
         public static final String CRIA_FUNCIONARIO = "INSERT INTO funcionarios (nome, usuario, senha) SELECT ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM funcionarios WHERE usuario = ?)";
 
         public static final String VERIFICA_FUNCIONARIO = "SELECT COUNT(*) FROM funcionarios WHERE usuario = ?;";
+
+        public static final String VERIFICA_SENHA_FUNCIONARIO = "SELECT senha FROM funcionarios WHERE usuario = ?";
 }
