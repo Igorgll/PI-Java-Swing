@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
@@ -24,6 +25,52 @@ public class FuncionariosDAO {
             Class.forName(DRIVER);
             conexao = DriverManager.getConnection(url, LOGIN, SENHA);
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void criaTabelaFuncionarios() {
+        try {
+            Statement statement = conexao.createStatement();
+
+            String sql = Queries.CRIA_TABELA_FUNCIONARIOS_SQL;
+
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void criaFuncionarioAdmin() {
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+    
+            String nome = "admin";
+            String usuario = "admin";
+            String senha = "admin";
+    
+            // Verifica se o funcionário admin já existe
+            if (verificarFuncionarioExistente(usuario)) {
+                // System.out.println("Já existe um funcionário admin no banco de dados!");
+            } else {
+                // criptografa a senha
+                String senhaCriptografada = BCrypt.hashpw(senha, BCrypt.gensalt());
+    
+                String sql = Queries.CRIA_FUNCIONARIO;
+                PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+                preparedStatement.setString(1, nome);
+                preparedStatement.setString(2, usuario);
+                preparedStatement.setString(3, senhaCriptografada);
+                preparedStatement.setString(4, usuario);
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+            }
+    
+            conexao.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -6,23 +6,34 @@ package com.mycompany.pi.views;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+import com.mycompany.pi.database.ProdutosDAO;
+import com.mycompany.pi.models.Carrinho;
 
 /**
  *
  * @author igor
  */
 public class Venda extends javax.swing.JFrame {
+    private List<Carrinho> carrinho;
 
     /**
      * Creates new form Venda
      */
     public Venda() {
         initComponents();
+        carrinho = new ArrayList<Carrinho>();
     }
 
     /**
@@ -39,14 +50,16 @@ public class Venda extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         adcCarrinhoBtn = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        quantidadeComboBox = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaCarrinho = new javax.swing.JTable();
         msgValidacao = new javax.swing.JLabel();
         txtCPF = new javax.swing.JFormattedTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        produtoComboBox = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        precoTotalLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Efetuar Venda");
@@ -69,9 +82,9 @@ public class Venda extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        quantidadeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCarrinho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -79,7 +92,7 @@ public class Venda extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nome Cliente", "Produto", "Preço", "Quantidade", "Preço Total"
+                "CPF do Cliente", "Produto", "Valor Unitário", "Quantidade", "Preço Total por Produto"
             }
         ) {
             Class[] types = new Class [] {
@@ -90,7 +103,7 @@ public class Venda extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaCarrinho);
 
         try {
             txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -103,17 +116,17 @@ public class Venda extends javax.swing.JFrame {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        produtoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bola de Futebol", "Boneca de Pano", "Carrinho de Controle Remoto", "Jogo de Tabuleiro", "Quebra-Cabeça", "Kit de Ferramentas de Brinquedo", "Bicicleta", "Mesa de Pebolim", "Cubo Mágico", "Pista de Carrinhos", "Instrumento Musical", "Trenzinho de Madeira", "Lego ", "Patins", "Kit de Artesanato", "Jogo de Xadrez", "Carro de Controle Remoto", "Jogo de Memória", "Jogo de Dardos", "Palymobil", "Mesa de Air Hockey", "Piano Eletrônico", "Patins Azul", "Lego Technic", "Mini Game" }));
 
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(adcCarrinhoBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jComboBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(quantidadeComboBox, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(msgValidacao, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtCPF, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jComboBox2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(produtoComboBox, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -127,12 +140,12 @@ public class Venda extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(49, 49, 49)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtCPF)
+                    .addComponent(produtoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(46, 46, 46)
                 .addComponent(jLabel4)
                 .addGap(28, 28, 28)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(quantidadeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap(214, Short.MAX_VALUE)
@@ -152,8 +165,8 @@ public class Venda extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(quantidadeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(produtoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(msgValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -167,6 +180,8 @@ public class Venda extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(51, 51, 51));
         jButton3.setText("Limpar Carrinho");
 
+        jLabel1.setText("Preço Total:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,10 +190,15 @@ public class Venda extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLayeredPane1)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(precoTotalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -186,10 +206,14 @@ public class Venda extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(precoTotalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -241,11 +265,38 @@ public class Venda extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCPFKeyReleased
 
     private void adcCarrinhoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adcCarrinhoBtnActionPerformed
-        if(validaNomeProduto() && validaCpf()){
-            JOptionPane.showMessageDialog(this, "Adicionado ao carrinho!");
-        }else {
-            JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos corretamente!");
+        String cpfCliente = txtCPF.getText();
+        String produto = (String) produtoComboBox.getSelectedItem();
+        int quantidade = Integer.parseInt((String) quantidadeComboBox.getSelectedItem());
+
+        double precoProduto = ProdutosDAO.obterPrecoProduto(produto);
+
+        double precoTotal = precoProduto * quantidade;
+
+        Carrinho item = new Carrinho(cpfCliente, produto, precoProduto, quantidade, precoTotal);
+
+        carrinho.add(item);
+
+        // define o modelo da tabela e centraliza as colunas
+        DefaultTableModel modelo = (DefaultTableModel) tabelaCarrinho.getModel();
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setVerticalAlignment(SwingConstants.CENTER);
+        
+        int colCount = tabelaCarrinho.getColumnCount();
+        for (int i = 0; i < colCount; i++) {
+            tabelaCarrinho.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+        modelo.setRowCount(0); // limpa a tabela
+    
+        double precoTotalCarrinho = 0.0;
+        for (Carrinho i : carrinho) {
+            Object[] row = {i.getCpfCliente(), i.getProduto(), i.getPreco(), i.getQuantidade(), i.getPrecoTotal()};
+            precoTotalCarrinho += i.getPrecoTotal();
+            modelo.addRow(row);
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("#.00"); // dois digitos depois da vírgula
+        String precoTotalFormatado = decimalFormat.format(precoTotalCarrinho);
+        precoTotalLabel.setText("R$" + String.valueOf(precoTotalFormatado));
     }//GEN-LAST:event_adcCarrinhoBtnActionPerformed
 
     /**
@@ -287,15 +338,17 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.JButton adcCarrinhoBtn;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel msgValidacao;
+    private javax.swing.JLabel precoTotalLabel;
+    private javax.swing.JComboBox<String> produtoComboBox;
+    private javax.swing.JComboBox<String> quantidadeComboBox;
+    private javax.swing.JTable tabelaCarrinho;
     private javax.swing.JFormattedTextField txtCPF;
     // End of variables declaration//GEN-END:variables
 }

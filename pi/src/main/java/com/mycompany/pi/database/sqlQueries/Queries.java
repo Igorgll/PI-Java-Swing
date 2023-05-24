@@ -1,12 +1,7 @@
 package com.mycompany.pi.database.sqlQueries;
 
 public class Queries {
-        public static final String CRIA_TABELA_BRINQUEDOS_SQL = "CREATE TABLE IF NOT EXISTS brinquedos (" // cria a
-                                                                                                          // tabela
-                                                                                                          // somente se
-                                                                                                          // não
-                                                                                                          // existir na
-                                                                                                          // base
+        public static final String CRIA_TABELA_BRINQUEDOS_SQL = "CREATE TABLE IF NOT EXISTS brinquedos ("
                         + "id_brinquedo INT NOT NULL AUTO_INCREMENT,"
                         + "estoque INT NOT NULL,"
                         + "nome VARCHAR(255) NOT NULL,"
@@ -15,9 +10,7 @@ public class Queries {
                         + "descricao VARCHAR(255) NOT NULL,"
                         + "PRIMARY KEY (id_brinquedo));";
 
-        public static final String CRIA_TABELA_CLIENTES_SQL = "CREATE TABLE IF NOT EXISTS clientes (" // cria a tabela
-                                                                                                      // somente se não
-                                                                                                      // existir na base
+        public static final String CRIA_TABELA_CLIENTES_SQL = "CREATE TABLE IF NOT EXISTS clientes ("
                         + "id_cliente INT NOT NULL AUTO_INCREMENT,"
                         + "CPF VARCHAR(50) NOT NULL,"
                         + "nome VARCHAR(255) NOT NULL,"
@@ -25,13 +18,7 @@ public class Queries {
                         + "telefone VARCHAR(50) NOT NULL,"
                         + "PRIMARY KEY (id_cliente));";
 
-        public static final String CRIA_TABELA_FUNCIONARIOS_SQL = "CREATE TABLE IF NOT EXISTS funcionarios (" // cria a
-                                                                                                              // tabela
-                                                                                                              // somente
-                                                                                                              // se
-                                                                                                              // não
-                                                                                                              // existir
-                                                                                                              // na base
+        public static final String CRIA_TABELA_FUNCIONARIOS_SQL = "CREATE TABLE IF NOT EXISTS funcionarios ("
                         + "id_funcionario INT NOT NULL AUTO_INCREMENT,"
                         + "nome VARCHAR(255) NOT NULL,"
                         + "usuario VARCHAR(255) NOT NULL,"
@@ -48,10 +35,7 @@ public class Queries {
                         + "PRIMARY KEY (id_endereco),"
                         + "FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE);";
 
-        public static final String CRIA_TABELA_VENDAS_SQL = "CREATE TABLE IF NOT EXISTS vendas (" // cria a tabela
-                                                                                                  // somente
-                                                                                                  // se não existir na
-                                                                                                  // base
+        public static final String CRIA_TABELA_VENDAS_SQL = "CREATE TABLE IF NOT EXISTS vendas ("
                         + "id_venda INT NOT NULL AUTO_INCREMENT,"
                         + "valor DECIMAL(10, 2) NOT NULL,"
                         + "data DATE NOT NULL,"
@@ -102,7 +86,7 @@ public class Queries {
                         +
                         "(17, 'Mini Game', 'DE_5_A_7_ANOS', 49.90, 'Mini game portátil com tela colorida e 100 jogos diferentes');";
 
-        public static final String CRIA_FUNCIONARIO_ADMIN = "INSERT INTO funcionarios(nome, usuario, senha) SELECT 'admin', 'admin', 'admin' WHERE NOT EXISTS (SELECT 1 FROM funcionarios WHERE nome = 'admin' AND usuario = 'admin' AND senha = 'admin');";
+        public static final String CRIA_FUNCIONARIO_ADMIN = "INSERT INTO funcionarios(nome, usuario, senha) VALUES (?, ?, ?) WHERE NOT EXISTS (SELECT 1 FROM funcionarios WHERE nome = 'admin' AND usuario = 'admin' AND senha = 'admin')";
 
         public static final String CONSULTA_FUNCIONARIOS = "SELECT id_funcionario, usuario, senha FROM funcionarios WHERE usuario = ? AND senha = ?;";
 
@@ -133,13 +117,15 @@ public class Queries {
         public static final String DELETA_ENDERECO_CLIENTE = "DELETE FROM enderecos WHERE id_cliente = ?";
 
         public static final String ALTERA_CLIENTE = "UPDATE clientes c "
-        + "INNER JOIN enderecos e ON c.id_cliente = e.id_cliente "
-        + "SET c.nome = ?, c.CPF = ?, c.email = ?, e.rua = ?, e.numero = ?, e.cidade = ?, e.estado = ?, c.telefone = ? "
-        + "WHERE c.id_cliente = ?";
+                        + "INNER JOIN enderecos e ON c.id_cliente = e.id_cliente "
+                        + "SET c.nome = ?, c.CPF = ?, c.email = ?, e.rua = ?, e.numero = ?, e.cidade = ?, e.estado = ?, c.telefone = ? "
+                        + "WHERE c.id_cliente = ?";
 
         public static final String CRIA_FUNCIONARIO = "INSERT INTO funcionarios (nome, usuario, senha) SELECT ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM funcionarios WHERE usuario = ?)";
 
         public static final String VERIFICA_FUNCIONARIO = "SELECT COUNT(*) FROM funcionarios WHERE usuario = ?;";
 
         public static final String VERIFICA_SENHA_FUNCIONARIO = "SELECT senha FROM funcionarios WHERE usuario = ?";
+
+        public static final String OBTEM_PRECO_PRODUTO = "SELECT valor_unitario FROM brinquedos WHERE nome = ?";
 }

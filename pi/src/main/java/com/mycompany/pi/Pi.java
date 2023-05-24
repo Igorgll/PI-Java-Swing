@@ -1,6 +1,10 @@
 package com.mycompany.pi;
 
+import com.mycompany.pi.database.ClientesDAO;
+import com.mycompany.pi.database.EnderecosDAO;
 import com.mycompany.pi.database.ProdutosDAO;
+import com.mycompany.pi.database.VendasDAO;
+import com.mycompany.pi.database.sqlQueries.FuncionariosDAO;
 import com.mycompany.pi.themes.tema;
 import com.mycompany.pi.views.BemVindo;
 import java.awt.Font;
@@ -41,18 +45,18 @@ public class Pi {
         UIManager.put("Tree.font", font);
 
         // criação de tabelas
-        ProdutosDAO.criaTabelaClientes();
-        ProdutosDAO.criaTabelaEnderecos();
-        ProdutosDAO.criaTabelaFuncionarios();
+        ClientesDAO.criaTabelaClientes();
+        EnderecosDAO.criaTabelaEnderecos();
+        FuncionariosDAO.criaTabelaFuncionarios();
         ProdutosDAO.criaTabelaBrinquedos();
         // ProdutosDAO.criaTabelaCategorias();
-        ProdutosDAO.criaTabelaVendas();
+        VendasDAO.criaTabelaVendas();
 
         // populando tabela de brinquedos
         ProdutosDAO.populaTabelaBrinquedos();
 
         // cria funcionario admin
-        ProdutosDAO.criaFuncionarioAdmin();
+        FuncionariosDAO.criaFuncionarioAdmin();
 
         BemVindo bemVindo = new BemVindo();
         bemVindo.setLocationRelativeTo(null);

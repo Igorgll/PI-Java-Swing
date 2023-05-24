@@ -43,6 +43,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setExtendedState(JFrame.MAXIMIZED_BOTH
+        );
         setResizable(false);
 
         jMenuBar1.setBackground(new java.awt.Color(30, 30, 30));

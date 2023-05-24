@@ -32,10 +32,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLayeredPane1" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jButton3" min="-2" pref="180" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="180" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="precoTotalLabel" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jButton2" min="-2" pref="180" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -47,10 +54,15 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLayeredPane1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton2" pref="41" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="precoTotalLabel" alignment="0" min="-2" pref="19" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jButton3" pref="41" max="32767" attributes="0"/>
+                  <Component id="jButton2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -72,13 +84,13 @@
                   </Group>
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtCPF" pref="203" max="32767" attributes="0"/>
-                      <Component id="jComboBox2" max="32767" attributes="0"/>
+                      <Component id="txtCPF" max="32767" attributes="0"/>
+                      <Component id="produtoComboBox" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                  <Component id="quantidadeComboBox" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
@@ -103,8 +115,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="quantidadeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="produtoComboBox" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="msgValidacao" min="-2" pref="25" max="-2" attributes="0"/>
@@ -149,7 +161,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adcCarrinhoBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="quantidadeComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="10">
@@ -177,15 +189,15 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tabelaCarrinho">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="4">
-                    <Column editable="true" title="Nome Cliente" type="java.lang.String"/>
+                    <Column editable="true" title="CPF do Cliente" type="java.lang.String"/>
                     <Column editable="true" title="Produto" type="java.lang.String"/>
-                    <Column editable="true" title="Pre&#xe7;o" type="java.lang.Byte"/>
+                    <Column editable="true" title="Valor Unit&#xe1;rio" type="java.lang.Byte"/>
                     <Column editable="true" title="Quantidade" type="java.lang.Byte"/>
-                    <Column editable="true" title="Pre&#xe7;o Total" type="java.lang.Object"/>
+                    <Column editable="true" title="Pre&#xe7;o Total por Produto" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -236,14 +248,35 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCPFKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox2">
+        <Component class="javax.swing.JComboBox" name="produtoComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="25">
+                <StringItem index="0" value="Bola de Futebol"/>
+                <StringItem index="1" value="Boneca de Pano"/>
+                <StringItem index="2" value="Carrinho de Controle Remoto"/>
+                <StringItem index="3" value="Jogo de Tabuleiro"/>
+                <StringItem index="4" value="Quebra-Cabe&#xe7;a"/>
+                <StringItem index="5" value="Kit de Ferramentas de Brinquedo"/>
+                <StringItem index="6" value="Bicicleta"/>
+                <StringItem index="7" value="Mesa de Pebolim"/>
+                <StringItem index="8" value="Cubo M&#xe1;gico"/>
+                <StringItem index="9" value="Pista de Carrinhos"/>
+                <StringItem index="10" value="Instrumento Musical"/>
+                <StringItem index="11" value="Trenzinho de Madeira"/>
+                <StringItem index="12" value="Lego "/>
+                <StringItem index="13" value="Patins"/>
+                <StringItem index="14" value="Kit de Artesanato"/>
+                <StringItem index="15" value="Jogo de Xadrez"/>
+                <StringItem index="16" value="Carro de Controle Remoto"/>
+                <StringItem index="17" value="Jogo de Mem&#xf3;ria"/>
+                <StringItem index="18" value="Jogo de Dardos"/>
+                <StringItem index="19" value="Palymobil"/>
+                <StringItem index="20" value="Mesa de Air Hockey"/>
+                <StringItem index="21" value="Piano Eletr&#xf4;nico"/>
+                <StringItem index="22" value="Patins Azul"/>
+                <StringItem index="23" value="Lego Technic"/>
+                <StringItem index="24" value="Mini Game"/>
               </StringArray>
             </Property>
           </Properties>
@@ -265,6 +298,13 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Limpar Carrinho"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pre&#xe7;o Total:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="precoTotalLabel">
     </Component>
   </SubComponents>
 </Form>

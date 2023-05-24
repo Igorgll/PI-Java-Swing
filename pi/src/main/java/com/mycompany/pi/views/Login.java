@@ -53,6 +53,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel1.setText("Usuário:");
@@ -186,7 +187,7 @@ public class Login extends javax.swing.JFrame {
         dispose();
     }// GEN-LAST:event_sairBtnActionPerformed
 
-    private void acessarBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_acessarBtnActionPerformed
+    private void acessarBtnActionPerformed(java.awt.event.ActionEvent evt) {                                           
         String usuario = usuarioTxt.getText().trim();
         String senha = new String(senhaTxt.getPassword()).trim();
 
@@ -195,7 +196,6 @@ public class Login extends javax.swing.JFrame {
             
             TelaInicial telaInicial = new TelaInicial();
             telaInicial.setLocationRelativeTo(null);
-            telaInicial.setExtendedState(TelaInicial.MAXIMIZED_BOTH);
             telaInicial.setVisible(true);
             
             DashboardCliente dashBoardCliente = new DashboardCliente();
@@ -215,7 +215,7 @@ public class Login extends javax.swing.JFrame {
     private void verificaCamposHabilitaBotao() {
         String usuario = usuarioTxt.getText().trim();
         String senha = new String(senhaTxt.getPassword()).trim();
-        ProdutosDAO.consultaFuncionarioNoBanco(usuario, senha);
+        FuncionariosDAO.verificarFuncionarioExistente(usuario);
         boolean senhaOk = senha.length() >= 5 && !senha.isEmpty();
         Color vermelho = new Color(255, 128, 128);
         boolean camposValidos = true;

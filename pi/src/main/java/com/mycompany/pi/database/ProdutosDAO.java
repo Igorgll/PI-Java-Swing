@@ -9,15 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
-import com.mycompany.pi.models.Funcionario;
 import com.mycompany.pi.models.Produto;
 import com.mycompany.pi.utils.Categoria;
-import com.mycompany.pi.views.DashboardProduto;
-import com.mysql.cj.protocol.Resultset;
 import java.awt.Component;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -52,58 +47,6 @@ public class ProdutosDAO {
         }
     }
 
-    public static void criaTabelaClientes() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_TABELA_CLIENTES_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void criaTabelaFuncionarios() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_TABELA_FUNCIONARIOS_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void criaTabelaEnderecos() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_TABELA_ENDERECOS_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void criaTabelaVendas() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_TABELA_VENDAS_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void populaTabelaBrinquedos() {
         try {
             Statement statement = conexao.createStatement();
@@ -115,48 +58,6 @@ public class ProdutosDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void criaFuncionarioAdmin() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_FUNCIONARIO_ADMIN;
-
-            statement.executeUpdate(sql);
-            statement.close();
-            conexao.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static ArrayList<Funcionario> consultaFuncionarioNoBanco(String usuario, String senha) {
-        ArrayList<Funcionario> retornoFuncionarios = new ArrayList<Funcionario>();
-        try {
-            if (conexao.isClosed()) {
-                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
-            }
-            PreparedStatement preparedStatement = conexao.prepareStatement(Queries.CONSULTA_FUNCIONARIOS);
-            preparedStatement.setString(1, usuario);
-            preparedStatement.setString(2, senha);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int id_funcionario = resultSet.getInt("id_funcionario");
-                String usuarioBD = resultSet.getString("usuario");
-                String senhaBD = resultSet.getString("senha");
-                Funcionario funcionario = new Funcionario();
-                funcionario.setId_funcionario(id_funcionario);
-                funcionario.setUsuario(usuarioBD);
-                funcionario.setSenha(senhaBD);
-                retornoFuncionarios.add(funcionario);
-            }
-            resultSet.close();
-            preparedStatement.close();
-        } catch (SQLException e) {
-            retornoFuncionarios.add(new Funcionario());
-        }
-        return retornoFuncionarios;
     }
 
     public static ArrayList<Produto> consultaListaBrinquedos() {
@@ -264,7 +165,7 @@ public class ProdutosDAO {
 
     public static void criaBrinquedo(Produto brinquedo) {
         try {
-            if(conexao.isClosed()) {
+            if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
             String sql = Queries.CRIA_BRINQUEDO;
@@ -274,34 +175,24 @@ public class ProdutosDAO {
             preparedStatement.setString(3, brinquedo.getCategoria().toString());
             preparedStatement.setDouble(4, brinquedo.getValor_unitario());
             preparedStatement.setString(5, brinquedo.getDescricao());
-            preparedStatement.setString(6, brinquedo.getNome()); // adicional para verificar duplicidade de nome no banco de dados
+            preparedStatement.setString(6, brinquedo.getNome()); // adicional para verificar duplicidade de nome no
+                                                                 // banco de dados
             int linhasAfetadas = preparedStatement.executeUpdate();
             preparedStatement.close();
 
-            if(linhasAfetadas > 0) {
+            if (linhasAfetadas > 0) {
                 JOptionPane.showMessageDialog(null, "Brinquedo criado com sucesso!");
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Já existe um brinquedo com o mesmo nome no banco de dados!");
             }
-        } catch(SQLException e) { 
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void deletaBrinquedoLinha(JTable table) {
-        int linhaSelecionada = table.getSelectedRow();
-            if(linhaSelecionada != -1) {
-                DefaultTableModel modelo = (DefaultTableModel) table.getModel();
-                modelo.removeRow(linhaSelecionada); // deleta a row com a linha selecionada
-
-                int id = (int) modelo.getValueAt(linhaSelecionada, 0); // pega o id do brinquedo
-                deletarBrinquedo(id);
-            }
-    }
-
     public void deletarBrinquedo(int id) {
         try {
-            if(conexao.isClosed()) {
+            if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
             String sql = Queries.DELETA_BRINQUEDO;
@@ -309,19 +200,20 @@ public class ProdutosDAO {
             preparedStatement.setInt(1, id); // define o valor do parametro
 
             int linhasAfetadas = preparedStatement.executeUpdate();
-            if(linhasAfetadas > 0) {
+            if (linhasAfetadas > 0) {
                 JOptionPane.showMessageDialog(null, "Brinquedo deletado com sucesso!");
             }
             preparedStatement.close();
             conexao.close();
-         } catch (SQLException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao tentar deletar brinquedo. " + e.getMessage());
-         }
+        }
     }
 
-    public void alteraBrinquedo(int id, int estoque, String nome, String categoria, double valor_unitario, String descricao, ActionEvent evt) {
+    public void alteraBrinquedo(int id, int estoque, String nome, String categoria, double valor_unitario,
+            String descricao, ActionEvent evt) {
         try {
-            if(conexao.isClosed()) {
+            if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
 
@@ -333,9 +225,9 @@ public class ProdutosDAO {
             preparedStatement.setDouble(4, valor_unitario);
             preparedStatement.setString(5, descricao);
             preparedStatement.setInt(6, id);
-            
+
             int linhasAfetadas = preparedStatement.executeUpdate();
-            if(linhasAfetadas > 0) {
+            if (linhasAfetadas > 0) {
                 JOptionPane.showMessageDialog(null, "Brinquedo alterado com sucesso!");
                 Window window = SwingUtilities.getWindowAncestor((Component) evt.getSource());
                 window.dispose();
@@ -345,4 +237,27 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null, "Erro ao tentar alterar brinquedo. " + e.getMessage());
         }
     }
+
+    public static double obterPrecoProduto(String produto) {
+        double precoProduto = 0.0;
+
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.OBTEM_PRECO_PRODUTO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, produto);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                precoProduto = resultSet.getDouble("valor_unitario");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return precoProduto;
+    }
+
 }

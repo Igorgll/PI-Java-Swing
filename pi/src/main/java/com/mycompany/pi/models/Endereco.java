@@ -4,8 +4,6 @@
  */
 package com.mycompany.pi.models;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author igor
