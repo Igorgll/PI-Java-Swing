@@ -1,4 +1,4 @@
-package com.mycompany.pi.database.sqlQueries;
+package com.mycompany.pi.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Funcionario;
 
 public class FuncionariosDAO {
@@ -138,7 +139,7 @@ public class FuncionariosDAO {
                 if (BCrypt.checkpw(senha, senhaArmazenada)) { // faz a comparação
                     resultSet.close();
                     preparedStatement.close();
-                    return true; // retorna verdadeiro para login bem-sucedido
+                    return true; // login bem sucedido
                 }
             }
 

@@ -11,6 +11,7 @@ import javax.swing.JFrame;
  * @author igor
  */
 public class TelaInicial extends javax.swing.JFrame {
+    private int idFuncionario;
 
     /**
      * Creates new form TelaInicial

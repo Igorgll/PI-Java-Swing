@@ -37,9 +37,9 @@ public class Queries {
 
         public static final String CRIA_TABELA_VENDAS_SQL = "CREATE TABLE IF NOT EXISTS vendas ("
                         + "id_venda INT NOT NULL AUTO_INCREMENT,"
-                        + "valor DECIMAL(10, 2) NOT NULL,"
+                        + "nome_funcionario VARCHAR(100) NOT NULL,"
+                        + "valor_venda DECIMAL(10, 2) NOT NULL,"
                         + "data DATE NOT NULL,"
-                        + "quantidade INT NOT NULL,"
                         + "PRIMARY KEY (id_venda));";
 
         public static final String POPULA_TABELA_BRINQUEDOS_SQL = "INSERT INTO brinquedos (estoque, nome, categoria, valor_unitario, descricao) VALUES "
@@ -125,7 +125,9 @@ public class Queries {
 
         public static final String VERIFICA_FUNCIONARIO = "SELECT COUNT(*) FROM funcionarios WHERE usuario = ?;";
 
-        public static final String VERIFICA_SENHA_FUNCIONARIO = "SELECT senha FROM funcionarios WHERE usuario = ?";
+        public static final String VERIFICA_SENHA_FUNCIONARIO = "SELECT id_funcionario, senha FROM funcionarios WHERE usuario = ?";
 
         public static final String OBTEM_PRECO_PRODUTO = "SELECT valor_unitario FROM brinquedos WHERE nome = ?";
+
+        public static final String INSERE_VENDA = "INSERT INTO vendas (nome_funcionario, valor_venda, data) VALUES (?, ?, ?)";
 }

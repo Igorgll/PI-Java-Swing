@@ -2,9 +2,9 @@ package com.mycompany.pi;
 
 import com.mycompany.pi.database.ClientesDAO;
 import com.mycompany.pi.database.EnderecosDAO;
+import com.mycompany.pi.database.FuncionariosDAO;
 import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.database.VendasDAO;
-import com.mycompany.pi.database.sqlQueries.FuncionariosDAO;
 import com.mycompany.pi.themes.tema;
 import com.mycompany.pi.views.BemVindo;
 import java.awt.Font;

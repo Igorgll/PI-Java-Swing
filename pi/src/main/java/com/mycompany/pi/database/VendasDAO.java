@@ -2,8 +2,13 @@ package com.mycompany.pi.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
 
@@ -34,5 +39,33 @@ public class VendasDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean efetuarVenda(String nomeFuncionario, double valorVenda, LocalDate dataVenda) {
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+
+            String sql = Queries.INSERE_VENDA;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, nomeFuncionario);
+            preparedStatement.setDouble(2, valorVenda);
+            java.sql.Date sqlDate = java.sql.Date.valueOf(dataVenda);
+            preparedStatement.setDate(3, sqlDate); // pega a data atual do sistema
+            int linhasAfetadas = preparedStatement.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                JOptionPane.showMessageDialog(null, "Venda efetuada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao efetuar venda.");
+            }
+
+            preparedStatement.close();
+            return true; // retorna true para venda bem sucedida
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // retorna false para venda mal sucedida
+         }
     }
 }

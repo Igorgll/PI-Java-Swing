@@ -15,7 +15,7 @@ import javax.swing.UIManager;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import com.mycompany.pi.database.sqlQueries.FuncionariosDAO;
+import com.mycompany.pi.database.FuncionariosDAO;
 import com.mycompany.pi.models.Funcionario;
 
 /**
