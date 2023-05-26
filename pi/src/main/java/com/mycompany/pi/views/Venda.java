@@ -21,10 +21,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.mycompany.pi.Sessao.Sessao;
+import com.mycompany.pi.database.ClientesDAO;
 import com.mycompany.pi.database.FuncionariosDAO;
 import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.database.VendasDAO;
 import com.mycompany.pi.models.Carrinho;
+import com.mycompany.pi.models.Cliente;
 
 /**
  *
@@ -37,7 +39,7 @@ public class Venda extends javax.swing.JFrame {
     public void setPrecoTotalDoCarrinho(double precoTotalDoCarrinho) {
         this.precoTotalDoCarrinho = precoTotalDoCarrinho;
     }
-    
+
     /**
      * Creates new form Venda
      */
@@ -379,51 +381,61 @@ public class Venda extends javax.swing.JFrame {
 
         double precoTotal = precoProduto * quantidade;
 
-        Carrinho item = new Carrinho(cpfCliente, produto, precoProduto, quantidade, precoTotal);
+        // verificar se o cpf já é de um cliente cadastrado
+        ArrayList<Cliente> clientes = ClientesDAO.consultaListaClientesPorCPF(cpfCliente);
+        if (!clientes.isEmpty()) {
+            Carrinho item = new Carrinho(cpfCliente, produto, precoProduto, quantidade, precoTotal);
 
-        if (validaCpf()) {
-            carrinho.add(item);
+            if (validaCpf()) {
+                carrinho.add(item);
 
-            // define o modelo da tabela e centraliza as colunas
-            DefaultTableModel modelo = (DefaultTableModel) tabelaCarrinho.getModel();
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setVerticalAlignment(SwingConstants.CENTER);
+                // define o modelo da tabela e centraliza as colunas
+                DefaultTableModel modelo = (DefaultTableModel) tabelaCarrinho.getModel();
+                DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+                centerRenderer.setVerticalAlignment(SwingConstants.CENTER);
 
-            int colCount = tabelaCarrinho.getColumnCount();
-            for (int i = 0; i < colCount; i++) {
-                tabelaCarrinho.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+                int colCount = tabelaCarrinho.getColumnCount();
+                for (int i = 0; i < colCount; i++) {
+                    tabelaCarrinho.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+                }
+                modelo.setRowCount(0); // limpa a tabela
+
+                double precoTotalCarrinho = 0.0;
+                for (Carrinho i : carrinho) {
+                    Object[] row = { i.getCpfCliente(), i.getProduto(), i.getPreco(), i.getQuantidade(),
+                            i.getPrecoTotal() };
+                    precoTotalCarrinho += i.getPrecoTotal();
+                    modelo.addRow(row);
+                }
+                DecimalFormat decimalFormat = new DecimalFormat("#.00"); // dois digitos depois da vírgula
+                String precoTotalFormatado = decimalFormat.format(precoTotalCarrinho);
+                precoTotalDoCarrinho = precoTotalCarrinho;
+                precoTotalLabel.setText("R$" + String.valueOf(precoTotalFormatado));
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos corretamente!");
             }
-            modelo.setRowCount(0); // limpa a tabela
-
-            double precoTotalCarrinho = 0.0;
-            for (Carrinho i : carrinho) {
-                Object[] row = { i.getCpfCliente(), i.getProduto(), i.getPreco(), i.getQuantidade(),
-                        i.getPrecoTotal() };
-                precoTotalCarrinho += i.getPrecoTotal();
-                modelo.addRow(row);
-            }
-            DecimalFormat decimalFormat = new DecimalFormat("#.00"); // dois digitos depois da vírgula
-            String precoTotalFormatado = decimalFormat.format(precoTotalCarrinho);
-            precoTotalDoCarrinho = precoTotalCarrinho;
-            precoTotalLabel.setText("R$" + String.valueOf(precoTotalFormatado));
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos corretamente!");
+            JOptionPane.showMessageDialog(this, "Cliente com o CPF: '" + cpfCliente + "' não cadastrado.");
         }
     }// GEN-LAST:event_adcCarrinhoBtnActionPerformed
+
+    private void limpaCarrinho() {
+        carrinho.clear(); // limpa lista
+
+        // limpa a tabela
+        DefaultTableModel modelo = (DefaultTableModel) tabelaCarrinho.getModel();
+        modelo.setRowCount(0);
+
+        // limpa o preço total
+        precoTotalLabel.setText("R$0.00");
+    }
 
     private void limpaCarrinhoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_limpaCarrinhoBtnActionPerformed
         int confirmacao = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja limpar o carrinho ?",
                 "Confirmação", JOptionPane.YES_NO_OPTION);
 
         if (confirmacao == JOptionPane.YES_OPTION) {
-            carrinho.clear(); // limpa lista
-
-            // limpa a tabela
-            DefaultTableModel modelo = (DefaultTableModel) tabelaCarrinho.getModel();
-            modelo.setRowCount(0);
-
-            // limpa o preço total
-            precoTotalLabel.setText("R$0.00");
+            limpaCarrinho();
         }
     }// GEN-LAST:event_limpaCarrinhoBtnActionPerformed
 
@@ -507,16 +519,20 @@ public class Venda extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_alterarQuantidadeProdutoBtnActionPerformed
 
-    private void efetuarVendaBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_efetuarVendaBtnActionPerformed
+    private void efetuarVenda() {
+        String precoTotalTexto = precoTotalLabel.getText().replace("R$", "").replace(",", ".");
+        double precoTotalCarrinho = Double.parseDouble(precoTotalTexto);
         String nomeFuncionario = Sessao.getNomeFuncionario();
         if (nomeFuncionario != null) {
-            // Aqui você pode inserir a lógica para salvar as informações da venda no banco de dados,
-            // juntamente com o nome do funcionário
-    
-            System.out.println("Venda efetuada pelo funcionário: " + nomeFuncionario);
+            VendasDAO.efetuarVenda(nomeFuncionario, precoTotalCarrinho, LocalDate.now());
+            limpaCarrinho();
         } else {
             System.out.println("Nome do funcionário não definido.");
         }
+    }
+
+    private void efetuarVendaBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_efetuarVendaBtnActionPerformed
+        efetuarVenda();
     }// GEN-LAST:event_efetuarVendaBtnActionPerformed
 
     /**
