@@ -11,8 +11,10 @@ import javax.swing.JOptionPane;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.mycompany.pi.Sessao.Sessao;
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Funcionario;
+import com.mycompany.pi.views.Venda;
 
 public class FuncionariosDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -48,18 +50,18 @@ public class FuncionariosDAO {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
-    
+
             String nome = "admin";
             String usuario = "admin";
             String senha = "admin";
-    
+
             // Verifica se o funcionário admin já existe
             if (verificarFuncionarioExistente(usuario)) {
                 // System.out.println("Já existe um funcionário admin no banco de dados!");
             } else {
                 // criptografa a senha
                 String senhaCriptografada = BCrypt.hashpw(senha, BCrypt.gensalt());
-    
+
                 String sql = Queries.CRIA_FUNCIONARIO;
                 PreparedStatement preparedStatement = conexao.prepareStatement(sql);
                 preparedStatement.setString(1, nome);
@@ -69,7 +71,7 @@ public class FuncionariosDAO {
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
             }
-    
+
             conexao.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,34 +124,38 @@ public class FuncionariosDAO {
         }
     }
 
-    public static boolean efetuarLogin(String usuario, String senha) {
+    public static void efetuarLogin(String usuario, String senha) {
+        String nomeFuncionario = null;
         try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
+    
             String sql = Queries.VERIFICA_SENHA_FUNCIONARIO;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, usuario);
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            
             if (resultSet.next()) {
                 String senhaArmazenada = resultSet.getString("senha");
-
-                // verificação da senha fornecida da criptografada
-                if (BCrypt.checkpw(senha, senhaArmazenada)) { // faz a comparação
+                nomeFuncionario = resultSet.getString("nome");
+    
+                // Verificação da senha fornecida criptografada
+                if (BCrypt.checkpw(senha, senhaArmazenada)) {
                     resultSet.close();
                     preparedStatement.close();
-                    return true; // login bem sucedido
+                } else {
+                    resultSet.close();
+                    preparedStatement.close();
                 }
-            }
 
-            resultSet.close();
-            preparedStatement.close();
-            return false; // login falho
+                Sessao.setNomeFuncionario(nomeFuncionario);
+            } else {
+                resultSet.close();
+                preparedStatement.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // login falho
         }
     }
-
 }

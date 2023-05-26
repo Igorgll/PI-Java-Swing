@@ -221,22 +221,19 @@ public class Login extends javax.swing.JFrame {
     private void acessarBtnActionPerformed(java.awt.event.ActionEvent evt) {
         String usuario = usuarioTxt.getText().trim();
         String senha = new String(senhaTxt.getPassword()).trim();
-        boolean login = FuncionariosDAO.efetuarLogin(usuario, senha);
+        FuncionariosDAO.efetuarLogin(usuario, senha);
 
-        if (login) {
-            JOptionPane.showMessageDialog(this, "Bem vindo(a) " + usuarioTxt.getText());
-            TelaInicial telaInicial = new TelaInicial();
-            telaInicial.setLocationRelativeTo(null);
-            telaInicial.setExtendedState(MAXIMIZED_BOTH);
-            telaInicial.setVisible(true);
-    
-            DashboardProduto dashBoardProduto = new DashboardProduto();
-            dashBoardProduto.setLocationRelativeTo(null);
-            dashBoardProduto.setVisible(true);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuário ou senha incorreta!");
-        }
+        JOptionPane.showMessageDialog(this, "Bem vindo(a) " + usuarioTxt.getText());
+        TelaInicial telaInicial = new TelaInicial();
+        telaInicial.setLocationRelativeTo(null);
+        telaInicial.setExtendedState(MAXIMIZED_BOTH);
+        telaInicial.setVisible(true);
+
+        DashboardProduto dashBoardProduto = new DashboardProduto();
+        dashBoardProduto.setLocationRelativeTo(null);
+        dashBoardProduto.setVisible(true);
+        dispose();
+
     }// GEN-LAST:event_acessarBtnActionPerformed
 
     public int getIdFuncionario() { // getter para pegar o id do funcionário logado

@@ -20,6 +20,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.mycompany.pi.Sessao.Sessao;
 import com.mycompany.pi.database.FuncionariosDAO;
 import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.database.VendasDAO;
@@ -32,12 +33,11 @@ import com.mycompany.pi.models.Carrinho;
 public class Venda extends javax.swing.JFrame {
     private List<Carrinho> carrinho;
     private double precoTotalDoCarrinho;
-    private static String nomeFuncionarioLogado;
 
     public void setPrecoTotalDoCarrinho(double precoTotalDoCarrinho) {
         this.precoTotalDoCarrinho = precoTotalDoCarrinho;
     }
-
+    
     /**
      * Creates new form Venda
      */
@@ -508,7 +508,15 @@ public class Venda extends javax.swing.JFrame {
     }// GEN-LAST:event_alterarQuantidadeProdutoBtnActionPerformed
 
     private void efetuarVendaBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_efetuarVendaBtnActionPerformed
-        // resgata o idFuncionario do funcionario logado
+        String nomeFuncionario = Sessao.getNomeFuncionario();
+        if (nomeFuncionario != null) {
+            // Aqui você pode inserir a lógica para salvar as informações da venda no banco de dados,
+            // juntamente com o nome do funcionário
+    
+            System.out.println("Venda efetuada pelo funcionário: " + nomeFuncionario);
+        } else {
+            System.out.println("Nome do funcionário não definido.");
+        }
     }// GEN-LAST:event_efetuarVendaBtnActionPerformed
 
     /**
