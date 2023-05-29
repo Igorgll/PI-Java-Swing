@@ -4,6 +4,9 @@
  */
 package com.mycompany.pi.models;
 
+import javax.swing.JOptionPane;
+
+import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.utils.Categoria;
 
 /**

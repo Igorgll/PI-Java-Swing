@@ -260,4 +260,47 @@ public class ProdutosDAO {
         return precoProduto;
     }
 
+    public static int consultaEstoqueProduto(String produto) {
+        int estoque = 0;
+
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.CONSULTA_ESTOQUE_PRODUTO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, produto);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                estoque = resultSet.getInt("estoque");
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return estoque;
+    }
+
+    public static void atualizaEstoqueProduto(String produto, int novoEstoque) {
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            String sql = Queries.ATUALIZA_ESTOQUE_PRODUTO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, novoEstoque);
+            preparedStatement.setString(2, produto);
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

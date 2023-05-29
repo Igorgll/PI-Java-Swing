@@ -55,12 +55,6 @@ public class VendasDAO {
             preparedStatement.setDate(3, sqlDate); // pega a data atual do sistema
             int linhasAfetadas = preparedStatement.executeUpdate();
 
-            if (linhasAfetadas > 0) {
-                JOptionPane.showMessageDialog(null, "Venda efetuada com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao efetuar venda.");
-            }
-
             preparedStatement.close();
             return true; // retorna true para venda bem sucedida
         } catch (SQLException e) {

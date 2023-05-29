@@ -130,4 +130,8 @@ public class Queries {
         public static final String OBTEM_PRECO_PRODUTO = "SELECT valor_unitario FROM brinquedos WHERE nome = ?";
 
         public static final String INSERE_VENDA = "INSERT INTO vendas (nome, valor_venda, data) VALUES (?, ?, ?)";
+
+        public static final String CONSULTA_ESTOQUE_PRODUTO = "SELECT estoque FROM brinquedos WHERE nome = ?";
+
+        public static final String ATUALIZA_ESTOQUE_PRODUTO = "UPDATE brinquedos SET estoque = ? WHERE nome = ?";
 }

@@ -56,6 +56,7 @@ public class Venda extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -384,11 +385,23 @@ public class Venda extends javax.swing.JFrame {
         // verificar se o cpf já é de um cliente cadastrado
         ArrayList<Cliente> clientes = ClientesDAO.consultaListaClientesPorCPF(cpfCliente);
         if (!clientes.isEmpty()) {
-            Carrinho item = new Carrinho(cpfCliente, produto, precoProduto, quantidade, precoTotal);
+            boolean produtoExistente = false;
+            for (Carrinho carrinhoItem : carrinho) {
+                if (carrinhoItem.getProduto().equals(produto)) {
+                    int novaQuantidade = carrinhoItem.getQuantidade() + quantidade;
+                    carrinhoItem.setQuantidade(novaQuantidade);
+                    carrinhoItem.setPrecoTotal(precoProduto * novaQuantidade);
+                    produtoExistente = true;
+                    break;
+                }
+            }
+
+            if (!produtoExistente) {
+                Carrinho item = new Carrinho(cpfCliente, produto, precoProduto, quantidade, precoTotal);
+                carrinho.add(item);
+            }
 
             if (validaCpf()) {
-                carrinho.add(item);
-
                 // define o modelo da tabela e centraliza as colunas
                 DefaultTableModel modelo = (DefaultTableModel) tabelaCarrinho.getModel();
                 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -512,6 +525,10 @@ public class Venda extends javax.swing.JFrame {
                 DecimalFormat decimalFormat = new DecimalFormat("#.00");
                 String precoTotalFormatado = decimalFormat.format(precoTotalCarrinho);
                 precoTotalLabel.setText("R$" + precoTotalFormatado);
+
+                // atualiza a quantidade no objeto carrinho
+                Carrinho item = carrinho.get(linhaSelecionada);
+                item.setQuantidade(novaQuantidade);
             }
         } else {
             JOptionPane.showMessageDialog(this,
@@ -519,13 +536,43 @@ public class Venda extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_alterarQuantidadeProdutoBtnActionPerformed
 
-    private void efetuarVenda() {
+    public void efetuarVenda() {
         String precoTotalTexto = precoTotalLabel.getText().replace("R$", "").replace(",", ".");
         double precoTotalCarrinho = Double.parseDouble(precoTotalTexto);
         String nomeFuncionario = Sessao.getNomeFuncionario();
+        boolean estoqueSuficiente = true;
+
         if (nomeFuncionario != null) {
-            VendasDAO.efetuarVenda(nomeFuncionario, precoTotalCarrinho, LocalDate.now());
-            limpaCarrinho();
+            for (Carrinho item : carrinho) {
+                String produto = item.getProduto();
+                int quantidade = item.getQuantidade();
+
+                int estoqueAtual = ProdutosDAO.consultaEstoqueProduto(produto);
+
+                // Verificar se o estoque é suficiente
+                if (estoqueAtual < quantidade) {
+                    estoqueSuficiente = false; // O estoque não é suficiente
+                    JOptionPane.showMessageDialog(null, "Estoque insuficiente para a venda do produto: " + produto);
+                    break; // Interrompe o loop, pois o estoque é insuficiente
+                }
+            }
+
+            if (estoqueSuficiente) {
+                VendasDAO.efetuarVenda(nomeFuncionario, precoTotalCarrinho, LocalDate.now());
+
+                for (Carrinho item : carrinho) {
+                    String produto = item.getProduto();
+                    int quantidade = item.getQuantidade();
+
+                    // atualizar estoque do produto
+                    int estoqueAtual = ProdutosDAO.consultaEstoqueProduto(produto);
+                    int novoEstoque = estoqueAtual - quantidade;
+                    ProdutosDAO.atualizaEstoqueProduto(produto, novoEstoque);
+                }
+
+                limpaCarrinho();
+                JOptionPane.showMessageDialog(null, "Venda efetuada com sucesso!");
+            }
         } else {
             System.out.println("Nome do funcionário não definido.");
         }
