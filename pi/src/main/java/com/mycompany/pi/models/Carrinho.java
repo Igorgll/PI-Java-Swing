@@ -6,15 +6,18 @@ public class Carrinho {
     private double preco;
     private int quantidade;
     private double precoTotal;
+    private int idBrinquedo;
     
     public Carrinho(){}
-    
-    public Carrinho(String cpfCliente, String produto, double preco, int quantidade, double precoTotal) {
+
+    public Carrinho(String cpfCliente, String produto, double preco, int quantidade, double precoTotal,
+            int idBrinquedo) {
         this.cpfCliente = cpfCliente;
         this.produto = produto;
         this.preco = preco;
         this.quantidade = quantidade;
         this.precoTotal = precoTotal;
+        this.idBrinquedo = idBrinquedo;
     }
 
     public String getCpfCliente() {
@@ -57,6 +60,13 @@ public class Carrinho {
         this.precoTotal = precoTotal;
     }
 
+    public int getIdBrinquedo() {
+        return idBrinquedo;
+    }
+
+    public void setIdBrinquedo(int idBrinquedo) {
+        this.idBrinquedo = idBrinquedo;
+    }
     
     
 }

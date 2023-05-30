@@ -16,7 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
+import com.mycompany.pi.database.DetalhesVendasDAO;
 import com.mycompany.pi.database.RelatoriosSinteticosDAO;
+import com.mycompany.pi.models.DetalhesVendas;
 
 /**
  *
@@ -54,6 +56,7 @@ public class RelatorioSintetico extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         valorTotalVendasLabel = new javax.swing.JLabel();
         msgValidacao = new javax.swing.JLabel();
+        relatorioAnaliticoBtn = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -121,7 +124,7 @@ public class RelatorioSintetico extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Data", "Valor da Venda", "Nome do Cliente", "CPF do Cliente"
+                "Id da Venda", "Data", "Valor da Venda", "CPF do Cliente"
             }
         ));
         jScrollPane1.setViewportView(tabelaRelatorioSintetico);
@@ -134,14 +137,24 @@ public class RelatorioSintetico extends javax.swing.JFrame {
             }
         });
 
+        relatorioAnaliticoBtn.setText("Detalhes da Venda");
+        relatorioAnaliticoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioAnaliticoBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(relatorioAnaliticoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1052, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(valorTotalVendasLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -167,9 +180,6 @@ public class RelatorioSintetico extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,8 +194,13 @@ public class RelatorioSintetico extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(valorTotalVendasLabel)
-                        .addGap(17, 17, 17)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(54, 54, 54)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(relatorioAnaliticoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -195,6 +210,30 @@ public class RelatorioSintetico extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void relatorioAnaliticoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioAnaliticoBtnActionPerformed
+        int linhaSelecionada = tabelaRelatorioSintetico.getSelectedRow();
+
+        if(linhaSelecionada != -1) {
+            int idVenda = Integer.parseInt(tabelaRelatorioSintetico.getValueAt(linhaSelecionada, 0).toString());
+            LocalDate dataVenda = LocalDate.parse(tabelaRelatorioSintetico.getValueAt(linhaSelecionada, 1).toString());
+            double valorVenda = Double.parseDouble(tabelaRelatorioSintetico.getValueAt(linhaSelecionada, 2).toString());
+            String cpfCliente = tabelaRelatorioSintetico.getValueAt(linhaSelecionada, 3).toString();
+
+            // consulta os detalhes da venda
+            List<DetalhesVendas> detalhesVendasLista = DetalhesVendasDAO.consultarDetalhesVenda(dataVenda, valorVenda, cpfCliente);
+
+            // exibirDetalhesVenda(detalhesVendasLista); // mostra em outro JFrame
+            for (DetalhesVendas detalhesVenda : detalhesVendasLista) {
+                System.out.println("ID Venda: " + idVenda);
+                System.out.println("ID Brinquedo: " + detalhesVenda.getIdBrinquedo());
+                System.out.println("Quantidade: " + detalhesVenda.getQuantidade());
+                System.out.println("-----------------------------------");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione a linha da venda que deseja ver os detalhes primeiro.");
+        }
+    }//GEN-LAST:event_relatorioAnaliticoBtnActionPerformed
 
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
 
@@ -224,8 +263,7 @@ public class RelatorioSintetico extends javax.swing.JFrame {
                 valorTotalVendasLabel.setText("Valor total das vendas: R$ 0.00");
             } else {
                 for (com.mycompany.pi.models.RelatorioSintetico relatorio : listaRelatorioSintetico) {
-                    Object[] row = { relatorio.getDataVenda(), relatorio.getValorTotal(), relatorio.getNomeCliente(),
-                            relatorio.getCpfCliente() };
+                    Object[] row = { relatorio.getIdVenda(), relatorio.getDataVenda(), relatorio.getValorTotal(), relatorio.getCpfCliente() };
                     model.addRow(row);
                     valorTotalVendas += relatorio.getValorTotal();
                     valorTotalVendasLabel
@@ -320,6 +358,7 @@ public class RelatorioSintetico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel msgValidacao;
+    private javax.swing.JButton relatorioAnaliticoBtn;
     private javax.swing.JTable tabelaRelatorioSintetico;
     private javax.swing.JLabel valorTotalVendasLabel;
     // End of variables declaration//GEN-END:variables

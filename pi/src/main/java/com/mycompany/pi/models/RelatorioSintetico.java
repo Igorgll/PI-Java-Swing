@@ -3,19 +3,27 @@ package com.mycompany.pi.models;
 import java.time.LocalDate;
 
 public class RelatorioSintetico {
+    private int idVenda;
     private LocalDate dataVenda;
     private double valorTotal;
-    private String nomeCliente;
     private String cpfCliente;
 
     public RelatorioSintetico() {
     }
 
-    public RelatorioSintetico(LocalDate dataVenda, double valorTotal, String nomeCliente, String cpfCliente) {
+    public RelatorioSintetico(int idVenda, LocalDate dataVenda, double valorTotal, String cpfCliente) {
+        this.idVenda = idVenda;
         this.dataVenda = dataVenda;
         this.valorTotal = valorTotal;
-        this.nomeCliente = nomeCliente;
         this.cpfCliente = cpfCliente;
+    }
+
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
     }
 
     public LocalDate getDataVenda() {
@@ -34,14 +42,6 @@ public class RelatorioSintetico {
         this.valorTotal = valorTotal;
     }
 
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
-
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
     public String getCpfCliente() {
         return cpfCliente;
     }
@@ -51,5 +51,4 @@ public class RelatorioSintetico {
     }
 
     
-
 }

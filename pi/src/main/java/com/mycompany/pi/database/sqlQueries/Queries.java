@@ -43,6 +43,15 @@ public class Queries {
                         + "data_venda DATE NOT NULL,"
                         + "PRIMARY KEY (id_venda));";
 
+        public static final String CRIA_TABELA_DETALHES_VENDA = "CREATE TABLE IF NOT EXISTS detalhes_vendas ("
+                        + "id_detalhe_venda INT NOT NULL AUTO_INCREMENT,"
+                        + "id_venda INT NOT NULL,"
+                        + "id_brinquedo INT NOT NULL,"
+                        + "quantidade INT NOT NULL,"
+                        + "PRIMARY KEY (id_detalhe_venda),"
+                        + "FOREIGN KEY (id_detalhe_venda) REFERENCES vendas(id_venda),"
+                        + "FOREIGN KEY (id_brinquedo) REFERENCES brinquedos(id_brinquedo));";
+
         public static final String POPULA_TABELA_BRINQUEDOS_SQL = "INSERT INTO brinquedos (estoque, nome, categoria, valor_unitario, descricao) VALUES "
                         +
                         "(10, 'Bola de Futebol', 'DE_5_A_7_ANOS', 29.90, 'Bola de futebol com design moderno')," +
@@ -135,9 +144,18 @@ public class Queries {
         public static final String CONSULTA_ESTOQUE_PRODUTO = "SELECT estoque FROM brinquedos WHERE nome = ?";
 
         public static final String ATUALIZA_ESTOQUE_PRODUTO = "UPDATE brinquedos SET estoque = ? WHERE nome = ?";
+
+        public static final String CONSULTA_RELATORIO_SINTETICO = "SELECT V.id_venda, V.data_venda, V.valor_venda, V.cpf_cliente, F.nome "
+                        + "FROM vendas V "
+                        + "INNER JOIN funcionarios F ON V.nome_funcionario = F.nome "
+                        + "WHERE V.data_venda BETWEEN ? AND ?";
+
+        public static final String INSERE_DETALHES_VENDA = "INSERT INTO detalhes_vendas (id_venda, id_brinquedo, quantidade) VALUES (?, ?, ?)";
+
+        public static final String OBTEM_ID_BRINQUEDO = "SELECT * FROM brinquedos WHERE nome = ?";
         
-        public static final String CONSULTA_RELATORIO_SINTETICO = "SELECT V.data_venda, V.valor_venda, V.cpf_cliente, F.nome "
-        + "FROM vendas V "
-        + "INNER JOIN funcionarios F ON V.nome_funcionario = F.nome "
-        + "WHERE V.data_venda BETWEEN ? AND ?";
+        public static final String CONSULTA_DETALHES_VENDA = "SELECT id_brinquedo, quantidade FROM detalhes_vendas "
+        + "INNER JOIN vendas ON detalhes_vendas.id_venda = vendas.id_venda "
+        + "WHERE vendas.data_venda = ? AND vendas.valor_venda = ? "
+        + "AND vendas.cpf_cliente = ?";
 }

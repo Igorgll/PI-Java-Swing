@@ -238,7 +238,7 @@ public class ProdutosDAO {
         }
     }
 
-    public static double obterPrecoProduto(String produto) {
+    public static double obterPrecoBrinquedo(String produto) {
         double precoProduto = 0.0;
 
         try {
@@ -260,7 +260,7 @@ public class ProdutosDAO {
         return precoProduto;
     }
 
-    public static int consultaEstoqueProduto(String produto) {
+    public static int consultaEstoqueBrinquedo(String produto) {
         int estoque = 0;
 
         try {
@@ -286,7 +286,7 @@ public class ProdutosDAO {
         return estoque;
     }
 
-    public static void atualizaEstoqueProduto(String produto, int novoEstoque) {
+    public static void atualizaEstoqueBrinquedo(String produto, int novoEstoque) {
         try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
@@ -301,6 +301,32 @@ public class ProdutosDAO {
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static int obterIdBrinquedo(String nomeProduto) {
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+    
+            String sql = Queries.OBTEM_ID_BRINQUEDO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setString(1, nomeProduto);
+    
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            int idBrinquedo = -1; // valor inicial inválido
+    
+            if (resultSet.next()) {
+                idBrinquedo = resultSet.getInt("id_brinquedo");
+            }
+    
+            preparedStatement.close();
+            return idBrinquedo;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // retorna valor inválido em caso de erro
         }
     }
 }

@@ -37,7 +37,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         abrirTelaVenda = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        abrirRelatorioAnalitico = new javax.swing.JMenuItem();
         abrirRelatorioSintetico = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         abrirCriaVendedor = new javax.swing.JMenuItem();
@@ -98,14 +97,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu4.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jMenu4.setMargin(new java.awt.Insets(3, 8, 3, 8));
 
-        abrirRelatorioAnalitico.setText("Analítico");
-        abrirRelatorioAnalitico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abrirRelatorioAnaliticoActionPerformed(evt);
-            }
-        });
-        jMenu4.add(abrirRelatorioAnalitico);
-
         abrirRelatorioSintetico.setText("Sintético");
         abrirRelatorioSintetico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,23 +154,17 @@ public class TelaInicial extends javax.swing.JFrame {
         venda.setVisible(true);
     }//GEN-LAST:event_abrirTelaVendaActionPerformed
 
-    private void abrirRelatorioAnaliticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirRelatorioAnaliticoActionPerformed
-        RelatorioAnalitico relatorioAnalitico = new RelatorioAnalitico();
-        relatorioAnalitico.setLocationRelativeTo(this);
-        relatorioAnalitico.setVisible(true);
-    }//GEN-LAST:event_abrirRelatorioAnaliticoActionPerformed
+    private void abrirCriaVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirCriaVendedorActionPerformed
+        CriaVendedor criaVendedor = new CriaVendedor();
+        criaVendedor.setLocationRelativeTo(this);
+        criaVendedor.setVisible(true);
+    }//GEN-LAST:event_abrirCriaVendedorActionPerformed
 
     private void abrirRelatorioSinteticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirRelatorioSinteticoActionPerformed
         RelatorioSintetico relatorioSintetico = new RelatorioSintetico();
         relatorioSintetico.setLocationRelativeTo(this);
         relatorioSintetico.setVisible(true);
     }//GEN-LAST:event_abrirRelatorioSinteticoActionPerformed
-
-    private void abrirCriaVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirCriaVendedorActionPerformed
-        CriaVendedor criaVendedor = new CriaVendedor();
-        criaVendedor.setLocationRelativeTo(this);
-        criaVendedor.setVisible(true);
-    }//GEN-LAST:event_abrirCriaVendedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,7 +183,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem abrirCriaVendedor;
     private javax.swing.JMenuItem abrirDashboardCliente;
     private javax.swing.JMenuItem abrirDashboardProduto;
-    private javax.swing.JMenuItem abrirRelatorioAnalitico;
     private javax.swing.JMenuItem abrirRelatorioSintetico;
     private javax.swing.JMenuItem abrirTelaVenda;
     private javax.swing.JMenu jMenu1;

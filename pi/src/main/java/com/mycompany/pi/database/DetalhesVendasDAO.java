@@ -1,19 +1,19 @@
 package com.mycompany.pi.database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
-import com.mycompany.pi.models.RelatorioSintetico;
+import com.mycompany.pi.models.DetalhesVendas;
 
-public class RelatoriosSinteticosDAO {
+public class DetalhesVendasDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String LOGIN = "root";
     private static final String SENHA = "";
@@ -29,37 +29,48 @@ public class RelatoriosSinteticosDAO {
         }
     }
 
-    public static List<RelatorioSintetico> gerarRelatorioSintetico(LocalDate dataInicio, LocalDate dataFim) {
-        List<RelatorioSintetico> retornoRelatorioSintetico = new ArrayList<>();
-        
+    public static void criaTabelaDetalhesVendas() {
+        try {
+            Statement statement = conexao.createStatement();
+
+            String sql = Queries.CRIA_TABELA_DETALHES_VENDA;
+
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<DetalhesVendas> consultarDetalhesVenda(LocalDate dataVenda, double valorVenda,String cpfCliente) {
+        List<DetalhesVendas> detalhesVendaList = new ArrayList<>();
+    
         try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
-            String sql = Queries.CONSULTA_RELATORIO_SINTETICO;
     
+            String sql = Queries.CONSULTA_DETALHES_VENDA;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-            preparedStatement.setDate(1, Date.valueOf(dataInicio));
-            preparedStatement.setDate(2, Date.valueOf(dataFim));
+            preparedStatement.setDate(1, java.sql.Date.valueOf(dataVenda));
+            preparedStatement.setDouble(2, valorVenda);
+            preparedStatement.setString(3, cpfCliente);
     
             ResultSet resultSet = preparedStatement.executeQuery();
     
             while (resultSet.next()) {
-                int idVenda = resultSet.getInt("id_venda");
-                LocalDate dataVenda = resultSet.getDate("data_venda").toLocalDate();
-                double valorTotal = resultSet.getDouble("valor_venda");
-                String cpfCliente = resultSet.getString("cpf_cliente");
+                int idBrinquedo = resultSet.getInt("id_brinquedo");
+                int quantidade = resultSet.getInt("quantidade");
     
-                RelatorioSintetico relatorioItem = new RelatorioSintetico(idVenda, dataVenda, valorTotal, cpfCliente);
-                retornoRelatorioSintetico.add(relatorioItem);
+                DetalhesVendas detalhesVenda = new DetalhesVendas(idBrinquedo, quantidade);
+                detalhesVendaList.add(detalhesVenda);
             }
     
-            resultSet.close();
             preparedStatement.close();
-        } catch (SQLException e) { 
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     
-        return retornoRelatorioSintetico;
+        return detalhesVendaList;
     }
 }

@@ -1,6 +1,7 @@
 package com.mycompany.pi;
 
 import com.mycompany.pi.database.ClientesDAO;
+import com.mycompany.pi.database.DetalhesVendasDAO;
 import com.mycompany.pi.database.EnderecosDAO;
 import com.mycompany.pi.database.FuncionariosDAO;
 import com.mycompany.pi.database.ProdutosDAO;
@@ -49,8 +50,8 @@ public class Pi {
         EnderecosDAO.criaTabelaEnderecos();
         FuncionariosDAO.criaTabelaFuncionarios();
         ProdutosDAO.criaTabelaBrinquedos();
-        // ProdutosDAO.criaTabelaCategorias();
         VendasDAO.criaTabelaVendas();
+        DetalhesVendasDAO.criaTabelaDetalhesVendas();
 
         // populando tabela de brinquedos
         ProdutosDAO.populaTabelaBrinquedos();

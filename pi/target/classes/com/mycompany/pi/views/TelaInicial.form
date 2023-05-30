@@ -89,14 +89,6 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="abrirRelatorioAnalitico">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Anal&#xed;tico"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abrirRelatorioAnaliticoActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="abrirRelatorioSintetico">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sint&#xe9;tico"/>
