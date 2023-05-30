@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
+import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.database.VendasDAO;
 import com.mycompany.pi.models.DetalhesVendas;
 
@@ -16,32 +17,38 @@ import com.mycompany.pi.models.DetalhesVendas;
  * @author igor
  */
 public class RelatorioAnalitico extends javax.swing.JFrame {
-    private javax.swing.JTable tabelaRelatorioAnaliticoJTable;
-    private List<DetalhesVendas> detalhesVendasLista;
     private int idVenda;
     private String nomeFuncionario;
     private String nomeBrinquedo;
     private int quantidade;
+    private List<DetalhesVendas> detalhesVendasLista;
 
     /**
      * Creates new form RelatorioAnalitico
      */
-    public RelatorioAnalitico(int idVenda, String nomeFuncionario, String nomeBrinquedo, int quantidade) {
+    public RelatorioAnalitico(List<DetalhesVendas> detalhesVendasLista, int idVenda) {
         initComponents();
-
-        preencherTabela(idVenda, nomeFuncionario, nomeBrinquedo, quantidade);
+        this.detalhesVendasLista = detalhesVendasLista;
+        this.idVenda = idVenda;
+        preencherTabela();
     }
-
+    
     public RelatorioAnalitico() {
+        initComponents();
     }
 
-    public void preencherTabela(int idVenda, String nomeFuncionario, String nomeBrinquedo, int quantidade) {
+    private void preencherTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaRelatorioAnalitico.getModel();
         modelo.setRowCount(0); // limpa a tabela
 
-        // adiciona os dados à tabela
-        Object[] row = { idVenda, nomeFuncionario, nomeBrinquedo, quantidade };
-        modelo.addRow(row);
+        for (DetalhesVendas detalhesVenda : detalhesVendasLista) {
+            String nomeFuncionario = VendasDAO.consultarNomeFuncionario(idVenda);
+            int idBrinquedo = detalhesVenda.getIdBrinquedo();
+            String nomeBrinquedo = ProdutosDAO.consultarNomeBrinquedo(idBrinquedo);
+            int quantidade = detalhesVenda.getQuantidade();
+            Object[] row = { idVenda, nomeFuncionario, nomeBrinquedo, quantidade };
+            modelo.addRow(row);
+        }
     }
 
     /**

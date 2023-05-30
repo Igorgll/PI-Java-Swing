@@ -251,16 +251,9 @@ public class RelatorioSintetico extends javax.swing.JFrame {
             List<DetalhesVendas> detalhesVendasLista = DetalhesVendasDAO.consultarDetalhesVenda(dataVenda, valorVenda,
                     cpfCliente);
 
-            for (DetalhesVendas detalhesVenda : detalhesVendasLista) {
-                String nomeFuncionario = VendasDAO.consultarNomeFuncionario(idVenda);
-                int idBrinquedo = detalhesVenda.getIdBrinquedo();
-                String nomeBrinquedo = ProdutosDAO.consultarNomeBrinquedo(idBrinquedo);
-                int quantidade = detalhesVenda.getQuantidade();
-
-                RelatorioAnalitico relatorioAnalitico = new RelatorioAnalitico(idVenda, nomeFuncionario, nomeBrinquedo, quantidade);
-                relatorioAnalitico.setLocationRelativeTo(this);
-                relatorioAnalitico.setVisible(true);
-            }
+            RelatorioAnalitico relatorioAnalitico = new RelatorioAnalitico(detalhesVendasLista, idVenda);
+            relatorioAnalitico.setLocationRelativeTo(this);
+            relatorioAnalitico.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Selecione a linha da venda que deseja ver os detalhes primeiro.");
         }
