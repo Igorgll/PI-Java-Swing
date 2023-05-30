@@ -4,7 +4,8 @@ public class DetalhesVendas {
     private int idBrinquedo;
     private int quantidade;
 
-    public DetalhesVendas(){}
+    public DetalhesVendas() {
+    }
 
     public DetalhesVendas(int idBrinquedo, int quantidade) {
         this.idBrinquedo = idBrinquedo;

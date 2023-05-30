@@ -158,4 +158,8 @@ public class Queries {
         + "INNER JOIN vendas ON detalhes_vendas.id_venda = vendas.id_venda "
         + "WHERE vendas.data_venda = ? AND vendas.valor_venda = ? "
         + "AND vendas.cpf_cliente = ?";
+
+        public static final String CONSULTA_NOME_BRINQUEDO_POR_ID = "SELECT nome FROM brinquedos WHERE id_brinquedo = ?";
+
+        public static final String CONSULTA_NOME_FUNCIONARIO = "SELECT F.nome FROM vendas V INNER JOIN funcionarios F ON V.nome_funcionario = F.nome WHERE V.id_venda = ?";
 }

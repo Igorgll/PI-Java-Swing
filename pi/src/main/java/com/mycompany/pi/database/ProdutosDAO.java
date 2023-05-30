@@ -329,4 +329,31 @@ public class ProdutosDAO {
             return -1; // retorna valor inválido em caso de erro
         }
     }
+
+    public static String consultarNomeBrinquedo(int idBrinquedo) {
+        String nomeBrinquedo = "";
+    
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+    
+            String sql = Queries.CONSULTA_NOME_BRINQUEDO_POR_ID;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, idBrinquedo);
+    
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            if (resultSet.next()) {
+                nomeBrinquedo = resultSet.getString("nome");
+            }
+    
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return nomeBrinquedo;
+    }
 }

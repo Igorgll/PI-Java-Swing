@@ -87,4 +87,31 @@ public class VendasDAO {
             return false; // retorna false para venda mal-sucedida
         }
     }
+
+    public static String consultarNomeFuncionario(int idVenda) {
+        String nomeFuncionario = "";
+    
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+    
+            String sql = Queries.CONSULTA_NOME_FUNCIONARIO;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setInt(1, idVenda);
+    
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            if (resultSet.next()) {
+                nomeFuncionario = resultSet.getString("nome");
+            }
+    
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return nomeFuncionario;
+    }
 }
