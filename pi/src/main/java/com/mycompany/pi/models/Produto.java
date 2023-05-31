@@ -10,11 +10,9 @@ import com.mycompany.pi.database.ProdutosDAO;
 import com.mycompany.pi.utils.Categoria;
 
 /**
- *
- * @author igor
+ * A classe Produto representa um produto, incluindo informações como ID, estoque, nome, categoria, valor unitário e descrição.
  */
 public class Produto {
-    
     private int id_brinquedo;
     private int estoque;
     private String nome;
@@ -22,8 +20,20 @@ public class Produto {
     private double valor_unitario;
     private String descricao;
 
+    /**
+     * Cria um objeto Produto vazio.
+     */
     public Produto(){}
 
+    /**
+     * Cria um objeto Produto com as informações especificadas.
+     * @param id_brinquedo o ID do brinquedo
+     * @param estoque a quantidade em estoque do produto
+     * @param nome o nome do produto
+     * @param categoria a categoria do produto
+     * @param valor_unitario o valor unitário do produto
+     * @param descricao a descrição do produto
+     */
     public Produto(int id_brinquedo, int estoque, String nome, Categoria categoria, double valor_unitario, String descricao) {
         this.id_brinquedo = id_brinquedo;
         this.estoque = estoque;

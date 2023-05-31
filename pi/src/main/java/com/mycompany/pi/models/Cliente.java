@@ -2,6 +2,9 @@ package com.mycompany.pi.models;
 
 import java.util.ArrayList;
 
+/**
+ * A classe Cliente representa um cliente com informações pessoais e endereços associados.
+ */
 public class Cliente {
 
     private int id_cliente;
@@ -11,9 +14,21 @@ public class Cliente {
     private String telefone;
     private ArrayList<Endereco> enderecos;
 
+    /**
+     * Cria um objeto Cliente vazio.
+     */
     public Cliente() {
     }
 
+    /**
+     * Cria um objeto Cliente com as informações especificadas.
+     * @param id_cliente o ID do cliente
+     * @param CPF o CPF do cliente
+     * @param nome o nome do cliente
+     * @param email o email do cliente
+     * @param telefone o telefone do cliente
+     * @param enderecos os endereços do cliente
+     */
     public Cliente(int id_cliente, String cPF, String nome, String email, String telefone,
             ArrayList<Endereco> enderecos) {
         this.id_cliente = id_cliente;

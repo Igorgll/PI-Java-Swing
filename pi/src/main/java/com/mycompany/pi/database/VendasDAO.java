@@ -15,6 +15,9 @@ import javax.swing.JOptionPane;
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.DetalhesVendas;
 
+/**
+ * Esta classe é responsável pela comunicação com o banco de dados para realizar operações relacionadas a vendas na loja de brinquedos.
+ */
 public class VendasDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String LOGIN = "root";
@@ -31,6 +34,10 @@ public class VendasDAO {
         }
     }
 
+    /**
+     * Cria a tabela de vendas no banco de dados.
+     * Esta tabela é utilizada para armazenar as informações das vendas realizadas na loja.
+     */
     public static void criaTabelaVendas() {
         try {
             Statement statement = conexao.createStatement();
@@ -44,6 +51,16 @@ public class VendasDAO {
         }
     }
 
+    /**
+     * Efetua uma venda na loja de brinquedos, registrando as informações no banco de dados.
+     *
+     * @param nomeFuncionario O nome do funcionário responsável pela venda.
+     * @param cpfCliente O CPF do cliente que realizou a compra.
+     * @param valorVenda O valor total da venda.
+     * @param dataVenda A data da venda.
+     * @param detalhesVenda Uma lista de objetos DetalhesVendas contendo os detalhes dos itens vendidos.
+     * @return True se a venda for efetuada com sucesso, False caso contrário.
+     */
     public static boolean efetuarVenda(String nomeFuncionario, String cpfCliente, double valorVenda, LocalDate dataVenda, List<DetalhesVendas> detalhesVenda) {
         try {
             if (conexao.isClosed()) {
@@ -88,6 +105,12 @@ public class VendasDAO {
         }
     }
 
+    /**
+     * Consulta o nome do funcionário responsável por uma venda específica.
+     *
+     * @param idVenda O ID da venda.
+     * @return O nome do funcionário responsável pela venda.
+     */
     public static String consultarNomeFuncionario(int idVenda) {
         String nomeFuncionario = "";
     

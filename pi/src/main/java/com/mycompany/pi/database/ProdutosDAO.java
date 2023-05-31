@@ -18,6 +18,9 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
 
+/**
+ * Esta classe fornece métodos para acessar e manipular dados relacionados a produtos na base de dados.
+ */
 public class ProdutosDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String LOGIN = "root";
@@ -34,6 +37,9 @@ public class ProdutosDAO {
         }
     }
 
+    /**
+     * Cria a tabela "brinquedos" no banco de dados.
+     */
     public static void criaTabelaBrinquedos() {
         try {
             Statement statement = conexao.createStatement();
@@ -47,6 +53,9 @@ public class ProdutosDAO {
         }
     }
 
+    /**
+     * Popula a tabela "brinquedos" com dados iniciais.
+     */
     public static void populaTabelaBrinquedos() {
         try {
             Statement statement = conexao.createStatement();
@@ -60,6 +69,11 @@ public class ProdutosDAO {
         }
     }
 
+    /**
+     * Consulta a lista de todos os brinquedos cadastrados.
+     * 
+     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos encontrados.
+     */
     public static ArrayList<Produto> consultaListaBrinquedos() {
         ArrayList<Produto> retornoBrinquedos = new ArrayList<Produto>();
         try {
@@ -93,6 +107,12 @@ public class ProdutosDAO {
         return retornoBrinquedos;
     }
 
+    /**
+     * Consulta a lista de brinquedos filtrada por categoria.
+     * 
+     * @param categoriaSelecionada A categoria dos brinquedos a serem filtrados.
+     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos encontrados.
+     */
     public static ArrayList<Produto> consultaListaBrinquedosPorCategoria(String categoriaSelecionada) {
         ArrayList<Produto> retornoBrinquedos = new ArrayList<Produto>();
         try {
@@ -128,6 +148,12 @@ public class ProdutosDAO {
         return retornoBrinquedos;
     }
 
+    /**
+     * Consulta a lista de brinquedos filtrada por nome.
+     * 
+     * @param nomeConsulta O nome dos brinquedos a serem filtrados.
+     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos encontrados.
+     */
     public static ArrayList<Produto> consultaListaBrinquedosPorNome(String nomeConsulta) {
         ArrayList<Produto> retornoBrinquedosPorNome = new ArrayList<Produto>();
         try {
@@ -163,6 +189,11 @@ public class ProdutosDAO {
         return retornoBrinquedosPorNome;
     }
 
+    /**
+     * Cria um novo brinquedo no banco de dados com base nas informações fornecidas.
+     *
+     * @param brinquedo O objeto Produto que representa o brinquedo a ser criado.
+     */
     public static void criaBrinquedo(Produto brinquedo) {
         try {
             if (conexao.isClosed()) {
@@ -190,6 +221,11 @@ public class ProdutosDAO {
         }
     }
 
+    /**
+     * Deleta um brinquedo do banco de dados com base no ID fornecido.
+     *
+     * @param id O ID do brinquedo a ser deletado.
+     */
     public void deletarBrinquedo(int id) {
         try {
             if (conexao.isClosed()) {
@@ -210,6 +246,17 @@ public class ProdutosDAO {
         }
     }
 
+    /**
+     * Altera as informações de um brinquedo no banco de dados com base no ID fornecido.
+     *
+     * @param id O ID do brinquedo a ser alterado.
+     * @param estoque O novo valor do estoque do brinquedo.
+     * @param nome O novo nome do brinquedo.
+     * @param categoria A nova categoria do brinquedo.
+     * @param valor_unitario O novo valor unitário do brinquedo.
+     * @param descricao A nova descrição do brinquedo.
+     * @param evt O evento relacionado à alteração do brinquedo.
+     */
     public void alteraBrinquedo(int id, int estoque, String nome, String categoria, double valor_unitario,
             String descricao, ActionEvent evt) {
         try {
@@ -238,6 +285,12 @@ public class ProdutosDAO {
         }
     }
 
+    /**
+     * Obtém o preço de um brinquedo com base no seu nome.
+     *
+     * @param produto O nome do brinquedo.
+     * @return O preço do brinquedo.
+     */
     public static double obterPrecoBrinquedo(String produto) {
         double precoProduto = 0.0;
 
@@ -260,6 +313,12 @@ public class ProdutosDAO {
         return precoProduto;
     }
 
+    /**
+     * Consulta o estoque de um brinquedo com base no seu nome.
+     *
+     * @param produto O nome do brinquedo.
+     * @return O estoque do brinquedo.
+     */
     public static int consultaEstoqueBrinquedo(String produto) {
         int estoque = 0;
 
@@ -286,6 +345,12 @@ public class ProdutosDAO {
         return estoque;
     }
 
+    /**
+     * Atualiza o estoque de um brinquedo com base no seu nome.
+     *
+     * @param produto O nome do brinquedo.
+     * @param novoEstoque O novo valor do estoque do brinquedo.
+     */
     public static void atualizaEstoqueBrinquedo(String produto, int novoEstoque) {
         try {
             if (conexao.isClosed()) {
@@ -304,6 +369,12 @@ public class ProdutosDAO {
         }
     }
 
+    /**
+     * Obtém o ID de um brinquedo com base no seu nome.
+     *
+     * @param nomeProduto O nome do brinquedo.
+     * @return O ID do brinquedo.
+     */
     public static int obterIdBrinquedo(String nomeProduto) {
         try {
             if (conexao.isClosed()) {
@@ -330,6 +401,12 @@ public class ProdutosDAO {
         }
     }
 
+    /**
+     * Consulta o nome de um brinquedo com base no seu ID.
+     *
+     * @param idBrinquedo O ID do brinquedo.
+     * @return O nome do brinquedo.
+     */
     public static String consultarNomeBrinquedo(int idBrinquedo) {
         String nomeBrinquedo = "";
     

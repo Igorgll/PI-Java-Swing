@@ -5,8 +5,7 @@
 package com.mycompany.pi.utils;
 
 /**
- *
- * @author igor
+ * A enumeração Categoria representa as categorias possíveis para os brinquedos, com base na faixa de idade.
  */
 public enum Categoria {
     DE_1_A_2_ANOS("1-2 anos"),
@@ -17,10 +16,18 @@ public enum Categoria {
     
     private final String faixaIdade;
     
+    /**
+     * Cria uma categoria com a faixa de idade especificada.
+     * @param faixaIdade a faixa de idade da categoria
+     */
     Categoria(String faixaIdade) {
         this.faixaIdade = faixaIdade;
     }
     
+    /**
+     * Obtém a faixa de idade da categoria.
+     * @return a faixa de idade da categoria
+     */
     public String getFaixaIdade() {
         return faixaIdade;
     }

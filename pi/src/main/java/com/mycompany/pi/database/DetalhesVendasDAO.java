@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.DetalhesVendas;
 
+/**
+ * Classe responsável por lidar com a persistência de dados dos detalhes de vendas.
+ */
 public class DetalhesVendasDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String LOGIN = "root";
@@ -29,6 +32,9 @@ public class DetalhesVendasDAO {
         }
     }
 
+    /**
+     * Cria a tabela de detalhes de vendas no banco de dados.
+     */
     public static void criaTabelaDetalhesVendas() {
         try {
             Statement statement = conexao.createStatement();
@@ -42,6 +48,14 @@ public class DetalhesVendasDAO {
         }
     }
 
+    /**
+     * Consulta os detalhes de venda com base na data, valor da venda e CPF do cliente.
+     *
+     * @param dataVenda   Data da venda.
+     * @param valorVenda  Valor da venda.
+     * @param cpfCliente  CPF do cliente.
+     * @return Lista de detalhes de vendas correspondentes à consulta.
+     */
     public static List<DetalhesVendas> consultarDetalhesVenda(LocalDate dataVenda, double valorVenda,String cpfCliente) {
         List<DetalhesVendas> detalhesVendaList = new ArrayList<>();
     

@@ -22,6 +22,9 @@ import com.mycompany.pi.models.Cliente;
 import com.mycompany.pi.models.Endereco;
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 
+/**
+ * Classe que representa o DAO (Data Access Object) para a entidade Clientes.
+ */
 public class ClientesDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String LOGIN = "root";
@@ -38,6 +41,9 @@ public class ClientesDAO {
         }
     }
 
+    /**
+     * Cria a tabela de clientes no banco de dados.
+     */
     public static void criaTabelaClientes() {
         try {
             Statement statement = conexao.createStatement();
@@ -51,6 +57,11 @@ public class ClientesDAO {
         }
     }
 
+    /**
+     * Cria um novo cliente no banco de dados.
+     *
+     * @param cliente O objeto Cliente a ser criado.
+     */
     public static void criaCliente(Cliente cliente) {
         try {
             if (conexao.isClosed()) {
@@ -87,6 +98,12 @@ public class ClientesDAO {
         }
     }
 
+    /**
+     * Cria um novo endereço associado a um cliente no banco de dados.
+     *
+     * @param idCliente O ID do cliente.
+     * @param endereco O objeto Endereco a ser criado.
+     */
     public static void criaEndereco(int idCliente, Endereco endereco) {
         try {
             if (conexao.isClosed()) {
@@ -108,6 +125,11 @@ public class ClientesDAO {
         }
     }
 
+    /**
+     * Consulta a lista de todos os clientes no banco de dados.
+     *
+     * @return A lista de clientes consultada.
+     */
     public static ArrayList<Cliente> consultaListaClientes() {
         ArrayList<Cliente> retornoClientes = new ArrayList<Cliente>();
         try {
@@ -171,6 +193,12 @@ public class ClientesDAO {
         return retornoClientes;
     }
 
+    /**
+     * Consulta a lista de clientes por nome no banco de dados.
+     *
+     * @param nomeConsulta O nome a ser consultado.
+     * @return A lista de clientes encontrados.
+     */
     public static ArrayList<Cliente> consultaListaClientesPorNome(String nomeConsulta) {
         ArrayList<Cliente> retornoClientesPorNome = new ArrayList<>();
         try {
@@ -235,6 +263,12 @@ public class ClientesDAO {
         return retornoClientesPorNome;
     }
 
+    /**
+     * Consulta a lista de clientes por CPF no banco de dados.
+     *
+     * @param CPF O CPF a ser consultado.
+     * @return A lista de clientes encontrados.
+     */
     public static ArrayList<Cliente> consultaListaClientesPorCPF(String CPF) {
         ArrayList<Cliente> retornoClientesPorCPF = new ArrayList<>();
         try {
@@ -299,6 +333,11 @@ public class ClientesDAO {
         return retornoClientesPorCPF;
     }
 
+    /**
+     * Deleta um cliente do banco de dados.
+     *
+     * @param id_cliente O ID do cliente a ser deletado.
+     */
     public void deletarCliente(int id_cliente) {
         try {
             if (conexao.isClosed()) {
@@ -330,6 +369,20 @@ public class ClientesDAO {
         }
     }
 
+    /**
+     * Altera os dados de um cliente no banco de dados.
+     *
+     * @param id_cliente O ID do cliente a ser alterado.
+     * @param nome O novo nome do cliente.
+     * @param CPF O novo CPF do cliente.
+     * @param email O novo email do cliente.
+     * @param rua O novo nome da rua do endereço do cliente.
+     * @param numero O novo número do endereço do cliente.
+     * @param cidade A nova cidade do endereço do cliente.
+     * @param estado O novo estado do endereço do cliente.
+     * @param telefone O novo telefone do cliente.
+     * @param evt O evento que acionou a alteração.
+     */
     public void alterarCliente(int id_cliente, String nome, String CPF, String email, String rua, int numero,
             String cidade, String estado, String telefone, ActionEvent evt) {
         try {

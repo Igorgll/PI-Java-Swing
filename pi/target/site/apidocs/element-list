@@ -1,0 +1,8 @@
+com.mycompany.pi
+com.mycompany.pi.database
+com.mycompany.pi.database.sqlQueries
+com.mycompany.pi.models
+com.mycompany.pi.Sessao
+com.mycompany.pi.themes
+com.mycompany.pi.utils
+com.mycompany.pi.views

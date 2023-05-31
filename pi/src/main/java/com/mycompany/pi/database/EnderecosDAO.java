@@ -7,6 +7,9 @@ import java.sql.Statement;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
 
+/**
+ * Classe responsável por lidar com a persistência de dados dos endereços.
+ */
 public class EnderecosDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String LOGIN = "root";
@@ -23,6 +26,9 @@ public class EnderecosDAO {
         }
     }
 
+    /**
+     * Cria a tabela de endereços no banco de dados.
+     */
     public static void criaTabelaEnderecos() {
         try {
             Statement statement = conexao.createStatement();

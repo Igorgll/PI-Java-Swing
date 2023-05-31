@@ -5,8 +5,7 @@
 package com.mycompany.pi.models;
 
 /**
- *
- * @author igor
+ * A classe Funcionario representa um funcionário, incluindo informações como nome, usuário e senha.
  */
 public class Funcionario {
 
@@ -15,8 +14,18 @@ public class Funcionario {
     private String usuario;
     private String senha;
 
+    /**
+     * Cria um objeto Funcionario vazio.
+     */
     public Funcionario(){}
 
+    /**
+     * Cria um objeto Funcionario com as informações especificadas.
+     * @param id_funcionario o ID do funcionário
+     * @param nome o nome do funcionário
+     * @param usuario o usuário do funcionário
+     * @param senha a senha do funcionário
+     */
     public Funcionario(int id_funcionario, String nome, String usuario, String senha) {
         this.id_funcionario = id_funcionario;
         this.nome = nome;

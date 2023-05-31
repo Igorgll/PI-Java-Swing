@@ -7,8 +7,7 @@ package com.mycompany.pi.models;
 import java.util.Date;
 
 /**
- *
- * @author igor
+ * A classe Venda representa uma venda de produtos, contendo informações como ID da venda, valor, data e quantidade.
  */
 public class Venda {
     private int id_venda;
@@ -16,6 +15,13 @@ public class Venda {
     private Date data;
     private int quantidade;
 
+    /**
+     * Cria um objeto Venda com as informações especificadas.
+     * @param id_venda o ID da venda
+     * @param valor o valor da venda
+     * @param data a data da venda
+     * @param quantidade a quantidade vendida
+     */
     public Venda(int id_venda, double valor, Date data, int quantidade) {
         this.id_venda = id_venda;
         this.valor = valor;

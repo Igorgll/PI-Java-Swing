@@ -16,6 +16,9 @@ import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Funcionario;
 import com.mycompany.pi.views.Venda;
 
+/**
+ * Classe responsável por lidar com a persistência de dados dos funcionários.
+ */
 public class FuncionariosDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String LOGIN = "root";
@@ -32,6 +35,9 @@ public class FuncionariosDAO {
         }
     }
 
+    /**
+     * Cria a tabela de funcionários no banco de dados.
+     */
     public static void criaTabelaFuncionarios() {
         try {
             Statement statement = conexao.createStatement();
@@ -45,6 +51,9 @@ public class FuncionariosDAO {
         }
     }
 
+    /**
+     * Cria um funcionário administrador se ainda não existir.
+     */
     public static void criaFuncionarioAdmin() {
         try {
             if (conexao.isClosed()) {
@@ -78,6 +87,11 @@ public class FuncionariosDAO {
         }
     }
 
+    /**
+     * Cria um novo funcionário no banco de dados.
+     * 
+     * @param funcionario O objeto Funcionario contendo as informações do novo funcionário.
+     */
     public static void criaFuncionario(Funcionario funcionario) {
         try {
             if (conexao.isClosed()) {
@@ -100,6 +114,12 @@ public class FuncionariosDAO {
         }
     }
 
+    /**
+     * Verifica se um funcionário com o usuário fornecido já existe no banco de dados.
+     * 
+     * @param usuario O usuário do funcionário a ser verificado.
+     * @return true se o funcionário existe, false caso contrário.
+     */
     public static boolean verificarFuncionarioExistente(String usuario) {
         try {
             if (conexao.isClosed()) {
@@ -124,6 +144,12 @@ public class FuncionariosDAO {
         }
     }
 
+    /**
+     * Efetua o login de um funcionário com o usuário e senha fornecidos.
+     * 
+     * @param usuario O usuário do funcionário.
+     * @param senha A senha do funcionário.
+     */
     public static void efetuarLogin(String usuario, String senha) {
         String nomeFuncionario = null;
         try {

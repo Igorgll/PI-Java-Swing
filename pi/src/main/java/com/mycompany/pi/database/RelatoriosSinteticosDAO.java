@@ -13,6 +13,9 @@ import java.util.List;
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.RelatorioSintetico;
 
+/**
+ * Esta classe é responsável pela comunicação com o banco de dados para gerar relatórios sintéticos de vendas da loja de brinquedos.
+ */
 public class RelatoriosSinteticosDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String LOGIN = "root";
@@ -29,6 +32,13 @@ public class RelatoriosSinteticosDAO {
         }
     }
 
+    /**
+     * Gera um relatório sintético de vendas da loja de brinquedos no período especificado.
+     *
+     * @param dataInicio A data de início do período.
+     * @param dataFim A data de fim do período.
+     * @return Uma lista de objetos RelatorioSintetico contendo as informações resumidas das vendas no período especificado.
+     */
     public static List<RelatorioSintetico> gerarRelatorioSintetico(LocalDate dataInicio, LocalDate dataFim) {
         List<RelatorioSintetico> retornoRelatorioSintetico = new ArrayList<>();
         

@@ -5,8 +5,7 @@
 package com.mycompany.pi.models;
 
 /**
- *
- * @author igor
+ * A classe Endereco representa um endereço, incluindo informações como rua, número, cidade e estado.
  */
 public class Endereco {
 
@@ -16,9 +15,20 @@ public class Endereco {
     private String cidade;
     private String estado;
 
+    /**
+     * Cria um objeto Endereco vazio.
+     */
     public Endereco() {
     }
 
+    /**
+     * Cria um objeto Endereco com as informações especificadas.
+     * @param id_endereco o ID do endereço
+     * @param rua a rua
+     * @param numero o número
+     * @param cidade a cidade
+     * @param estado o estado
+     */
     public Endereco(int id_endereco, String rua, int numero, String cidade, String estado) {
         this.id_endereco = id_endereco;
         this.rua = rua;

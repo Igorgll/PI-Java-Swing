@@ -1,5 +1,8 @@
 package com.mycompany.pi.database.sqlQueries;
 
+/**
+ * Descrição da classe ou do método.
+ */
 public class Queries {
         public static final String CRIA_TABELA_BRINQUEDOS_SQL = "CREATE TABLE IF NOT EXISTS brinquedos ("
                         + "id_brinquedo INT NOT NULL AUTO_INCREMENT,"
