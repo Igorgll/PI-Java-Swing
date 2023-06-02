@@ -9,9 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
 
 import java.awt.Component;
 import java.awt.Window;
@@ -20,7 +18,6 @@ import java.awt.event.ActionEvent;
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Cliente;
 import com.mycompany.pi.models.Endereco;
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 
 /**
  * Classe que representa o DAO (Data Access Object) para a entidade Clientes.
@@ -37,22 +34,6 @@ public class ClientesDAO {
             Class.forName(DRIVER);
             conexao = DriverManager.getConnection(url, LOGIN, SENHA);
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Cria a tabela de clientes no banco de dados.
-     */
-    public static void criaTabelaClientes() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_TABELA_CLIENTES_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

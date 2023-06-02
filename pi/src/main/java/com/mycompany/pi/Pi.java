@@ -1,11 +1,6 @@
 package com.mycompany.pi;
 
-import com.mycompany.pi.database.ClientesDAO;
-import com.mycompany.pi.database.DetalhesVendasDAO;
-import com.mycompany.pi.database.EnderecosDAO;
 import com.mycompany.pi.database.FuncionariosDAO;
-import com.mycompany.pi.database.ProdutosDAO;
-import com.mycompany.pi.database.VendasDAO;
 import com.mycompany.pi.themes.tema;
 import com.mycompany.pi.views.BemVindo;
 import java.awt.Font;
@@ -44,17 +39,6 @@ public class Pi {
         UIManager.put("RadioButtonMenuItem.font", font);
         UIManager.put("ToggleButton.font", font);
         UIManager.put("Tree.font", font);
-
-        // criação de tabelas
-        ClientesDAO.criaTabelaClientes();
-        EnderecosDAO.criaTabelaEnderecos();
-        FuncionariosDAO.criaTabelaFuncionarios();
-        ProdutosDAO.criaTabelaBrinquedos();
-        VendasDAO.criaTabelaVendas();
-        DetalhesVendasDAO.criaTabelaDetalhesVendas();
-
-        // populando tabela de brinquedos
-        ProdutosDAO.populaTabelaBrinquedos();
 
         // cria funcionario admin
         FuncionariosDAO.criaFuncionarioAdmin();

@@ -7,10 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.DetalhesVendas;
@@ -30,23 +27,6 @@ public class VendasDAO {
             Class.forName(DRIVER);
             conexao = DriverManager.getConnection(url, LOGIN, SENHA);
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Cria a tabela de vendas no banco de dados.
-     * Esta tabela é utilizada para armazenar as informações das vendas realizadas na loja.
-     */
-    public static void criaTabelaVendas() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_TABELA_VENDAS_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

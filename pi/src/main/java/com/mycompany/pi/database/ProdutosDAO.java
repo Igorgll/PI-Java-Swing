@@ -38,38 +38,6 @@ public class ProdutosDAO {
     }
 
     /**
-     * Cria a tabela "brinquedos" no banco de dados.
-     */
-    public static void criaTabelaBrinquedos() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_TABELA_BRINQUEDOS_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Popula a tabela "brinquedos" com dados iniciais.
-     */
-    public static void populaTabelaBrinquedos() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.POPULA_TABELA_BRINQUEDOS_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Consulta a lista de todos os brinquedos cadastrados.
      * 
      * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos encontrados.

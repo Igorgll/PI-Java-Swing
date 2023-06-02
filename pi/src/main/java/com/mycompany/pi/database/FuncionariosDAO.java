@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
@@ -14,7 +13,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.mycompany.pi.Sessao.Sessao;
 import com.mycompany.pi.database.sqlQueries.Queries;
 import com.mycompany.pi.models.Funcionario;
-import com.mycompany.pi.views.Venda;
 
 /**
  * Classe responsável por lidar com a persistência de dados dos funcionários.
@@ -31,22 +29,6 @@ public class FuncionariosDAO {
             Class.forName(DRIVER);
             conexao = DriverManager.getConnection(url, LOGIN, SENHA);
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Cria a tabela de funcionários no banco de dados.
-     */
-    public static void criaTabelaFuncionarios() {
-        try {
-            Statement statement = conexao.createStatement();
-
-            String sql = Queries.CRIA_TABELA_FUNCIONARIOS_SQL;
-
-            statement.executeUpdate(sql);
-            statement.close();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
