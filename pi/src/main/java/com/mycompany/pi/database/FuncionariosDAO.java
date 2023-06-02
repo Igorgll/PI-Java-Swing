@@ -150,7 +150,7 @@ public class FuncionariosDAO {
      * @param usuario O usuário do funcionário.
      * @param senha A senha do funcionário.
      */
-    public static void efetuarLogin(String usuario, String senha) {
+    public static boolean efetuarLogin(String usuario, String senha) {
         String nomeFuncionario = null;
         try {
             if (conexao.isClosed()) {
@@ -170,12 +170,14 @@ public class FuncionariosDAO {
                 if (BCrypt.checkpw(senha, senhaArmazenada)) {
                     resultSet.close();
                     preparedStatement.close();
+                    Sessao.setNomeFuncionario(nomeFuncionario);
+                    return true;
                 } else {
                     resultSet.close();
                     preparedStatement.close();
+                    return false;
                 }
 
-                Sessao.setNomeFuncionario(nomeFuncionario);
             } else {
                 resultSet.close();
                 preparedStatement.close();
@@ -183,5 +185,6 @@ public class FuncionariosDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }

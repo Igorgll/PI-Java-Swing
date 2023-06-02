@@ -229,18 +229,22 @@ public class Login extends javax.swing.JFrame {
     private void acessarBtnActionPerformed(java.awt.event.ActionEvent evt) {
         String usuario = usuarioTxt.getText().trim();
         String senha = new String(senhaTxt.getPassword()).trim();
-        FuncionariosDAO.efetuarLogin(usuario, senha);
+        boolean loginSucesso = FuncionariosDAO.efetuarLogin(usuario, senha);
 
-        JOptionPane.showMessageDialog(this, "Bem vindo(a) " + usuarioTxt.getText());
-        TelaInicial telaInicial = new TelaInicial();
-        telaInicial.setLocationRelativeTo(null);
-        telaInicial.setExtendedState(MAXIMIZED_BOTH);
-        telaInicial.setVisible(true);
-
-        DashboardProduto dashBoardProduto = new DashboardProduto();
-        dashBoardProduto.setLocationRelativeTo(null);
-        dashBoardProduto.setVisible(true);
-        dispose();
+        if(loginSucesso) {
+            JOptionPane.showMessageDialog(this, "Bem vindo(a) " + usuarioTxt.getText());
+            TelaInicial telaInicial = new TelaInicial();
+            telaInicial.setLocationRelativeTo(null);
+            telaInicial.setExtendedState(MAXIMIZED_BOTH);
+            telaInicial.setVisible(true);
+    
+            DashboardProduto dashBoardProduto = new DashboardProduto();
+            dashBoardProduto.setLocationRelativeTo(null);
+            dashBoardProduto.setVisible(true);
+            dispose();
+        }else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha incorreta.");
+        }
 
     }// GEN-LAST:event_acessarBtnActionPerformed
 
