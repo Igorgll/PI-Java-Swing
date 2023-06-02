@@ -238,6 +238,15 @@ public class RelatorioSintetico extends javax.swing.JFrame {
         dispose();
     }// GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Realiza a ação de exibir o relatório analítico da venda selecionada na tabela de relatório sintético.
+     * Obtém a linha selecionada na tabela e extrai as informações necessárias, como o ID da venda, a data da venda,
+     * o valor da venda e o CPF do cliente. Em seguida, consulta os detalhes da venda e exibe o relatório analítico
+     * correspondente.
+     * Se nenhuma linha for selecionada, exibe uma mensagem de erro.
+     *
+     * @param evt o evento que acionou a ação
+     */
     private void relatorioAnaliticoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_relatorioAnaliticoBtnActionPerformed
         int linhaSelecionada = tabelaRelatorioSintetico.getSelectedRow();
 
@@ -261,6 +270,10 @@ public class RelatorioSintetico extends javax.swing.JFrame {
 
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
 
+    /**
+     * Exibe uma mensagem de validação na interface.
+     * @param mensagem a mensagem de validação a ser exibida
+     */
     private void msgValidacao(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -270,6 +283,15 @@ public class RelatorioSintetico extends javax.swing.JFrame {
         msgValidacao.setText(mensagem);
     }
 
+    /**
+     * Realiza a ação de imprimir o relatório sintético com base nas datas fornecidas.
+     * Valida as datas de início e fim e, se forem válidas, gera o relatório sintético com base nessas datas.
+     * Limpa a tabela existente e adiciona as informações do relatório sintético na tabela.
+     * Calcula o valor total das vendas e exibe na interface.
+     * Se as datas forem inválidas, exibe uma mensagem de erro.
+     *
+     * @param evt o evento que acionou a ação
+     */
     private void imprimirRelatorioSinteticoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_imprimirRelatorioSinteticoBtnActionPerformed
         if (validaDataInicial() && validaDataFinal()) {
             LocalDate dataInicio = LocalDate.parse(dataInicial.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -305,6 +327,14 @@ public class RelatorioSintetico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_dataInicialActionPerformed
 
+    /**
+     * Valida a data inicial fornecida pelo usuário.
+     * Verifica se a data não está vazia e se está no formato correto (dd/mm/yyyy).
+     * Se a data for inválida, exibe uma mensagem de erro.
+     * Retorna true se a data for válida, caso contrário, retorna false.
+     *
+     * @return true se a data inicial for válida, false caso contrário
+     */
     private boolean validaDataInicial() {
         String data = dataInicial.getText();
         boolean dataInicialOk = false;
@@ -324,6 +354,15 @@ public class RelatorioSintetico extends javax.swing.JFrame {
         return dataInicialOk;
     }
 
+    /**
+     * Valida a data final fornecida pelo usuário.
+     * Verifica se a data não está vazia e se está no formato correto (dd/mm/yyyy).
+     * Em seguida, compara a data final com a data inicial para garantir que a data final não seja anterior à data inicial.
+     * Se a data for inválida ou a data final for anterior à data inicial, exibe uma mensagem de erro.
+     * Retorna true se a data final for válida, caso contrário, retorna false.
+     *
+     * @return true se a data final for válida, false caso contrário
+     */
     private boolean validaDataFinal() {
         String data = dataFinal.getText();
         boolean dataFinalOk = false;

@@ -37,6 +37,11 @@ public class Venda extends javax.swing.JFrame {
     private List<Carrinho> carrinho;
     private double precoTotalDoCarrinho;
 
+    /**
+     * Define o preço total do carrinho.
+     *
+     * @param precoTotalDoCarrinho o preço total do carrinho
+     */
     public void setPrecoTotalDoCarrinho(double precoTotalDoCarrinho) {
         this.precoTotalDoCarrinho = precoTotalDoCarrinho;
     }
@@ -327,7 +332,9 @@ public class Venda extends javax.swing.JFrame {
         msgValidacao.setText(mensagem);
     }
 
-    // limpa as linhas vazias da tabela carrinhos
+    /**
+     * Remove as linhas vazias da tabela do carrinho.
+     */
     private void removeLinhasVazias() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaCarrinho.getModel();
         int rowCount = modelo.getRowCount();
@@ -350,6 +357,14 @@ public class Venda extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Valida o CPF fornecido pelo usuário.
+     * Verifica se o CPF não está vazio e se está no formato correto (XXX.XXX.XXX-XX).
+     * Se o CPF for inválido, exibe uma mensagem de erro.
+     * Retorna true se o CPF for válido, caso contrário, retorna false.
+     *
+     * @return true se o CPF for válido, false caso contrário
+     */
     private boolean validaCpf() {
         String CPF = txtCPF.getText();
         Pattern regex = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$");
@@ -375,6 +390,14 @@ public class Venda extends javax.swing.JFrame {
         validaCpf();
     }// GEN-LAST:event_txtCPFKeyReleased
 
+    /**
+     * Evento de ação para o botão de adicionar produto ao carrinho.
+     * Verifica se o CPF do cliente está cadastrado.
+     * Se o CPF estiver cadastrado, verifica se o produto já existe no carrinho.
+     * Se o produto existir, atualiza a quantidade e o preço total.
+     * Se o produto não existir, cria um novo item no carrinho.
+     * Atualiza a tabela do carrinho e o preço total.
+     */
     private void adcCarrinhoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_adcCarrinhoBtnActionPerformed
         String cpfCliente = txtCPF.getText();
         String produto = (String) produtoComboBox.getSelectedItem();
@@ -435,6 +458,10 @@ public class Venda extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_adcCarrinhoBtnActionPerformed
 
+    /**
+     * Limpa o carrinho.
+     * Remove todos os itens do carrinho e limpa a tabela e o preço total.
+     */
     private void limpaCarrinho() {
         carrinho.clear(); // limpa lista
 
@@ -445,7 +472,11 @@ public class Venda extends javax.swing.JFrame {
         // limpa o preço total
         precoTotalLabel.setText("R$0.00");
     }
-
+    
+    /**
+     * Evento de ação para o botão de limpar o carrinho.
+     * Exibe uma mensagem de confirmação e, se confirmado, limpa o carrinho.
+     */
     private void limpaCarrinhoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_limpaCarrinhoBtnActionPerformed
         int confirmacao = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja limpar o carrinho ?",
                 "Confirmação", JOptionPane.YES_NO_OPTION);
@@ -455,6 +486,11 @@ public class Venda extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_limpaCarrinhoBtnActionPerformed
 
+    /**
+     * Evento de ação para o botão de deletar uma linha de produto do carrinho.
+     * Obtém a linha selecionada na tabela do carrinho e remove o produto correspondente do carrinho.
+     * Atualiza a tabela e o preço total do carrinho.
+     */
     private void deletarLinhaProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletarLinhaProdutoBtnActionPerformed
         int linhaSelecionada = tabelaCarrinho.getSelectedRow();
         if (linhaSelecionada != -1) {
@@ -487,6 +523,11 @@ public class Venda extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_deletarLinhaProdutoBtnActionPerformed
 
+    /**
+     * Evento de ação para o botão de alterar a quantidade de um produto no carrinho.
+     * Obtém a linha selecionada na tabela do carrinho e exibe um diálogo para selecionar a nova quantidade.
+     * Atualiza a quantidade na tabela, o preço total do produto, o preço total do carrinho e a quantidade no objeto carrinho.
+     */
     private void alterarQuantidadeProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alterarQuantidadeProdutoBtnActionPerformed
         int linhaSelecionada = tabelaCarrinho.getSelectedRow();
         if (linhaSelecionada != -1) {
@@ -539,6 +580,12 @@ public class Venda extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_alterarQuantidadeProdutoBtnActionPerformed
 
+    /**
+     * Efetua a venda.
+     * Verifica se o estoque é suficiente para cada produto no carrinho.
+     * Se o estoque for suficiente, registra a venda no banco de dados e atualiza o estoque dos produtos.
+     * Limpa o carrinho e exibe uma mensagem de sucesso.
+     */
     public void efetuarVenda() {
         String precoTotalTexto = precoTotalLabel.getText().replace("R$", "").replace(",", ".");
         double precoTotalCarrinho = Double.parseDouble(precoTotalTexto);
