@@ -458,6 +458,12 @@ public class DashboardProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // convertendo a value String que vem da tabela para o formato enum do banco de dados
+    /**
+     * Converte uma categoria de brinquedo para o formato utilizado no banco de dados.
+     *
+     * @param categoria a categoria de brinquedo a ser convertida
+     * @return a categoria convertida no formato do banco de dados, ou null se não for uma categoria válida
+     */
     public static String retornaConversaoCategoria(String categoria) {
         switch (categoria) {
             case "1-2 anos":
@@ -481,6 +487,10 @@ public class DashboardProduto extends javax.swing.JFrame {
         return categoria;
     }
     
+    /**
+     * Ação executada quando o botão "Deletar Brinquedo" é clicado.
+     * Deleta o brinquedo selecionado na tabela de brinquedos.
+     */
     private void deletarBrinquedoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarBrinquedoBtnActionPerformed
         int linhaSelecionada = tabelaBrinquedos.getSelectedRow(); // pega a linha selecionada
         if(linhaSelecionada != -1) {
@@ -505,6 +515,10 @@ public class DashboardProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deletarBrinquedoBtnActionPerformed
 
+    /**
+     * Ação executada quando o botão "Alterar Brinquedo" é clicado.
+     * Abre a janela de alteração de brinquedo com os dados preenchidos do brinquedo selecionado na tabela.
+     */
     private void alterarBrinquedoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarBrinquedoBtnActionPerformed
         int linhaSelecionada = tabelaBrinquedos.getSelectedRow();
         if(linhaSelecionada != -1) {
@@ -545,6 +559,11 @@ public class DashboardProduto extends javax.swing.JFrame {
     private void txtNomeConsultaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtNomeConsultaActionPerformed
     }// GEN-LAST:event_txtNomeConsultaActionPerformed
 
+    /**
+     * Realiza a consulta de produtos por nome.
+     *
+     * @param evt o evento que acionou o método
+     */
     private void consultarProdutoNomeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_consultarProdutoNomeBtnActionPerformed
         String nomeConsulta = txtNomeConsulta.getText();
         if (validaNomeConsulta()) {
@@ -571,6 +590,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_consultarProdutoNomeBtnActionPerformed
 
+    /**
+     * Realiza a consulta de todos os produtos.
+     *
+     * @param evt o evento que acionou o método
+     */
     private void consultaProdutosBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_consultaProdutosBtnActionPerformed
         ArrayList<Produto> listaBrinquedos = ProdutosDAO.consultaListaBrinquedos();
 
@@ -587,6 +611,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         tabelaBrinquedos.setModel(modeloTabelaBrinquedos);
     }// GEN-LAST:event_consultaProdutosBtnActionPerformed
 
+    /**
+     * Realiza a consulta de produtos por categoria selecionada.
+     *
+     * @param evt o evento que acionou o método
+     */
     private void txtSelecionaCategoriaConsultaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtSelecionaCategoriaConsultaActionPerformed
         String categoriaSelecionada = (String) txtSelecionaCategoriaConsulta.getSelectedItem();
         ArrayList<Produto> listaBrinquedos = ProdutosDAO.consultaListaBrinquedosPorCategoria(categoriaSelecionada);
@@ -606,6 +635,10 @@ public class DashboardProduto extends javax.swing.JFrame {
 
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
 
+    /**
+     * Exibe uma mensagem de validação na interface.
+     * @param mensagem a mensagem de validação a ser exibida
+     */
     private void msgValidacao(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -615,6 +648,10 @@ public class DashboardProduto extends javax.swing.JFrame {
         msgValidacao.setText(mensagem);
     }
 
+    /**
+     * Exibe uma mensagem de validação na interface consulta.
+     * @param mensagem a mensagem de validação a ser exibida
+     */
     private void msgValidacaoConsulta(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -644,6 +681,11 @@ public class DashboardProduto extends javax.swing.JFrame {
     }
     // GEN-LAST:event_txtSelecionaCategoriaConsultaMouseExited
 
+    /**
+     * Valida a descrição do produto.
+     *
+     * @return true se a descrição for válida, false caso contrário
+     */
     private boolean validaDescricao() {
         String descricao = txtDescricao.getText();
         int limiteCaracteres = 100;
@@ -664,6 +706,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         return descricaoOk;
     }
 
+    /**
+     * Valida o nome do produto.
+     *
+     * @return true se o nome for válido, false caso contrário
+     */
     private boolean validaNome() {
         String nome = txtNome.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -685,6 +732,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         return nomeOk;
     }
 
+    /**
+     * Valida o estoque do produto.
+     *
+     * @return true se o estoque for válido, false caso contrário
+     */
     private boolean validaEstoque() {
         String estoque = txtEstoque.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
@@ -706,6 +758,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         return estoqueOk;
     }
 
+    /**
+     * Valida o valor unitário do produto.
+     *
+     * @return true se o valor unitário for válido, false caso contrário
+     */
     private boolean validaValorUnitario() {
         String valor = txtValorUnitario.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
@@ -727,6 +784,11 @@ public class DashboardProduto extends javax.swing.JFrame {
         return valorUnitarioOk;
     }
 
+    /**
+     * Valida o nome de consulta do produto.
+     *
+     * @return true se o nome de consulta for válido, false caso contrário
+     */
     private boolean validaNomeConsulta() {
         String nomeConsulta = txtNomeConsulta.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -770,6 +832,12 @@ public class DashboardProduto extends javax.swing.JFrame {
         validaNomeConsulta();
     }// GEN-LAST:event_txtNomeConsultaKeyReleased
 
+    /**
+     * Método executado ao clicar no botão "Cadastrar Produto".
+     * Realiza o cadastro de um novo produto com base nos dados preenchidos nos campos de texto.
+     *
+     * @param evt o evento de clique no botão
+     */
     private void cadastrarProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cadastrarProdutoBtnActionPerformed
         try {
             int estoque = Integer.parseInt(txtEstoque.getText());

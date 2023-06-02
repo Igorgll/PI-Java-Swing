@@ -19,7 +19,8 @@ public class Login extends javax.swing.JFrame {
     private int idFuncionario;
 
     /**
-     * Creates new form CadastroLogin
+     * Construtor da classe Login.
+     * Inicializa os componentes da interface gráfica e configurações iniciais.
      */
     public Login() {
         initComponents();
@@ -218,6 +219,13 @@ public class Login extends javax.swing.JFrame {
         dispose();
     }// GEN-LAST:event_sairBtnActionPerformed
 
+    /**
+     * Método executado ao clicar no botão "Acessar".
+     * Realiza a tentativa de login com base nas informações inseridas nos campos de usuário e senha.
+     * Exibe uma mensagem de boas-vindas, abre a tela inicial e o painel de produtos e fecha a tela de login.
+     *
+     * @param evt o evento de clique no botão
+     */
     private void acessarBtnActionPerformed(java.awt.event.ActionEvent evt) {
         String usuario = usuarioTxt.getText().trim();
         String senha = new String(senhaTxt.getPassword()).trim();
@@ -244,6 +252,11 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_senhaTxtActionPerformed
 
+    /**
+     * Verifica os campos de usuário e senha e habilita ou desabilita o botão de acesso.
+     * Realiza a validação dos campos e exibe mensagens de validação conforme necessário.
+     * A cor vermelha é utilizada para destacar as mensagens de validação.
+     */
     private void verificaCamposHabilitaBotao() {
         String usuario = usuarioTxt.getText().trim();
         String senha = new String(senhaTxt.getPassword()).trim();

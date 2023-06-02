@@ -17,8 +17,7 @@ import javax.swing.UIManager;
 import com.mycompany.pi.database.ClientesDAO;
 
 /**
- *
- * @author igor
+ * A classe AlteraCliente é responsável por gerenciar um formulário de alteração de clientes.
  */
 public class AlteraCliente extends javax.swing.JFrame {
 
@@ -314,6 +313,10 @@ public class AlteraCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
+    /**
+     * Exibe uma mensagem de validação na interface.
+     * @param mensagem a mensagem de validação a ser exibida
+     */
     private void msgValidacao(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -323,6 +326,10 @@ public class AlteraCliente extends javax.swing.JFrame {
         msgValidacao.setText(mensagem);
     }
     
+    /**
+     * Valida o campo de nome.
+     * @return true se o campo de nome for válido, false caso contrário
+     */
     private boolean validaNome() {
         String nome = txtNome.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -343,6 +350,10 @@ public class AlteraCliente extends javax.swing.JFrame {
         return nomeOk;
     }
 
+    /**
+     * Valida o campo de CPF.
+     * @return true se o campo de CPF for válido, false caso contrário
+     */
     private boolean validaCpf() {
         String cpf = txtCpf.getText();
         Pattern regex = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"); // regex para verificar formato CPF
@@ -360,6 +371,10 @@ public class AlteraCliente extends javax.swing.JFrame {
         return cpfOk;
     }
 
+    /**
+     * Valida o campo de rua.
+     * @return true se o campo de rua for válido, false caso contrário
+     */
     private boolean validaRua() {
         String rua = txtRua.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -379,6 +394,10 @@ public class AlteraCliente extends javax.swing.JFrame {
         return ruaOk;
     }
 
+    /**
+     * Valida o campo de cidade.
+     * @return true se o campo de cidade for válido, false caso contrário
+     */
     private boolean validaCidade() {
         String cidade = txtCidade.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$");
@@ -398,6 +417,10 @@ public class AlteraCliente extends javax.swing.JFrame {
         return cidadeOk;
     }
 
+    /**
+     * Valida o campo de email.
+     * @return true se o campo de email for válido, false caso contrário
+     */
     private boolean validaEmail() {
         String email = txtEmail.getText();
         Pattern regex = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); // regex para validar endereço de email
@@ -417,6 +440,10 @@ public class AlteraCliente extends javax.swing.JFrame {
         return emailOk;
     }
 
+    /**
+     * Valida o campo de número.
+     * @return true se o campo de número for válido, false caso contrário
+     */
     private boolean validaNumero() {
         String numero = txtNumero.getText();
         Pattern regex = Pattern.compile("^[0-9]+$");
@@ -436,6 +463,10 @@ public class AlteraCliente extends javax.swing.JFrame {
         return numeroOk;
     }
 
+    /**
+     * Valida o campo de telefone.
+     * @return true se o campo de telefone for válido, false caso contrário
+     */
     private boolean validaTelefone() {
         String telefone = txtTelefone.getText();
         Pattern regex = Pattern.compile("^\\(\\d{2}\\) \\d{5}-\\d{4}$"); // regex para verificar formato de telefone
@@ -451,42 +482,82 @@ public class AlteraCliente extends javax.swing.JFrame {
         return telefoneOk;
     }
     
+    /**
+     * Obtém o combobox de seleção de estado.
+     * @return o combobox de seleção de estado
+     */
     public JComboBox<String> getComboBoxSelecionaEstado() {
         return selecionaEstado;
     }
 
+    /**
+     * Define o valor do campo de ID.
+     * @param valor o valor a ser definido no campo de ID
+     */
     public void setTxtId(String valor) {
         txtId.setText(valor);
     }
 
+    /**
+     * Obtém o campo de ID.
+     * @return o campo de ID
+     */
     public JTextField getTxtId() {
         return txtId;
     }
 
+    /**
+     * Define o valor do campo de nome.
+     * @param valor o valor a ser definido no campo de nome
+     */
     public void setTxtNome(String valor) {
         txtNome.setText(valor);
     }
 
+    /**
+     * Define o valor do campo de CPF.
+     * @param valor o valor a ser definido no campo de CPF
+     */
     public void setTxtCpf(String valor) {
         txtCpf.setText(valor);
     }
 
+    /**
+     * Define o valor do campo de email.
+     * @param valor o valor a ser definido no campo de email
+     */
     public void setTxtEmail(String valor) {
         txtEmail.setText(valor);
     }
 
+    /**
+     * Define o valor do campo de rua.
+     * @param valor o valor a ser definido no campo de rua
+     */
     public void setTxtRua(String valor) {
         txtRua.setText(valor);
     }
 
+    /**
+     * Define o valor do campo de número.
+     * @param valor o valor a ser definido no campo de número
+     */
     public void setTxtNumero(String valor) {
         txtNumero.setText(valor);
     }
 
+    /**
+     * Define o valor do campo de cidade.
+     * @param valor o valor a ser definido no campo de cidade
+     */
     public void setTxtCidade(String valor) {
         txtCidade.setText(valor);
     }
  
+    /**
+     * Define o valor do campo de telefone.
+     * @param valor o valor a ser definido no campo de telefone
+     */
     public void setTxtTelefone(String valor) {
         txtTelefone.setText(valor);
     }
@@ -515,6 +586,10 @@ public class AlteraCliente extends javax.swing.JFrame {
         validaCidade();
     }//GEN-LAST:event_txtCidadeKeyReleased
 
+    /**
+     * Método executado quando o botão de cadastrar é acionado.
+     * @param evt o evento de ação do botão
+     */
     private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtnActionPerformed
         try {
             int id_cliente = Integer.parseInt(txtId.getText());

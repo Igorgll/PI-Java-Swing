@@ -571,6 +571,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Ação executada quando o botão "Deletar Cliente" é clicado.
+     * Exclui o cliente selecionado da tabela e do banco de dados.
+     *
+     * @param evt O evento de ação
+     */
     private void deletarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarClienteBtnActionPerformed
         int linhaSelecionada = tabelaClientes.getSelectedRow(); // pega a linha selecionada
         if(linhaSelecionada != -1) {
@@ -595,6 +601,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deletarClienteBtnActionPerformed
 
+    /**
+     * Ação executada quando o botão "Alterar Cliente" é clicado.
+     * Abre uma janela para modificar as informações do cliente selecionado.
+     *
+     * @param evt O evento de ação
+     */
     private void alterarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarClienteBtnActionPerformed
         int linhaSelecionada = tabelaClientes.getSelectedRow();
         if (linhaSelecionada != -1) {
@@ -658,6 +670,10 @@ public class DashboardCliente extends javax.swing.JFrame {
     // VALIDAÇÕES DE CAMPOS
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
 
+    /**
+     * Exibe uma mensagem de validação na interface.
+     * @param mensagem a mensagem de validação a ser exibida
+     */
     private void msgValidacao(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -667,6 +683,10 @@ public class DashboardCliente extends javax.swing.JFrame {
         msgValidacao.setText(mensagem);
     }
 
+    /**
+     * Exibe uma mensagem de validação na interface consulta.
+     * @param mensagem a mensagem de validação a ser exibida
+     */
     private void msgConsulta(String msg) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -676,6 +696,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         msgConsulta.setText(msg);
     }
 
+    /**
+     * Valida o campo "Nome".
+     * Verifica se o campo não está vazio, possui um comprimento maior que 5 e contém apenas letras e espaços.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaNome() {
         String nome = txtNome.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -696,6 +722,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         return nomeOk;
     }
 
+    /**
+     * Valida o campo "CPF".
+     * Verifica se o campo não está vazio e se está no formato correto.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaCpf() {
         String cpf = txtCpf.getText();
         Pattern regex = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"); // regex para verificar formato CPF
@@ -713,6 +745,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         return cpfOk;
     }
 
+    /**
+     * Valida o campo "Rua".
+     * Verifica se o campo não está vazio, possui um comprimento maior que 5 e contém apenas letras.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaRua() {
         String rua = txtRua.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -732,6 +770,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         return ruaOk;
     }
 
+    /**
+     * Valida o campo "Cidade".
+     * Verifica se o campo não está vazio e contém apenas letras.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaCidade() {
         String cidade = txtCidade.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$");
@@ -751,6 +795,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         return cidadeOk;
     }
 
+    /**
+     * Valida o campo "Email".
+     * Verifica se o campo não está vazio e possui um formato válido de endereço de email.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaEmail() {
         String email = txtEmail.getText();
         Pattern regex = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); // regex para validar endereço de email
@@ -770,6 +820,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         return emailOk;
     }
 
+    /**
+     * Valida o campo "Número".
+     * Verifica se o campo não está vazio e contém apenas números.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaNumero() {
         String numero = txtNumero.getText();
         Pattern regex = Pattern.compile("^[0-9]+$");
@@ -789,6 +845,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         return numeroOk;
     }
 
+    /**
+     * Valida o campo "Telefone".
+     * Verifica se o campo está no formato correto para um número de telefone.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaTelefone() {
         String telefone = txtTelefone.getText();
         Pattern regex = Pattern.compile("^\\(\\d{2}\\) \\d{5}-\\d{4}$"); // regex para verificar formato de telefone
@@ -820,6 +882,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         validaNumero();
     }// GEN-LAST:event_txtNumeroKeyReleased
 
+    /**
+     * Valida o campo "Nome" na consulta.
+     * Verifica se o campo não está vazio e contém apenas letras.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaNomeConsulta() {
         String nomeConsulta = txtNomeConsulta.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -841,6 +909,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         return nomeConsultaOk;
     }
 
+    /**
+     * Valida o campo "CPF" na consulta.
+     * Verifica se o campo não está vazio e se está no formato correto.
+     *
+     * @return true se o campo for válido, false caso contrário
+     */
     private boolean validaCpfConsulta() {
         String cpf = txtCpfConsulta.getText();
         Pattern regex = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"); // regex para verificar formato CPF
@@ -874,6 +948,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         validaTelefone();
     }// GEN-LAST:event_txtTelefoneKeyReleased
 
+    /**
+     * Ação executada quando o botão "Cadastrar" é clicado.
+     * Cria um novo cliente com os valores dos campos de entrada, valida-os e adiciona-o ao banco de dados.
+     *
+     * @param evt O evento de ação
+     */
     private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cadastrarBtnActionPerformed
         try {
             String nome = txtNome.getText();
@@ -945,6 +1025,12 @@ public class DashboardCliente extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_cadastrarBtnActionPerformed
 
+    /**
+     * Ação executada quando o botão "Consultar por Nome" é clicado.
+     * Pesquisa clientes com o nome especificado e atualiza a tabela com os resultados da pesquisa.
+     *
+     * @param evt O evento de ação
+     */
     private void consultarPorNomeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_consultarPorNomeBtnActionPerformed
         if (validaNomeConsulta()) {
             String nomeConsulta = txtNomeConsulta.getText();
@@ -981,6 +1067,10 @@ public class DashboardCliente extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_consultarPorNomeBtnActionPerformed
 
+    /**
+     * Ação executada quando o botão "Consultar por CPF" é clicado.
+     * Realiza a consulta de clientes por CPF e preenche a tabela com os resultados.
+     */
     private void consultarPorCpfBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_consultarPorCpfBtnActionPerformed
         if (validaCpfConsulta()) {
             String CPF = txtCpfConsulta.getText();
@@ -1021,6 +1111,10 @@ public class DashboardCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_txtNumeroActionPerformed
 
+    /**
+     * Ação executada quando o botão "Consulta de Clientes" é clicado.
+     * Realiza a consulta de todos os clientes e preenche a tabela com os resultados.
+     */
     private void consultaClientesBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_consultaClientesBtnActionPerformed
         ArrayList<Cliente> listaClientes = ClientesDAO.consultaListaClientes();
 

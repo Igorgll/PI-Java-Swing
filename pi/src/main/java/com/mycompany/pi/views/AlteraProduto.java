@@ -203,6 +203,10 @@ public class AlteraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
+    /**
+     * Exibe uma mensagem de validação na interface.
+     * @param mensagem a mensagem de validação a ser exibida
+     */
     private void msgValidacao(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -212,6 +216,10 @@ public class AlteraProduto extends javax.swing.JFrame {
         msgValidacao.setText(mensagem);
     }
     
+    /**
+     * Valida o campo de estoque de alteração.
+     * @return true se o campo de estoque estiver válido, caso contrário, false
+     */
     private boolean validaEstoqueAlteracao() {
         String estoqueAlteracao = txtEstoqueAlterar.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
@@ -233,6 +241,10 @@ public class AlteraProduto extends javax.swing.JFrame {
         return estoqueAlteracaoOk;
     }
 
+    /**
+     * Valida o campo de nome de alteração.
+     * @return true se o campo de nome estiver válido, caso contrário, false
+     */
     private boolean validaNomeAlteracao() {
         String nomeAlteracao = txtNomeAlterar.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -254,6 +266,10 @@ public class AlteraProduto extends javax.swing.JFrame {
         return nomeAlteracaoOk;
     }
 
+    /**
+     * Valida o campo de valor unitário de alteração.
+     * @return true se o campo de valor unitário estiver válido, caso contrário, false
+     */
     private boolean validaValorUnitarioAlteracao() {
         String valorAlteracao = txtValorUnitarioAlterar.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z\\s]+$");
@@ -275,6 +291,10 @@ public class AlteraProduto extends javax.swing.JFrame {
         return valorUnitarioAlteracaoOk;
     }
 
+    /**
+     * Valida o campo de descrição de alteração.
+     * @return true se o campo de descrição estiver válido, caso contrário, false
+     */
     private boolean validaDescricaoAlteracao() {
         String descricaoAlteracao = txtDescricaoAlterar.getText();
         int limiteCaracteres = 100;
@@ -295,6 +315,10 @@ public class AlteraProduto extends javax.swing.JFrame {
         return descricaoAlteracaoOk;
     }
 
+    /**
+     * Método executado quando o botão de salvar alteração de brinquedo é acionado.
+     * @param evt o evento de ação do botão
+     */
     private void salvarAlteracaoBrinquedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarAlteracaoBrinquedoActionPerformed
         try {
             int id_brinquedo = Integer.parseInt(txtIdAlterar.getText());

@@ -267,6 +267,10 @@ public class CriaVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     Color vermelho = new Color(255, 128, 128); // vermelho mais claro
+    /**
+     * Exibe uma mensagem de validação na interface.
+     * @param mensagem a mensagem de validação a ser exibida
+     */
     private void msgValidacao(String mensagem) {
         Font globalFont = UIManager.getFont("Label.font");
         int fontSize = 14;
@@ -284,6 +288,11 @@ public class CriaVendedor extends javax.swing.JFrame {
         dispose();
     }// GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Valida o campo nome.
+     * Verifica se o campo não está vazio, possui mais de 5 caracteres e contém apenas letras e espaços.
+     * @return true se o campo nome for válido, false caso contrário
+     */
     private boolean validaNome() {
         String nome = txtNome.getText();
         Pattern regex = Pattern.compile("^[\\p{L}\\s]+$"); // regex para verificar que o campo só tenha string
@@ -304,6 +313,11 @@ public class CriaVendedor extends javax.swing.JFrame {
         return nomeOk;
     }
 
+    /**
+     * Valida o campo usuário.
+     * Verifica se o campo não está vazio, possui entre 5 e 16 caracteres e contém apenas letras, números e underscores.
+     * @return true se o campo usuário for válido, false caso contrário
+     */
     private boolean validaUsuario() {
         String usuario = txtUsuario.getText();
         Pattern regex = Pattern.compile("^[a-zA-Z0-9_]{5,16}$"); // regex para verificar que o campo só tenha string
@@ -326,7 +340,11 @@ public class CriaVendedor extends javax.swing.JFrame {
         }
         return usuarioOk;
     }
-
+    /**
+      * Valida o campo senha.
+      * Verifica se o campo não está vazio e possui pelo menos 6 caracteres.
+      * @return true se o campo senha for válido, false caso contrário
+      */
     private boolean validaSenha() {
         char[] senhaChars = txtSenha.getPassword();
         String senha = new String(senhaChars);
@@ -346,6 +364,11 @@ public class CriaVendedor extends javax.swing.JFrame {
         return senhaOk;
     }
 
+    /**
+      * Valida o campo de confirmação de senha.
+      * Verifica se o campo de confirmação de senha corresponde ao campo de senha.
+      * @return true se o campo de confirmação de senha for válido, false caso contrário
+      */
     private boolean validaConfirmaSenha() {
         char[] senhaChars = txtSenha.getPassword();
         char[] confirmarSenhaChars = txtConfirmarSenha.getPassword();
@@ -380,6 +403,15 @@ public class CriaVendedor extends javax.swing.JFrame {
         validaConfirmaSenha();
     }
 
+    /**
+     * Método executado quando o botão de criar é acionado.
+     * Obtém os valores dos campos nome, usuário e senha, e realiza validações.
+     * Se todos os campos forem válidos, cria um novo funcionário e o armazena no banco de dados.
+     * Caso contrário, exibe uma mensagem de erro.
+     * A senha é criptografada usando o algoritmo BCrypt antes de ser armazenada.
+     * Fecha a janela após a criação do funcionário.
+     * @param evt o evento de ação do botão
+     */
     private void criarBtnActionPerformed(java.awt.event.ActionEvent evt) {
         String nome = txtNome.getText();
         String usuario = txtUsuario.getText();

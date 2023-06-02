@@ -94,6 +94,11 @@ public class BemVindo extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_sairBtnActionPerformed
 
+    /**
+     * Método executado quando o botão de fazer login é acionado.
+     * Fecha a janela atual e abre a janela de login.
+     * @param evt o evento de ação do botão
+     */
     private void fazerLoginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fazerLoginBtnActionPerformed
         Login login = new Login();
         login.setLocationRelativeTo(null);

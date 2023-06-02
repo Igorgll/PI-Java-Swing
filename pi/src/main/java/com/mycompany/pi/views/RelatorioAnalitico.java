@@ -24,7 +24,12 @@ public class RelatorioAnalitico extends javax.swing.JFrame {
     private List<DetalhesVendas> detalhesVendasLista;
 
     /**
-     * Creates new form RelatorioAnalitico
+     * Construtor da classe RelatorioAnalitico.
+     * Inicializa os componentes da interface gráfica e atribui os valores passados como parâmetros.
+     * Em seguida, preenche a tabela com os detalhes de vendas.
+     *
+     * @param detalhesVendasLista a lista de detalhes de vendas a ser exibida no relatório analítico
+     * @param idVenda o ID da venda relacionada ao relatório analítico
      */
     public RelatorioAnalitico(List<DetalhesVendas> detalhesVendasLista, int idVenda) {
         initComponents();
@@ -37,6 +42,12 @@ public class RelatorioAnalitico extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * Preenche a tabela do relatório analítico com os detalhes de vendas.
+     * Limpa a tabela existente e itera sobre a lista de detalhes de vendas para adicionar as informações na tabela.
+     * Para cada detalhe de venda, consulta o nome do funcionário e o nome do brinquedo associados aos IDs correspondentes.
+     * Em seguida, adiciona as informações na tabela.
+     */
     private void preencherTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabelaRelatorioAnalitico.getModel();
         modelo.setRowCount(0); // limpa a tabela
