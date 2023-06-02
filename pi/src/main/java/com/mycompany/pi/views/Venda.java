@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -142,12 +143,10 @@ public class Venda extends javax.swing.JFrame {
             }
         });
 
-        produtoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bola de Futebol",
-                "Boneca de Pano", "Carrinho de Controle Remoto", "Jogo de Tabuleiro", "Quebra-Cabeça",
-                "Kit de Ferramentas de Brinquedo", "Bicicleta", "Mesa de Pebolim", "Cubo Mágico", "Pista de Carrinhos",
-                "Instrumento Musical", "Trenzinho de Madeira", "Lego ", "Patins", "Kit de Artesanato", "Jogo de Xadrez",
-                "Carro de Controle Remoto", "Jogo de Memória", "Jogo de Dardos", "Palymobil", "Mesa de Air Hockey",
-                "Piano Eletrônico", "Patins Azul", "Lego Technic", "Mini Game" }));
+        // atualiza o jComboBox com os novos produtos cada vez que é adicionado        
+        ArrayList<String> nomesProdutos = ProdutosDAO.buscarNomesProdutos();
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(nomesProdutos.toArray(new String[0]));
+        produtoComboBox.setModel(comboBoxModel);
 
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -359,7 +358,8 @@ public class Venda extends javax.swing.JFrame {
 
     /**
      * Valida o CPF fornecido pelo usuário.
-     * Verifica se o CPF não está vazio e se está no formato correto (XXX.XXX.XXX-XX).
+     * Verifica se o CPF não está vazio e se está no formato correto
+     * (XXX.XXX.XXX-XX).
      * Se o CPF for inválido, exibe uma mensagem de erro.
      * Retorna true se o CPF for válido, caso contrário, retorna false.
      *
@@ -472,7 +472,7 @@ public class Venda extends javax.swing.JFrame {
         // limpa o preço total
         precoTotalLabel.setText("R$0.00");
     }
-    
+
     /**
      * Evento de ação para o botão de limpar o carrinho.
      * Exibe uma mensagem de confirmação e, se confirmado, limpa o carrinho.
@@ -488,7 +488,8 @@ public class Venda extends javax.swing.JFrame {
 
     /**
      * Evento de ação para o botão de deletar uma linha de produto do carrinho.
-     * Obtém a linha selecionada na tabela do carrinho e remove o produto correspondente do carrinho.
+     * Obtém a linha selecionada na tabela do carrinho e remove o produto
+     * correspondente do carrinho.
      * Atualiza a tabela e o preço total do carrinho.
      */
     private void deletarLinhaProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletarLinhaProdutoBtnActionPerformed
@@ -524,9 +525,12 @@ public class Venda extends javax.swing.JFrame {
     }// GEN-LAST:event_deletarLinhaProdutoBtnActionPerformed
 
     /**
-     * Evento de ação para o botão de alterar a quantidade de um produto no carrinho.
-     * Obtém a linha selecionada na tabela do carrinho e exibe um diálogo para selecionar a nova quantidade.
-     * Atualiza a quantidade na tabela, o preço total do produto, o preço total do carrinho e a quantidade no objeto carrinho.
+     * Evento de ação para o botão de alterar a quantidade de um produto no
+     * carrinho.
+     * Obtém a linha selecionada na tabela do carrinho e exibe um diálogo para
+     * selecionar a nova quantidade.
+     * Atualiza a quantidade na tabela, o preço total do produto, o preço total do
+     * carrinho e a quantidade no objeto carrinho.
      */
     private void alterarQuantidadeProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alterarQuantidadeProdutoBtnActionPerformed
         int linhaSelecionada = tabelaCarrinho.getSelectedRow();
@@ -583,7 +587,8 @@ public class Venda extends javax.swing.JFrame {
     /**
      * Efetua a venda.
      * Verifica se o estoque é suficiente para cada produto no carrinho.
-     * Se o estoque for suficiente, registra a venda no banco de dados e atualiza o estoque dos produtos.
+     * Se o estoque for suficiente, registra a venda no banco de dados e atualiza o
+     * estoque dos produtos.
      * Limpa o carrinho e exibe uma mensagem de sucesso.
      */
     public void efetuarVenda() {

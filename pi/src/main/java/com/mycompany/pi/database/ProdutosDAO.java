@@ -19,7 +19,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
 
 /**
- * Esta classe fornece métodos para acessar e manipular dados relacionados a produtos na base de dados.
+ * Esta classe fornece métodos para acessar e manipular dados relacionados a
+ * produtos na base de dados.
  */
 public class ProdutosDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -40,7 +41,8 @@ public class ProdutosDAO {
     /**
      * Consulta a lista de todos os brinquedos cadastrados.
      * 
-     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos encontrados.
+     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos
+     *         encontrados.
      */
     public static ArrayList<Produto> consultaListaBrinquedos() {
         ArrayList<Produto> retornoBrinquedos = new ArrayList<Produto>();
@@ -76,10 +78,37 @@ public class ProdutosDAO {
     }
 
     /**
+     * Busca os nomes dos produtos no banco de dados.
+     * 
+     * @return Uma lista de Strings contendo os nomes dos produtos.
+     *         Caso ocorra algum erro durante a consulta, retorna uma lista vazia.
+     */
+    public static ArrayList<String> buscarNomesProdutos() {
+        ArrayList<String> nomesProdutos = new ArrayList<>();
+        try {
+            if (conexao.isClosed()) {
+                conexao = DriverManager.getConnection(url, LOGIN, SENHA);
+            }
+            Statement statement = conexao.createStatement();
+            ResultSet resultSet = statement.executeQuery(Queries.CONSULTA_BRINQUEDOS);
+            while (resultSet.next()) {
+                String nome = resultSet.getString("nome");
+                nomesProdutos.add(nome);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            nomesProdutos.add("");
+        }
+        return nomesProdutos;
+    }
+
+    /**
      * Consulta a lista de brinquedos filtrada por categoria.
      * 
      * @param categoriaSelecionada A categoria dos brinquedos a serem filtrados.
-     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos encontrados.
+     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos
+     *         encontrados.
      */
     public static ArrayList<Produto> consultaListaBrinquedosPorCategoria(String categoriaSelecionada) {
         ArrayList<Produto> retornoBrinquedos = new ArrayList<Produto>();
@@ -120,7 +149,8 @@ public class ProdutosDAO {
      * Consulta a lista de brinquedos filtrada por nome.
      * 
      * @param nomeConsulta O nome dos brinquedos a serem filtrados.
-     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos encontrados.
+     * @return Uma lista de objetos do tipo Produto contendo os dados dos brinquedos
+     *         encontrados.
      */
     public static ArrayList<Produto> consultaListaBrinquedosPorNome(String nomeConsulta) {
         ArrayList<Produto> retornoBrinquedosPorNome = new ArrayList<Produto>();
@@ -215,15 +245,16 @@ public class ProdutosDAO {
     }
 
     /**
-     * Altera as informações de um brinquedo no banco de dados com base no ID fornecido.
+     * Altera as informações de um brinquedo no banco de dados com base no ID
+     * fornecido.
      *
-     * @param id O ID do brinquedo a ser alterado.
-     * @param estoque O novo valor do estoque do brinquedo.
-     * @param nome O novo nome do brinquedo.
-     * @param categoria A nova categoria do brinquedo.
+     * @param id             O ID do brinquedo a ser alterado.
+     * @param estoque        O novo valor do estoque do brinquedo.
+     * @param nome           O novo nome do brinquedo.
+     * @param categoria      A nova categoria do brinquedo.
      * @param valor_unitario O novo valor unitário do brinquedo.
-     * @param descricao A nova descrição do brinquedo.
-     * @param evt O evento relacionado à alteração do brinquedo.
+     * @param descricao      A nova descrição do brinquedo.
+     * @param evt            O evento relacionado à alteração do brinquedo.
      */
     public void alteraBrinquedo(int id, int estoque, String nome, String categoria, double valor_unitario,
             String descricao, ActionEvent evt) {
@@ -316,7 +347,7 @@ public class ProdutosDAO {
     /**
      * Atualiza o estoque de um brinquedo com base no seu nome.
      *
-     * @param produto O nome do brinquedo.
+     * @param produto     O nome do brinquedo.
      * @param novoEstoque O novo valor do estoque do brinquedo.
      */
     public static void atualizaEstoqueBrinquedo(String produto, int novoEstoque) {
@@ -348,19 +379,19 @@ public class ProdutosDAO {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
-    
+
             String sql = Queries.OBTEM_ID_BRINQUEDO;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, nomeProduto);
-    
+
             ResultSet resultSet = preparedStatement.executeQuery();
-    
+
             int idBrinquedo = -1; // valor inicial inválido
-    
+
             if (resultSet.next()) {
                 idBrinquedo = resultSet.getInt("id_brinquedo");
             }
-    
+
             preparedStatement.close();
             return idBrinquedo;
         } catch (SQLException e) {
@@ -377,28 +408,28 @@ public class ProdutosDAO {
      */
     public static String consultarNomeBrinquedo(int idBrinquedo) {
         String nomeBrinquedo = "";
-    
+
         try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
             }
-    
+
             String sql = Queries.CONSULTA_NOME_BRINQUEDO_POR_ID;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, idBrinquedo);
-    
+
             ResultSet resultSet = preparedStatement.executeQuery();
-    
+
             if (resultSet.next()) {
                 nomeBrinquedo = resultSet.getString("nome");
             }
-    
+
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    
+
         return nomeBrinquedo;
     }
 }
