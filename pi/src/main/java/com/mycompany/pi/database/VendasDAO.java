@@ -41,7 +41,7 @@ public class VendasDAO {
         }
     }
 
-    public static boolean efetuarVenda(String nomeFuncionario, double valorVenda, LocalDate dataVenda) {
+    public static boolean efetuarVenda(String nomeFuncionario, String cpfCliente, double valorVenda, LocalDate dataVenda) {
         try {
             if (conexao.isClosed()) {
                 conexao = DriverManager.getConnection(url, LOGIN, SENHA);
@@ -50,9 +50,10 @@ public class VendasDAO {
             String sql = Queries.INSERE_VENDA;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setString(1, nomeFuncionario);
-            preparedStatement.setDouble(2, valorVenda);
+            preparedStatement.setString(2, cpfCliente);
+            preparedStatement.setDouble(3, valorVenda);
             java.sql.Date sqlDate = java.sql.Date.valueOf(dataVenda);
-            preparedStatement.setDate(3, sqlDate); // pega a data atual do sistema
+            preparedStatement.setDate(4, sqlDate);
             int linhasAfetadas = preparedStatement.executeUpdate();
 
             preparedStatement.close();

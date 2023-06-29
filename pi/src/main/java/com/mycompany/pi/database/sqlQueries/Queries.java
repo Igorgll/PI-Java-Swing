@@ -37,9 +37,10 @@ public class Queries {
 
         public static final String CRIA_TABELA_VENDAS_SQL = "CREATE TABLE IF NOT EXISTS vendas ("
                         + "id_venda INT NOT NULL AUTO_INCREMENT,"
-                        + "nome VARCHAR(100) NOT NULL,"
+                        + "nome_funcionario VARCHAR(255) NOT NULL,"
+                        + "cpf_cliente VARCHAR(50) NOT NULL,"
                         + "valor_venda DECIMAL(10, 2) NOT NULL,"
-                        + "data DATE NOT NULL,"
+                        + "data_venda DATE NOT NULL,"
                         + "PRIMARY KEY (id_venda));";
 
         public static final String POPULA_TABELA_BRINQUEDOS_SQL = "INSERT INTO brinquedos (estoque, nome, categoria, valor_unitario, descricao) VALUES "
@@ -129,9 +130,14 @@ public class Queries {
 
         public static final String OBTEM_PRECO_PRODUTO = "SELECT valor_unitario FROM brinquedos WHERE nome = ?";
 
-        public static final String INSERE_VENDA = "INSERT INTO vendas (nome, valor_venda, data) VALUES (?, ?, ?)";
+        public static final String INSERE_VENDA = "INSERT INTO vendas (nome_funcionario, cpf_cliente, valor_venda, data_venda) VALUES (?, ?, ?, ?)";
 
         public static final String CONSULTA_ESTOQUE_PRODUTO = "SELECT estoque FROM brinquedos WHERE nome = ?";
 
         public static final String ATUALIZA_ESTOQUE_PRODUTO = "UPDATE brinquedos SET estoque = ? WHERE nome = ?";
+        
+        public static final String CONSULTA_RELATORIO_SINTETICO = "SELECT V.data_venda, V.valor_venda, V.cpf_cliente, F.nome "
+        + "FROM vendas V "
+        + "INNER JOIN funcionarios F ON V.nome_funcionario = F.nome "
+        + "WHERE V.data_venda BETWEEN ? AND ?";
 }
